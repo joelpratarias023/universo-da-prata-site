@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalhes do Produto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Estrelas de fundo -->
+  <div class="stars" id="stars-container"></div>
+
+  <!-- Espaço para o menu -->
+  <div style="height: 140px;"></div>
+
+  <!-- Botão Voltar -->
+<button onclick="voltarPorHistorico()" class="botao-voltar">← Voltar</button>
+
+  <!-- Menu fixo no topo -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+      <div class="logo-titulo">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <!-- Botão hambúrguer -->
+      <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+
+      <!-- Menu de navegação -->
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="#inicio">🏠Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="#promocoes">Promoções</a>
+        <a href="#sobre">ℹ️Sobre Nós</a>
+        <a href="#contato">📞Contato</a>
+        <a href="#buscar">🔍Buscar</a>
+        <a href="#carrinho">🛒Carrinho</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="produto-container">
+    <div id="produto-detalhes"></div>
+  </main>
+
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Estrelas flutuantes -->
+  <script>
+    const starsContainer = document.getElementById("stars-container");
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${5 + Math.random() * 10}s`;
+      star.style.opacity = Math.random();
+      starsContainer.appendChild(star);
+    }
+  </script>
+
+  <!-- Scripts externos -->
+  <script src="./scripts/produto.js"></script>
+  <script src="scripts/produtos.js"></script>
+
+  <script>
+    const produtoId = localStorage.getItem("produtoSelecionado");
+    const container = document.getElementById("produto-detalhes");
+
+    const produtosFiltrados = produtos.filter(p => p.id === produtoId);
+
+    if (produtosFiltrados.length > 0) {
+      produtosFiltrados.forEach(produto => {
+        const div = document.createElement("div");
+        div.className = "produto-container";
+        div.innerHTML = `
+          <div class="produto-imagem">
+            <img src="${produto.imagem}" alt="${produto.nome}" />
+          </div>
+          <div class="produto-info">
+            <h2>${produto.nome}</h2>
+            <p class="descricao">${produto.descricao}</p>
+            <p class="preco">${produto.preco}</p>
+            <a href="https://wa.me/244934803197?text=Olá! Gostaria de fazer um pedido da peça: ${encodeURIComponent(produto.nome)}" target="_blank" class="botao-pedido">
+              Fazer Pedido via WhatsApp
+            </a>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    } else {
+      container.innerHTML = "<p>Produto não encontrado.</p>";
+    }
+  </script>
+
+  <!-- Menu toggle e ajuste -->
+  <script>
+    function toggleMenu() {
+      const menu = document.querySelector('.menu-navegacao');
+      menu.classList.toggle('mobile-escondido');
+      menu.classList.toggle('mobile-visivel');
+    }
+
+    function ajustarMenuParaTamanhoTela() {
+      const menu = document.querySelector('.menu-navegacao');
+      if (window.innerWidth > 768) {
+        menu.classList.remove('mobile-escondido', 'mobile-visivel');
+      } else {
+        menu.classList.add('mobile-escondido');
+      }
+    }
+
+    window.addEventListener('load', ajustarMenuParaTamanhoTela);
+    window.addEventListener('resize', ajustarMenuParaTamanhoTela);
+  </script>
+
+<!-- Substitua a função voltarPorEtapa no final do produto.html -->
+<script>
+  function voltarPorEtapa() {
+    const etapaAnterior = JSON.parse(localStorage.getItem("etapaAnterior"));
+
+    if (etapaAnterior && etapaAnterior.origem === "categorias") {
+      window.location.href = "categorias.html#restaurar";
+    } else {
+      window.location.href = "index.html#restaurar";
+    }
+  }
+</script>
+
+<script>
+  function voltarPorHistorico() {
+    const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
+    if (etapa && etapa.origem === "subcategorias") {
+      // Voltar para subcategorias com a categoria passada na URL
+      window.location.href = `subcategorias.html?categoria=${encodeURIComponent(etapa.categoria)}`;
+    } else {
+      // Caso não tenha informação, volta para index por segurança
+      window.location.href = "index.html";
+    }
+  }
+</script>
+
+  </script>
+</body>
+</html>
+

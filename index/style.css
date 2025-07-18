@@ -1,0 +1,495 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(-45deg, #000, #111, #222, #000);
+  background-size: 400% 400%;
+  animation: brilhar 12s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes brilhar {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Preloader */
+#preloader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: desaparecer 1s ease forwards;
+  animation-delay: 4s;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+  animation: aparecer 2s ease;
+}
+
+.logo-preloader {
+  width: 250px;
+  height: auto;
+  margin-bottom: 10px;
+  animation: pulse 1.5s infinite alternate;
+}
+
+#preloader h1 {
+  font-size: 42px;
+  margin: 10px 0;
+}
+
+#preloader p {
+  font-size: 18px;
+  color: #aaa;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+@keyframes desaparecer {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* Conteúdo */
+.conteudo {
+  flex: 1;
+}
+
+/* Cabeçalho */
+header {
+  background: #000;
+  padding: 40px 10px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.submarca {
+  font-size: 20px;
+  color: #ccc;
+  margin-top: -5px;
+  font-weight: 500;
+}
+
+.slogan {
+  font-size: 16px;
+  color: #bbb;
+  margin-top: 10px;
+}
+
+/* Categorias */
+.categorias, .subcategorias {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  height: auto;
+}
+
+.card img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.card img.hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 2;
+}
+
+.card:hover img.hover {
+  opacity: 1;
+}
+
+.card:hover img.normal {
+  opacity: 0;
+}
+
+.card span {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+/* Subcategoria */
+.subcard {
+  background: #1a1a1a;
+  padding: 25px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.subcard:hover {
+  transform: scale(1.05);
+  background: #333;
+}
+
+/* Botão voltar */
+.voltar {
+  margin-top: -550px;
+  margin-left: -925px;
+  padding: 10px 20px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  position: absolute;
+}
+
+.voltar:hover {
+  background: #444;
+}
+
+/* Rodapé */
+footer {
+  background: #000;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Redes Sociais */
+.social {
+  background: #111;
+  padding: 30px 20px;
+  text-align: center;
+  border-top: 1px solid #333;
+}
+
+.social h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.social-icons a img {
+  width: 35px;
+  height: 35px;
+  transition: transform 0.3s ease;
+  filter: none;
+}
+
+.social-icons a img:hover {
+  transform: scale(1.2);
+  filter: brightness(1) invert(0.2);
+}
+
+/* Estrelas flutuantes */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: floatStar 10s linear infinite;
+}
+
+@keyframes floatStar {
+  0% {
+    transform: translateY(100vh) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Página de Produto */
+.produto-pagina {
+  padding: 40px 20px;
+}
+
+#produto-detalhes, .produto-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+  padding: 0 20px;
+  max-width: 1000px;
+  align-items: center;
+}
+
+.produto-container img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.produto-info h2 {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.produto-info .descricao {
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 8px;
+}
+
+.produto-info .preco {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.botao-pedido {
+  background-color: #25d366;
+  color: #000;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+
+.botao-pedido:hover {
+  background: #1ebe5b;
+}
+
+/* Menu fixo */
+.topo-fixo {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #000;
+  padding: 10px 20px;
+  z-index: 10000;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-site {
+  width: 60px;
+  height: auto;
+}
+
+.titulos h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.titulos .submarca {
+  font-size: 13px;
+  color: #ccc;
+  font-weight: 400;
+}
+
+.menu-navegacao {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.menu-navegacao a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 10px;
+  transition: 0.3s ease;
+  border-radius: 4px;
+}
+
+.menu-navegacao a:hover {
+  background: #222;
+}
+
+/* Botão Hamburguer */
+.menu-hamburguer {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10001;
+}
+
+/* Responsivo - menu lateral */
+@media (max-width: 768px) {
+  .menu-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-hamburguer {
+    display: block;
+  }
+
+.menu-navegacao {
+  position: fixed;
+  top: 0; /* corrigido */
+  right: -250px;
+  width: 250px;
+  height: 100%; /* corrigido */
+  background-color: #111;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 70px; /* empurra os links pra baixo da barra */
+  transition: right 0.3s ease-in-out;
+  z-index: 999; /* continua abaixo do topo-fixo */
+}
+  .menu-navegacao.mobile-visivel {
+    right: 0;
+  }
+
+  .menu-navegacao a {
+    padding: 15px 0;
+    width: 100%;
+    border-bottom: 1px solid #222;
+    color: white;
+    text-decoration: none;
+  }
+
+  .menu-navegacao a:hover {
+    background-color: #333;
+  }
+}
+
+/* Outros */
+.botao-voltar {
+  position: fixed;
+  top: 100px;
+  left: 15px;
+  z-index: 10001;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease;
+}
+
+.botao-voltar:hover {
+  background-color: #444;
+}
+
+.chamada-categorias {
+  text-align: center;
+  margin: 60px 0;
+}
+
+.botao-destaque {
+  background-color: #aaa;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.botao-destaque:hover {
+  background-color: #888;
+}
+

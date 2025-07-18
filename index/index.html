@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Universo Da Prata</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Esconde o menu fixo durante o preloader */
+    .topo-fixo {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Estrelas de fundo -->
+  <div class="stars" id="stars-container"></div>
+
+  <!-- Tela de introdução animada -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <img src="logo.png" alt="Logo Universo da Prata" class="logo-preloader" />
+      <h1>Universo da Prata</h1>
+      <p>Não é apenas prata, é o que ela representa ✨</p>
+    </div>
+  </div>
+
+<!-- Espaço para o menu -->
+<div style="height: 100px;"></div>
+
+<!-- Menu fixo no topo -->
+<header class="topo-fixo" id="menu-fixo">
+  <div class="menu-container">
+    <div class="logo-titulo">
+      <a href="index.html">
+        <img src="logo.png" alt="Logo" class="logo-site" />
+      </a>
+      <div class="titulos">
+        <h1>UNIVERSO DA PRATA</h1>
+        <h2 class="submarca">Joel Pratarias</h2>
+      </div>
+    </div>
+
+    <!-- Botão hambúrguer -->
+    <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+
+    <!-- Menu de navegação -->
+    <nav class="menu-navegacao mobile-escondido">
+      <a href="#inicio">🏠Início</a>
+      <a href="categorias.html">Categorias</a>
+      <a href="#promocoes">Promoções</a>
+      <a href="#sobre">ℹ️Sobre Nós</a>
+      <a href="#contato">📞Contato</a>
+      <a href="#buscar">🔍Buscar</a>
+      <a href="#carrinho">🛒Carrinho</a>
+    </nav>
+  </div>
+</header>
+
+<div class="chamada-categorias">
+  <a href="categorias.html" class="botao-destaque">Explorar Categorias de Prata</a>
+</div>
+
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Script para esconder preloader e mostrar menu -->
+  <script>
+    setTimeout(() => {
+      document.getElementById('preloader').style.display = 'none';
+      document.getElementById('menu-fixo').style.display = 'block';
+    }, 5000);
+
+    function mostrarSubcategorias(nomeCategoria) {
+      const subcategoriasContainer = document.querySelector('#subcategorias .grid');
+      subcategoriasContainer.innerHTML = '';
+
+      const opcoes = ['Homens', 'Mulheres'];
+      if (nomeCategoria !== 'Piercings') {
+        opcoes.push('Casais', 'Crianças');
+      }
+
+      opcoes.forEach(opcao => {
+        const div = document.createElement('div');
+        div.className = 'subcard';
+        div.innerText = opcao;
+        div.onclick = () => abrirProdutos(nomeCategoria, opcao);
+        subcategoriasContainer.appendChild(div);
+      });
+
+      document.getElementById('categorias').style.display = 'none';
+      document.getElementById('subcategorias').style.display = 'block';
+      document.getElementById('subcategoria-titulo').innerText = `Peças para: ${nomeCategoria}`;
+    }
+
+    function voltarCategorias() {
+      document.getElementById('subcategorias').style.display = 'none';
+      document.getElementById('categorias').style.display = 'block';
+    }
+
+    function abrirProdutos(categoria, publico) {
+      const id = `${categoria}-${publico}`;
+      localStorage.setItem('produtoSelecionado', id);
+      window.location.href = 'produto.html';
+    }
+  </script>
+
+  <!-- Script das estrelas -->
+  <script>
+    const starsContainer = document.getElementById("stars-container");
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${5 + Math.random() * 10}s`;
+      star.style.opacity = Math.random();
+      starsContainer.appendChild(star);
+    }
+  </script>
+
+  <!-- Scripts externos -->
+  <script src="./scripts/script.js"></script>
+
+ <script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu-navegacao');
+    menu.classList.toggle('mobile-escondido');
+    menu.classList.toggle('mobile-visivel');
+  }
+
+  // Corrigir visualização em telas grandes
+  function ajustarMenuParaTamanhoTela() {
+    const menu = document.querySelector('.menu-navegacao');
+    if (window.innerWidth > 768) {
+      menu.classList.remove('mobile-escondido', 'mobile-visivel');
+    } else {
+      menu.classList.add('mobile-escondido');
+    }
+  }
+
+  // Executar ao carregar e redimensionar
+  window.addEventListener('load', ajustarMenuParaTamanhoTela);
+  window.addEventListener('resize', ajustarMenuParaTamanhoTela);
+</script>
+
+<script>
+  // Restaura a rolagem anterior ao voltar do produto.html
+  window.addEventListener("load", function () {
+    const scroll = localStorage.getItem("scrollPos");
+    if (scroll) {
+      window.scrollTo(0, parseInt(scroll));
+      localStorage.removeItem("scrollPos");
+    }
+  });
+
+  // Atualiza abrirProdutos para guardar a posição da rolagem
+  function abrirProdutos(categoria, publico) {
+    const id = `${categoria}-${publico}`;
+    localStorage.setItem("produtoSelecionado", id);
+
+   localStorage.setItem("etapaAnterior", JSON.stringify({
+  categoria: categoria,
+  publico: publico,
+  origem: "index"
+}));
+
+    window.location.href = "produto.html";
+  }
+</script>
+
+<script>
+  // Restaura etapa anterior se houver
+  window.addEventListener("load", () => {
+    if (window.location.hash === "#restaurar") {
+      const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
+      if (etapa) {
+        mostrarSubcategorias(etapa.categoria);
+        setTimeout(() => {
+          abrirProdutos(etapa.categoria, etapa.publico);
+        }, 500);
+      }
+    }
+  });
+</script>
+
+<script>
+  // Inicializa ou atualiza a pilha de navegação
+  function registrarNavegacao(pagina) {
+    let historico = JSON.parse(localStorage.getItem("historicoNavegacao")) || [];
+    historico.push(pagina);
+    localStorage.setItem("historicoNavegacao", JSON.stringify(historico));
+  }
+
+  // Função universal para voltar à página anterior da pilha
+  function voltarPorHistorico() {
+    let historico = JSON.parse(localStorage.getItem("historicoNavegacao")) || [];
+
+    // Remove a página atual
+    historico.pop();
+
+    if (historico.length > 0) {
+      const anterior = historico.pop();
+      localStorage.setItem("historicoNavegacao", JSON.stringify(historico));
+      window.location.href = anterior;
+    } else {
+      // Se não houver histórico, vai para index
+      window.location.href = "index.html";
+    }
+  }
+</script>
+
+</body>
+</html>
