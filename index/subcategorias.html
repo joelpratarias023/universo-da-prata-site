@@ -8,11 +8,11 @@
 </head>
 <body>
 
-      <!-- Espaço para o menu -->
+  <!-- Espaço para o menu -->
   <div style="height: 50px;"></div>
 
   <!-- Botão Voltar -->
-<button onclick="voltarPorHistorico()" class="botao-voltar">← Voltar</button>
+  <button onclick="voltarPorHistorico()" class="botao-voltar">← Voltar</button>
 
   <!-- Menu fixo no topo -->
   <header class="topo-fixo" id="menu-fixo">
@@ -42,9 +42,9 @@
       </nav>
     </div>
   </header>
+
   <!-- Estrelas -->
   <div class="stars" id="stars-container"></div>
-
 
   <!-- Subcategorias -->
   <section class="subcategorias" id="subcategorias">
@@ -55,119 +55,10 @@
     <button class="voltar" onclick="voltarPorHistorico()">← Voltar</button>
   </section>
 
-  <script>
-    // Recuperar a categoria da URL
-    function obterCategoriaDaUrl() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("categoria");
-    }
-
-    function carregarSubcategorias() {
-      const categoria = obterCategoriaDaUrl();
-      if (!categoria) {
-        window.location.href = "categorias.html";
-        return;
-      }
-
-      document.getElementById("subcategoria-titulo").innerText = `Peças para: ${categoria}`;
-      const container = document.getElementById("subcategorias-container");
-      container.innerHTML = "";
-
-      const opcoes = ['Homens', 'Mulheres'];
-      if (categoria !== "Piercings") {
-        opcoes.push('Casais', 'Crianças');
-      }
-
-      opcoes.forEach(opcao => {
-        const div = document.createElement("div");
-        div.className = "subcard";
-        div.innerText = opcao;
-        div.onclick = () => abrirProdutos(categoria, opcao);
-        container.appendChild(div);
-      });
-    }
-
-    function abrirProdutos(categoria, publico) {
-      const id = `${categoria}-${publico}`;
-      localStorage.setItem("produtoSelecionado", id);
-      localStorage.setItem("etapaAnterior", JSON.stringify({
-        origem: "subcategorias",
-        categoria: categoria,
-        publico: publico
-      }));
-
-      registrarNavegacao("subcategorias.html");
-      window.location.href = "produto.html";
-    }
-
-    // Histórico personalizado
-    function registrarNavegacao(pagina) {
-      let historico = JSON.parse(localStorage.getItem("historicoNavegacao")) || [];
-      historico.push(pagina);
-      localStorage.setItem("historicoNavegacao", JSON.stringify(historico));
-    }
-
-    function voltarPorHistorico() {
-      let historico = JSON.parse(localStorage.getItem("historicoNavegacao")) || [];
-      historico.pop(); // tira a página atual
-      if (historico.length > 0) {
-        const anterior = historico.pop();
-        localStorage.setItem("historicoNavegacao", JSON.stringify(historico));
-        window.location.href = anterior;
-      } else {
-        window.location.href = "index.html";
-      }
-    }
-
-    // Inicialização
-    window.addEventListener("load", () => {
-      registrarNavegacao("subcategorias.html");
-      carregarSubcategorias();
-    });
-  </script>
-
-  <!-- Estrelas JS -->
-  <script>
-    const starsContainer = document.getElementById("stars-container");
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.animationDuration = `${5 + Math.random() * 10}s`;
-      star.style.opacity = Math.random();
-      starsContainer.appendChild(star);
-    }
-  </script>
-
- <script>
-  function toggleMenu() {
-    const menu = document.querySelector(".menu-navegacao");
-    menu.classList.toggle("show");
-  }
-</script>
-
-<!-- Menu toggle e ajuste -->
-  <script>
-    function toggleMenu() {
-      const menu = document.querySelector('.menu-navegacao');
-      menu.classList.toggle('mobile-escondido');
-      menu.classList.toggle('mobile-visivel');
-    }
-
-    function ajustarMenuParaTamanhoTela() {
-      const menu = document.querySelector('.menu-navegacao');
-      if (window.innerWidth > 768) {
-        menu.classList.remove('mobile-escondido', 'mobile-visivel');
-      } else {
-        menu.classList.add('mobile-escondido');
-      }
-    }
-
-    window.addEventListener('load', ajustarMenuParaTamanhoTela);
-    window.addEventListener('resize', ajustarMenuParaTamanhoTela);
-  </script>
-
+  <!-- JavaScript externo -->
+  <script src="scripts/estrelas.js"></script>
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/subcategorias.js"></script>
 
 </body>
 </html>

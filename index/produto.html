@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <!-- Estrelas de fundo -->
   <div class="stars" id="stars-container"></div>
 
@@ -14,7 +15,7 @@
   <div style="height: 140px;"></div>
 
   <!-- Botão Voltar -->
-<button onclick="voltarPorHistorico()" class="botao-voltar">← Voltar</button>
+  <button onclick="voltarPorHistorico()" class="botao-voltar">← Voltar</button>
 
   <!-- Menu fixo no topo -->
   <header class="topo-fixo" id="menu-fixo">
@@ -76,10 +77,10 @@
     }
   </script>
 
-  <!-- Scripts externos -->
-  <script src="./scripts/produto.js"></script>
-  <script src="scripts/produtos.js"></script>
+  <!-- Scripts de produtos -->
+  <script src="scripts/produto.js"></script>
 
+  
   <script>
     const produtoId = localStorage.getItem("produtoSelecionado");
     const container = document.getElementById("produto-detalhes");
@@ -89,7 +90,7 @@
     if (produtosFiltrados.length > 0) {
       produtosFiltrados.forEach(produto => {
         const div = document.createElement("div");
-        div.className = "produto-container";
+        div.className = "produto-detalhes";
         div.innerHTML = `
           <div class="produto-imagem">
             <img src="${produto.imagem}" alt="${produto.nome}" />
@@ -131,33 +132,28 @@
     window.addEventListener('resize', ajustarMenuParaTamanhoTela);
   </script>
 
-<!-- Substitua a função voltarPorEtapa no final do produto.html -->
-<script>
-  function voltarPorEtapa() {
-    const etapaAnterior = JSON.parse(localStorage.getItem("etapaAnterior"));
-
-    if (etapaAnterior && etapaAnterior.origem === "categorias") {
-      window.location.href = "categorias.html#restaurar";
-    } else {
-      window.location.href = "index.html#restaurar";
-    }
-  }
-</script>
-
-<script>
-  function voltarPorHistorico() {
-    const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
-    if (etapa && etapa.origem === "subcategorias") {
-      // Voltar para subcategorias com a categoria passada na URL
-      window.location.href = `subcategorias.html?categoria=${encodeURIComponent(etapa.categoria)}`;
-    } else {
-      // Caso não tenha informação, volta para index por segurança
-      window.location.href = "index.html";
+  <!-- Voltar função -->
+  <script>
+    function voltarPorHistorico() {
+      const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
+      if (etapa && etapa.origem === "subcategorias") {
+        window.location.href = `subcategorias.html?categoria=${encodeURIComponent(etapa.categoria)}`;
+      } else {
+        window.location.href = "index.html";
+      }
     }
-  }
-</script>
-
   </script>
+
+  <main id="produto-detalhes">
+  <div class="produto-detalhado">
+    <img id="imagemProduto" src="" alt="Imagem do Produto" />
+    <h2 id="nomeProduto"></h2>
+    <p id="descricaoProduto"></p>
+    <strong id="precoProduto"></strong>
+    <br /><br />
+  </div>
+</main>
+
+
 </body>
 </html>
-

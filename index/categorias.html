@@ -7,14 +7,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Estrelas de fundo -->
   <div class="stars" id="stars-container"></div>
-
-  <!-- Espaço para o menu -->
   <div style="height: 50px;"></div>
 
-  <!-- Menu fixo no topo -->
+  <!-- Menu Fixo -->
   <header class="topo-fixo" id="menu-fixo">
     <div class="menu-container">
       <div class="logo-titulo">
@@ -26,11 +22,7 @@
           <h2 class="submarca">Joel Pratarias</h2>
         </div>
       </div>
-
-      <!-- Botão hambúrguer -->
       <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
-
-      <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
         <a href="index.html">🏠Início</a>
         <a href="categorias.html">Categorias</a>
@@ -46,73 +38,61 @@
   <section class="categorias" id="categorias">
     <h2>Categorias</h2>
     <div class="grid">
-
       <div class="card" onclick="abrirSubcategorias('Anéis')">
         <img src="categorias/aneis.png" class="normal" alt="Anéis">
         <img src="categorias/aneis-hover.jpeg" class="hover" alt="Anéis Hover">
         <span>Anéis</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Correntes')">
         <img src="categorias/correntes.png" class="normal" alt="Correntes">
         <img src="categorias/correntes-hover.jpg" class="hover" alt="Correntes Hover">
         <span>Correntes</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Pulseiras')">
         <img src="categorias/pulseiras.png" class="normal" alt="Pulseiras">
         <img src="categorias/pulseiras-hover.jpg" class="hover" alt="Pulseiras Hover">
         <span>Pulseiras</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Brincos')">
         <img src="categorias/brincos.png" class="normal" alt="Brincos">
         <img src="categorias/brincos-hover.jpg" class="hover" alt="Brincos Hover">
         <span>Brincos</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Personalizados')">
         <img src="categorias/personalizados.png" class="normal" alt="Personalizados">
         <img src="categorias/personalizados-hover.webp" class="hover" alt="Personalizados Hover">
         <span>Personalizados</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Tornozeleiras')">
         <img src="categorias/tornozeleiras.png" class="normal" alt="Tornozeleiras">
         <img src="categorias/tornozeiras-hover.webp" class="hover" alt="Tornozeleiras Hover">
         <span>Tornozeleiras</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Pingentes')">
         <img src="categorias/pingentes.png" class="normal" alt="Pingentes">
         <img src="categorias/pingentes-hover.webp" class="hover" alt="Pingentes Hover">
         <span>Pingentes</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Broches')">
         <img src="categorias/broches.png" class="normal" alt="Broches">
         <img src="categorias/broches-hover.avif" class="hover" alt="Broches Hover">
         <span>Broches</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Colares')">
         <img src="categorias/colares.png" class="normal" alt="Colares">
         <img src="categorias/colares-hover.jpg" class="hover" alt="Colares Hover">
         <span>Colares</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Piercings')">
         <img src="categorias/piercings.png" class="normal" alt="Piercings">
         <img src="categorias/piercings-hover.webp" class="hover" alt="Piercings Hover">
         <span>Piercings</span>
       </div>
-
       <div class="card" onclick="abrirSubcategorias('Novidades')">
         <img src="categorias/novidades.png" class="normal" alt="Novidades">
         <img src="categorias/novidades-hover.png" class="hover" alt="Novidades Hover">
         <span>Novidades</span>
       </div>
-
     </div>
   </section>
 
@@ -129,62 +109,9 @@
     <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Estrelas de fundo -->
-  <script>
-    const starsContainer = document.getElementById("stars-container");
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.animationDuration = `${5 + Math.random() * 10}s`;
-      star.style.opacity = Math.random();
-      starsContainer.appendChild(star);
-    }
-  </script>
-
-  <!-- Script do menu responsivo -->
-  <script>
-    function toggleMenu() {
-      const menu = document.querySelector('.menu-navegacao');
-      menu.classList.toggle('mobile-escondido');
-      menu.classList.toggle('mobile-visivel');
-    }
-
-    function ajustarMenuParaTamanhoTela() {
-      const menu = document.querySelector('.menu-navegacao');
-      if (window.innerWidth > 768) {
-        menu.classList.remove('mobile-escondido', 'mobile-visivel');
-      } else {
-        menu.classList.add('mobile-escondido');
-      }
-    }
-
-    window.addEventListener('load', ajustarMenuParaTamanhoTela);
-    window.addEventListener('resize', ajustarMenuParaTamanhoTela);
-  </script>
-
-  <!-- Script para abrir subcategorias -->
-  <script>
-    function abrirSubcategorias(categoria) {
-      localStorage.setItem("categoriaSelecionada", categoria);
-      registrarNavegacao("categorias.html");
-      window.location.href = `subcategorias.html?categoria=${encodeURIComponent(categoria)}`;
-    }
-  </script>
-
-  <!-- Histórico personalizado -->
-  <script>
-    function registrarNavegacao(pagina) {
-      let historico = JSON.parse(localStorage.getItem("historicoNavegacao")) || [];
-      historico.push(pagina);
-      localStorage.setItem("historicoNavegacao", JSON.stringify(historico));
-    }
-
-    window.addEventListener("load", function () {
-      registrarNavegacao("categorias.html");
-    });
-  </script>
-
+  <!-- Scripts externos -->
+  <script src="scripts/estrelas.js"></script>
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/categorias.js"></script>
 </body>
 </html>

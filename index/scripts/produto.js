@@ -13,14 +13,7 @@ const produtos = [
     preco: "AKZ 2.000",
     imagem: "produto/anel-masculino.jpg"
   },
-  {
-    id: "Anéis-Homens",
-    nome: "Anel Masculino Clássico3",
-    descricao: "Anel em prata 925 com design refinado. Ideal para homens com estilo e presença.",
-    preco: "AKZ 2.000",
-    imagem: "produto/anel-masculino.jpg"
-  },
-
+ 
   {
     id: "Anéis-Homens",
     nome: "Anel Masculino Clássico3",
