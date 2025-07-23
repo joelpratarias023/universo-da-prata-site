@@ -3,31 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Universo Da Prata</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="scripts/stars.js"></script>
-  <script defer src="scripts/menu.js"></script>
-  <script defer src="scripts/preloader.js"></script>
-  <script defer src="scripts/navegacao.js"></script>
-  <script defer src="scripts/scroll-restaurar.js"></script>
 </head>
 <body>
-  <!-- Estrelas de fundo -->
   <div class="stars" id="stars-container"></div>
+  <div style="height: 50px;"></div>
 
-  <!-- Tela de introdução animada -->
-  <div id="preloader">
-    <div class="preloader-content">
-      <img src="logo.png" alt="Logo Universo da Prata" class="logo-preloader" />
-      <h1>Universo da Prata</h1>
-      <p>Não é apenas prata, é o que ela representa ✨</p>
-    </div>
-  </div>
-
-  <!-- Espaço para o menu -->
-  <div style="height: 100px;"></div>
-
-  <!-- Menu fixo no topo -->
+  <!-- Menu Fixo -->
   <header class="topo-fixo" id="menu-fixo">
     <div class="menu-container">
       <div class="logo-titulo">
@@ -40,7 +22,7 @@
         </div>
       </div>
 
-  <button class="menu-hamburguer" onclick="toggleMenu()">
+      <button class="menu-hamburguer" onclick="toggleMenu()">
   ☰
   <span class="notificacao-ponto" id="notificacaoHamburguer"></span>
 </button>
@@ -58,7 +40,7 @@
     </div>
   </header>
 
-    <!-- Atualiza contador carrinho -->
+   <!-- Atualiza contador carrinho -->
   <script>
     function atualizarNumeroCarrinho() {
   const icone = document.querySelector('.carrinho-count');
@@ -74,16 +56,17 @@
     atualizarNumeroCarrinho();
   </script>
 
+  <!-- Campo de Pesquisa -->
+  <section class="secao-pesquisa">
+    <div class="container-pesquisa">
+      <h2>🔍 Pesquisar Produtos</h2>
+      <input type="text" id="campo-pesquisa" placeholder="Digite o nome do produto...">
+      <div id="resultados-pesquisa"></div>
+    </div>
+  </section>
 
-  <section class="blocos-acesso">
-  <a href="categorias.html" class="bloco-servico">Explorar Categorias de Prata</a>
-  <a href="servicos.html" class="bloco-servico"> Pedir Serviços</a>
-    <a href="vip.html" class="bloco-servico"> Pacotes VIP´S</a>
-  <a href="cuidados.html" class="bloco-servico"> Cuidados & Conselhos</a>
-</section>
-
-
-  <footer>
+  <!-- Rodapé -->
+    <footer>
     <div class="social">
       <h3>Visite e sinta-se especial nas nossas redes</h3>
       <div class="social-icons">
@@ -93,9 +76,15 @@
         <a href="#"><img src="x.png" alt="X"></a>
       </div>
     </div>
-    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+    <p>© 2025 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
 
-
+  <!-- Scripts externos -->
+  <script src="/scripts/menu.js"></script>
+  <script src="scripts/stars.js"></script>
+  <script src="/scripts/scroll-restaurar.js"></script>
+  <script src="/scripts/navegacao.js"></script>
+  <script src="/scripts/produto.js"></script> <!-- Aqui estão os dados -->
+  <script src="/scripts/pesquisa.js"></script> <!-- Este é o script de digitação em tempo real -->
 </body>
 </html>

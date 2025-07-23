@@ -1,30 +1,16 @@
+<!-- cuidados.html -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Universo Da Prata</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="scripts/stars.js"></script>
-  <script defer src="scripts/menu.js"></script>
-  <script defer src="scripts/preloader.js"></script>
-  <script defer src="scripts/navegacao.js"></script>
-  <script defer src="scripts/scroll-restaurar.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dicas e Cuidados</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Estrelas de fundo -->
-  <div class="stars" id="stars-container"></div>
 
-  <!-- Tela de introdução animada -->
-  <div id="preloader">
-    <div class="preloader-content">
-      <img src="logo.png" alt="Logo Universo da Prata" class="logo-preloader" />
-      <h1>Universo da Prata</h1>
-      <p>Não é apenas prata, é o que ela representa ✨</p>
-    </div>
-  </div>
-
-  <!-- Espaço para o menu -->
+      <div class="stars" id="stars-container"></div>
+    <!-- Espaço para o menu -->
   <div style="height: 100px;"></div>
 
   <!-- Menu fixo no topo -->
@@ -40,12 +26,12 @@
         </div>
       </div>
 
-  <button class="menu-hamburguer" onclick="toggleMenu()">
+       <button class="menu-hamburguer" onclick="toggleMenu()">
   ☰
   <span class="notificacao-ponto" id="notificacaoHamburguer"></span>
 </button>
 
-       <!-- Menu de navegação -->
+      <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
         <a href="#inicio">🏠Início</a>
         <a href="categorias.html">Categorias</a>
@@ -74,14 +60,12 @@
     atualizarNumeroCarrinho();
   </script>
 
-
-  <section class="blocos-acesso">
-  <a href="categorias.html" class="bloco-servico">Explorar Categorias de Prata</a>
-  <a href="servicos.html" class="bloco-servico"> Pedir Serviços</a>
-    <a href="vip.html" class="bloco-servico"> Pacotes VIP´S</a>
-  <a href="cuidados.html" class="bloco-servico"> Cuidados & Conselhos</a>
-</section>
-
+  <main class="blocos-acesso">
+    <h1 style="text-align: center; margin-top: 100px;">Cuidados com sua Prata</h1>
+    <a href="#" class="bloco-servico">Como limpar corretamente</a>
+    <a href="#" class="bloco-servico">Onde guardar</a>
+    <a href="#" class="bloco-servico">Evite produtos corrosivos</a>
+  </main>
 
   <footer>
     <div class="social">
@@ -96,6 +80,7 @@
     <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
 
-
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/stars.js"></script>
 </body>
 </html>

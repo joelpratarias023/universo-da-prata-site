@@ -30,8 +30,10 @@
         </div>
       </div>
 
-      <!-- Botão hambúrguer -->
-      <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+      <button class="menu-hamburguer" onclick="toggleMenu()">
+  ☰
+  <span class="notificacao-ponto" id="notificacaoHamburguer"></span>
+</button>
 
       <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
@@ -40,8 +42,8 @@
         <a href="#promocoes">Promoções</a>
         <a href="#sobre">ℹ️Sobre Nós</a>
         <a href="#contato">📞Contato</a>
-        <a href="#buscar">🔍Buscar</a>
-        <a href="#carrinho">🛒Carrinho</a>
+        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="/carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
   </header>
@@ -80,7 +82,6 @@
   <!-- Scripts de produtos -->
   <script src="scripts/produto.js"></script>
 
-  
   <script>
     const produtoId = localStorage.getItem("produtoSelecionado");
     const container = document.getElementById("produto-detalhes");
@@ -102,6 +103,7 @@
             <a href="https://wa.me/244934803197?text=Olá! Gostaria de fazer um pedido da peça: ${encodeURIComponent(produto.nome)}" target="_blank" class="botao-pedido">
               Fazer Pedido via WhatsApp
             </a>
+            <button onclick='adicionarAoCarrinho(${JSON.stringify(produto)})' class="botao-pedido">🛒 Adicionar ao Carrinho</button>
           </div>
         `;
         container.appendChild(div);
@@ -109,6 +111,42 @@
     } else {
       container.innerHTML = "<p>Produto não encontrado.</p>";
     }
+
+    function adicionarAoCarrinho(produto) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      carrinho.push(produto);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      mostrarAvisoCarrinho();
+      atualizarNumeroCarrinho(); // Atualiza número do ícone
+    }
+  </script>
+
+  <script>
+  function mostrarAvisoCarrinho() {
+    const toast = document.getElementById("toast");
+    if (toast) {
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000); // desaparece após 3 segundos
+    }
+  }
+</script>
+
+  <!-- Atualiza contador carrinho -->
+  <script>
+    function atualizarNumeroCarrinho() {
+  const icone = document.querySelector('.carrinho-count');
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
+  if (icone) icone.textContent = total;
+
+  const pontoHamburguer = document.getElementById('notificacaoHamburguer');
+  if (pontoHamburguer) {
+    pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
+  }
+}
+    atualizarNumeroCarrinho();
   </script>
 
   <!-- Menu toggle e ajuste -->
@@ -144,16 +182,6 @@
     }
   </script>
 
-  <main id="produto-detalhes">
-  <div class="produto-detalhado">
-    <img id="imagemProduto" src="" alt="Imagem do Produto" />
-    <h2 id="nomeProduto"></h2>
-    <p id="descricaoProduto"></p>
-    <strong id="precoProduto"></strong>
-    <br /><br />
-  </div>
-</main>
-
-
+<div id="toast" class="toast">Produto adicionado ao carrinho!</div>
 </body>
 </html>

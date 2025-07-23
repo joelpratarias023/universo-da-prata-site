@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrinho - Universo da Prata</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Carrinho de Compras</h1>
+  <a href="#" onclick="voltarParaOrigem()" class="voltar-link">← Voltar para a Loja</a>
+  </header>
+
+  <main class="carrinho-container">
+    <div id="carrinho-itens"></div>
+    <div class="resumo-carrinho">
+      <h2>Total: <span id="total-carrinho">0 Kz</span></h2>
+      <button id="finalizar-compra">Finalizar Compra</button>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" style="display: none;">Produto adicionado ao carrinho!</div>
+
+  <script src="/scripts/carrinho.js"></script>
+  <script>
+  document.getElementById("finalizar-compra").addEventListener("click", () => {
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    if (carrinho.length === 0) {
+      alert("O seu carrinho está vazio!");
+    } else {
+      window.location.href = "confirmacao.html";
+    }
+  });
+</script>
+
+  <script>
+    function atualizarNumeroCarrinho() {
+      const icone = document.querySelector('.carrinho-count');
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const total = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+      if (icone) icone.textContent = total;
+    }
+
+    atualizarNumeroCarrinho();
+  </script>
+
+  <script>
+  function voltarParaOrigem() {
+    const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
+
+    if (etapa?.origem === "subcategorias") {
+      window.location.href = `subcategorias.html?categoria=${encodeURIComponent(etapa.categoria)}`;
+    } else if (etapa?.origem === "categorias") {
+      window.location.href = "categorias.html";
+    } else {
+      window.history.back(); // Volta para a página anterior
+    }
+  }
+</script>
+
+<footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

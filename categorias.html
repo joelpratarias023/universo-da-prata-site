@@ -22,18 +22,40 @@
           <h2 class="submarca">Joel Pratarias</h2>
         </div>
       </div>
-      <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+      
+      <button class="menu-hamburguer" onclick="toggleMenu()">
+  ☰
+  <span class="notificacao-ponto" id="notificacaoHamburguer"></span>
+</button>
+
+      <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
-        <a href="index.html">🏠Início</a>
+        <a href="#inicio">🏠Início</a>
         <a href="categorias.html">Categorias</a>
         <a href="#promocoes">Promoções</a>
         <a href="#sobre">ℹ️Sobre Nós</a>
         <a href="#contato">📞Contato</a>
-        <a href="#buscar">🔍Buscar</a>
-        <a href="#carrinho">🛒Carrinho</a>
+        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="/carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
   </header>
+
+    <!-- Atualiza contador carrinho -->
+  <script>
+    function atualizarNumeroCarrinho() {
+  const icone = document.querySelector('.carrinho-count');
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
+  if (icone) icone.textContent = total;
+
+  const pontoHamburguer = document.getElementById('notificacaoHamburguer');
+  if (pontoHamburguer) {
+    pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
+  }
+}
+    atualizarNumeroCarrinho();
+  </script>
 
   <section class="categorias" id="categorias">
     <h2>Categorias</h2>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmação de Compra</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Estrelas de fundo -->
+  <div class="stars" id="stars-container"></div>
+  <div style="height: 140px;"></div>
+
+  <!-- Menu fixo -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+      <div class="logo-titulo">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+      <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">🏠Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="#promocoes">Promoções</a>
+        <a href="#sobre">ℹ️Sobre Nós</a>
+        <a href="#contato">📞Contato</a>
+        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="confirmacao-container">
+    <h1>Confirmar Compra</h1>
+
+    <div id="resumo-produtos"></div>
+
+    <form id="form-confirmacao">
+      <label for="nome">Nome Completo:</label>
+      <input type="text" id="nome" name="nome" required />
+
+      <label for="whatsapp">WhatsApp:</label>
+      <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Ex: +244923000000" />
+
+      <label for="endereco">Endereço de Entrega:</label>
+      <textarea id="endereco" name="endereco" required></textarea>
+
+      <label for="dataEntrega">Data Desejada para Entrega:</label>
+      <input type="date" id="dataEntrega" name="dataEntrega" required />
+
+      <label for="pagamento">Forma de Pagamento:</label>
+      <select id="pagamento" name="pagamento" required>
+        <option value="">-- Selecione --</option>
+        <option value="Cash">Cash (em dinheiro)</option>
+        <option value="Express">Express</option>
+        <option value="Transferência">Transferência Bancária</option>
+      </select>
+
+      <p style="margin-top: 10px; color: #555; font-style: italic;">
+        ⚠️ Só recebemos o pagamento total depois da entrega.
+      </p>
+      <div id="mensagem-erro" style="color: red; margin-top: 10px; font-weight: bold;"></div>
+      <button type="button" onclick="enviarPedidoWhatsApp()">Confirmar Pedido</button>
+    </form>
+  </main>
+
+  <!-- Preenche o resumo -->
+  <script>
+    const produtos = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const resumo = document.getElementById("resumo-produtos");
+    let lista = "<h2>Resumo da Compra:</h2><ul>";
+    let total = 0;
+
+    produtos.forEach(p => {
+      lista += `<li>${p.nome} - ${p.preco}</li>`;
+      const valor = parseFloat(p.preco.replace(/[^\d,]/g, '').replace(',', '.'));
+      total += valor;
+    });
+
+    lista += `</ul><p><strong>Total:</strong> AKZ ${total.toLocaleString("pt-AO", { minimumFractionDigits: 2 })}</p>`;
+    resumo.innerHTML = lista;
+  </script>
+
+  <script>
+function enviarPedidoWhatsApp() {
+  const nome = document.getElementById('nome').value.trim();
+  const endereco = document.getElementById('endereco').value.trim();
+  const telefone = document.getElementById('whatsapp').value.trim();
+  const dataEntrega = document.getElementById('dataEntrega').value.trim();
+  const pagamento = document.getElementById('pagamento').value.trim();
+
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const mensagemErro = document.getElementById("mensagem-erro");
+  mensagemErro.innerHTML = ""; // limpa mensagens anteriores
+
+  const erros = [];
+
+  if (nome.length < 3) {
+    erros.push("Nome inválido (mínimo 3 caracteres).");
+  }
+
+  if (!telefone.match(/^(\+244)?9\d{8}$/)) {
+    erros.push("Número do WhatsApp inválido. Ex: +244923000000");
+  }
+
+  if (endereco.length < 5) {
+    erros.push("Endereço de entrega incompleto.");
+  }
+
+  if (!dataEntrega) {
+    erros.push("Data de entrega não selecionada.");
+  }
+
+  if (!pagamento) {
+    erros.push("Selecione a forma de pagamento.");
+  }
+
+  if (carrinho.length === 0) {
+    erros.push("Seu carrinho está vazio.");
+  }
+
+  if (erros.length > 0) {
+    mensagemErro.innerHTML = erros.map(e => `• ${e}`).join("<br>");
+    return;
+  }
+
+  // Monta a mensagem
+  let mensagem = `🛍️ *Confirmação de Pedido - Universo da Prata* 🛍️\n\n`;
+  mensagem += `👤 *Nome:* ${nome}\n`;
+  mensagem += `📍 *Endereço:* ${endereco}\n`;
+  mensagem += `📞 *Telefone:* ${telefone}\n`;
+  mensagem += `📅 *Data de Entrega:* ${dataEntrega}\n`;
+  mensagem += `💳 *Forma de Pagamento:* ${pagamento}\n\n`;
+  mensagem += `📦 *Itens do Carrinho:*\n`;
+
+  carrinho.forEach((item) => {
+    mensagem += `• ${item.nome} - ${item.preco}\n`;
+  });
+
+  mensagem += `\n📝 *Observação:* Pagamento apenas após a entrega.\n`;
+  mensagem += `\nAguarde nosso contato para confirmação do envio.`;
+
+  // Envia para WhatsApp
+  const url = `https://wa.me/244934803197?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, '_blank');
+
+  // Limpa o carrinho
+  localStorage.removeItem('carrinho');
+
+  // Redireciona (opcional)
+  setTimeout(() => {
+    window.location.href = "obrigado.html";
+  }, 1000);
+}
+</script>
+
+  <!-- Menu responsivo -->
+  <script>
+    function toggleMenu() {
+      const menu = document.querySelector('.menu-navegacao');
+      menu.classList.toggle('mobile-escondido');
+      menu.classList.toggle('mobile-visivel');
+    }
+
+    function ajustarMenuParaTamanhoTela() {
+      const menu = document.querySelector('.menu-navegacao');
+      if (window.innerWidth > 768) {
+        menu.classList.remove('mobile-escondido', 'mobile-visivel');
+      } else {
+        menu.classList.add('mobile-escondido');
+      }
+    }
+
+    window.addEventListener('load', ajustarMenuParaTamanhoTela);
+    window.addEventListener('resize', ajustarMenuParaTamanhoTela);
+  </script>
+
+  <!-- Estrelas flutuantes -->
+  <script>
+    const starsContainer = document.getElementById("stars-container");
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${5 + Math.random() * 10}s`;
+      star.style.opacity = Math.random();
+      starsContainer.appendChild(star);
+    }
+  </script>
+
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>

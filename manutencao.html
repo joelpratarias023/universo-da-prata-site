@@ -1,0 +1,73 @@
+<!-- manutencao.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Serviço de Manutenção</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div style="height: 100px;"></div>
+
+  <!-- Menu fixo -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+      <div class="logo-titulo">
+        <a href="index.html"><img src="logo.png" alt="Logo" class="logo-site"/></a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+      <button class="menu-hamburguer" onclick="toggleMenu()">☰<span class="notificacao-ponto" id="notificacaoHamburguer"></span></button>
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">🏠Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="#promocoes">Promoções</a>
+        <a href="#sobre">ℹ️Sobre Nós</a>
+        <a href="#contato">📞Contato</a>
+        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding: 40px 20px; text-align: center;">
+    <h1>Serviço de Manutenção</h1>
+    <p>Oferecemos manutenção completa das suas peças de prata — desde polimento até pequenos ajustes estruturais.</p>
+    <button class="bloco-servico" onclick="abrirModal()">Pedir Manutenção</button>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" style="display: none;">
+    <div class="modal-conteudo">
+      <h2>Formulário de Manutenção</h2>
+      <label for="nome">Seu nome *</label>
+      <input type="text" id="nome" placeholder="Seu nome completo"/>
+
+      <label for="localizacao">Localização *</label>
+      <input type="text" id="localizacao" placeholder="Ex: Luanda, Benfica"/>
+
+      <label for="tipoManutencao">Tipo de manutenção</label>
+      <select id="tipoManutencao">
+        <option value="Polimento">Polimento</option>
+        <option value="Reparo de fecho">Reparo de fecho</option>
+        <option value="Ajuste de tamanho">Ajuste de tamanho</option>
+      </select>
+
+      <label for="observacoes">Observações</label>
+      <textarea id="observacoes" placeholder="Alguma nota ou pedido especial..."></textarea>
+
+      <button onclick="enviarWhatsApp()">Enviar pedido</button>
+      <br/><br/>
+      <button onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/stars.js"></script>
+  <script src="scripts/manutencao.js"></script>
+</body>
+</html>

@@ -27,21 +27,39 @@
         </div>
       </div>
 
-      <!-- Botão hambúrguer -->
-      <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+      <button class="menu-hamburguer" onclick="toggleMenu()">
+  ☰
+  <span class="notificacao-ponto" id="notificacaoHamburguer"></span>
+</button>
 
-      <!-- Menu de navegação -->
+       <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
-        <a href="index.html">🏠Início</a>
+        <a href="#inicio">🏠Início</a>
         <a href="categorias.html">Categorias</a>
         <a href="#promocoes">Promoções</a>
         <a href="#sobre">ℹ️Sobre Nós</a>
         <a href="#contato">📞Contato</a>
-        <a href="#buscar">🔍Buscar</a>
-        <a href="#carrinho">🛒Carrinho</a>
+        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="/carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
   </header>
+
+  <!-- Atualiza contador carrinho -->
+  <script>
+    function atualizarNumeroCarrinho() {
+  const icone = document.querySelector('.carrinho-count');
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
+  if (icone) icone.textContent = total;
+
+  const pontoHamburguer = document.getElementById('notificacaoHamburguer');
+  if (pontoHamburguer) {
+    pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
+  }
+}
+    atualizarNumeroCarrinho();
+  </script>
 
   <!-- Estrelas -->
   <div class="stars" id="stars-container"></div>
@@ -54,6 +72,19 @@
     </div>
     <button class="voltar" onclick="voltarPorHistorico()">← Voltar</button>
   </section>
+
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
 
   <!-- JavaScript externo -->
   <script src="scripts/estrelas.js"></script>

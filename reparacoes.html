@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reparações</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Espaço para o menu -->
+  <div style="height: 100px;"></div>
+
+  <!-- Menu fixo -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+      <div class="logo-titulo">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <button class="menu-hamburguer" onclick="toggleMenu()">
+        ☰
+        <span class="notificacao-ponto" id="notificacaoHamburguer"></span>
+      </button>
+
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">🏠Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="#promocoes">Promoções</a>
+        <a href="#sobre">ℹ️Sobre Nós</a>
+        <a href="#contato">📞Contato</a>
+        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blocos-acesso">
+    <h1 style="text-align: center; margin-top: 100px;">Reparações</h1>
+    <a href="#" class="bloco-servico" onclick="abrirModalReparacao()">Solicitar Reparação</a>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modalReparacao" style="display: none;">
+    <div class="modal-conteudo">
+      <h2>Formulário de Reparação</h2>
+      <form id="formReparacao">
+        <label for="nome">Nome completo:</label>
+        <input type="text" id="nome" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" required>
+
+        <label for="descricao">Descrição do problema:</label>
+        <textarea id="descricao" required></textarea>
+
+        <button type="submit">Solicitar via WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/stars.js"></script>
+  <script src="scripts/reparacoes.js"></script>
+</body>
+</html>
