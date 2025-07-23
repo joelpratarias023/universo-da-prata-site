@@ -358,7 +358,7 @@ footer {
   top: 0;
   width: 100%;
   background: #000;
-  padding: 10px 20px;
+  padding: 5px 20px;
   z-index: 10000;
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
 }
@@ -890,22 +890,24 @@ form select option {
   background: #555;
 }
 
+/* Ajuste no espaçamento entre o topo e os blocos de serviço */
 .blocos-acesso {
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 400px;
-  margin: 50px auto;
+  margin: 20px auto;        /* reduzido de 50px para 20px para ficar mais próximo ao topo */
   padding: 0 20px;
 }
 
+/* Ajuste interno dos blocos de serviço — diminui padding vertical */
 .bloco-servico {
   display: block;
   background: #ffffff10;
   border: 2px solid #ffd700;
   border-radius: 12px;
   color: #fff;
-  padding: 20px;
+  padding: 15px;           /* reduzido de 20px para 15px vertical, mantendo padding horizontal */
   font-size: 18px;
   text-align: center;
   font-weight: bold;
@@ -914,6 +916,7 @@ form select option {
   transition: all 0.3s ease;
 }
 
+/* Mantém comportamento de hover */
 .bloco-servico:hover {
   background: #ffd700;
   color: #000;
@@ -990,4 +993,99 @@ form select option {
 
 .modal-conteudo button:hover {
   background-color: #e6c200;
+}
+
+/* ========================== */
+/* RESPONSIVIDADE - TELAS PEQUENAS */
+/* ========================== */
+
+@media (max-width: 480px) {
+
+  /* Botões blocos de acesso (Serviços, Cuidados, VIPs) */
+  .blocos-acesso {
+    margin-top: 30px;
+    padding: 0 10px;
+    gap: 15px;
+  }
+
+  .bloco-servico {
+    font-size: 16px;
+    padding: 16px;
+  }
+
+  /* Header fixo */
+  .topo-fixo {
+    padding: 8px 12px;
+  }
+
+  .logo-site {
+    width: 45px;
+  }
+
+  .titulos h1 {
+    font-size: 14px;
+  }
+
+  .titulos .submarca {
+    font-size: 11px;
+  }
+
+  /* Modal de formulário (se usado) */
+  .modal {
+    padding: 10px;
+  }
+
+  .modal-conteudo {
+    padding: 20px;
+  }
+
+  /* Texto geral */
+  body, input, button, textarea {
+    font-size: 14px;
+  }
+
+  /* Cards de categorias e subcategorias */
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .card img {
+    height: 100px;
+  }
+
+  .card span {
+    font-size: 14px;
+  }
+
+  .subcard {
+    font-size: 16px;
+    padding: 18px;
+  }
+
+  /* Carrinho e formulário */
+  .carrinho-container,
+  .resumo-carrinho,
+  .confirmacao-container {
+    padding: 15px;
+  }
+
+  form input, form textarea, form select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  form button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* Rodapé e redes sociais */
+  footer, .social {
+    padding: 15px;
+  }
+
+  .social-icons a img {
+    width: 30px;
+    height: 30px;
+  }
 }
