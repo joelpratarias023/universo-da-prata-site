@@ -8,4 +8,3 @@ for (let i = 0; i < 100; i++) {
   star.style.opacity = Math.random();
   starsContainer.appendChild(star);
 }
-
