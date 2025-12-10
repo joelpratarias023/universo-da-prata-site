@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Produto</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/produto.css">
+  <link rel="stylesheet" href="css/sobre.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <title>Sobre Nós - Universo da Prata</title>
 </head>
 <body>
-
+  <canvas id="stars"></canvas>
   <!-- Espaço para o menu -->
   <div style="height: 50px;"></div>
 
@@ -22,8 +23,7 @@
 
       <!-- Ícones à esquerda (apenas mobile) -->
       <div class="menu-esquerda mobile-apenas">
-        <button class="menu-hamburguer" onclick="toggleMenu()">☰
-        </button>
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
         <a href="buscar.html" class="btn-pesquisa" title="Pesquisar">
           <i class="fas fa-search"></i>
         </a>
@@ -64,7 +64,7 @@
         <a href="index.html">🏠Início</a>
         <a href="categorias.html">🈁Categorias</a>
         <a href="promocoes.html">🎁Promoções</a>
-        <a href="sobre.html">ℹ️Sobre Nós</a>
+        <a href="#sobre">ℹ️Sobre Nós</a>
         <a href="contato.html">📞Contato</a>
         <a href="buscar.html">🔍Buscar</a>
         <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
@@ -72,8 +72,49 @@
     </div>
   </header>
 
-  <main class="produto-container">
-    <div id="produto-detalhes"></div>
+  <!-- Conteúdo principal -->
+  <main class="sobre-container">
+    <section class="intro-sobre">
+      <h1>Bem-vindo ao Universo da Prata</h1>
+      <p>No Universo da Prata, cada peça é mais do que um produto: é uma história, um sentimento e um símbolo de exclusividade. Nosso objetivo é proporcionar experiências únicas que conectem você à beleza da prata e à sensação de se sentir especial.</p>
+    </section>
+
+    <section class="missao-valor">
+      <div class="missao">
+        <h2>Missão</h2>
+        <p>Oferecer peças de prata de alta qualidade, valorizando o design, a durabilidade e a experiência de cada cliente, criando memórias duradouras e momentos especiais.</p>
+      </div>
+      <div class="valor">
+        <h2>Valores</h2>
+        <ul>
+          <li>Exclusividade e sofisticação</li>
+          <li>Conexão emocional com nossos clientes</li>
+          <li>Compromisso com qualidade e transparência</li>
+          <li>Estímulo à autoestima e ao bem-estar</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="equipe">
+      <h2>Nossa Equipe</h2>
+      <div class="cards-equipe">
+        <div class="card">
+          <img src="imagens/Joel.jpg" alt="Equipe 1">
+          <h3>Joel Martins Da Costa</h3>
+          <p>Fundador CEO</p>
+        </div>
+        <div class="card">
+          <img src="imagens/Work.jpg" alt="Equipe 2">
+          <h3>Maria Costa</h3>
+          <p>Atendimento ao Cliente</p>
+        </div>
+        <div class="card">
+          <img src="imagens/equipe3.jpg" alt="Equipe 3">
+          <h3>Pedro Almeida</h3>
+          <p>Gestão e Marketing</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -102,64 +143,10 @@
       starsContainer.appendChild(star);
     }
   </script>
+   <!-- Scripts -->
+  <script src="scripts/menu.js"></script>
 
-  <!-- Scripts de produtos -->
-  <script src="scripts/produto.js"></script>
-  <script src="scripts/produtos.js"></script>
-  <script defer src="scripts/menu.js"></script>
-
-  <script>
-    const produtoId = localStorage.getItem("produtoSelecionado");
-    const container = document.getElementById("produto-detalhes");
-
-    const produtosFiltrados = produtos.filter(p => p.id === produtoId);
-
-    if (produtosFiltrados.length > 0) {
-      produtosFiltrados.forEach(produto => {
-        const div = document.createElement("div");
-        div.className = "produto-detalhes";
-        div.innerHTML = `
-          <div class="produto-imagem">
-            <img src="${produto.imagem}" alt="${produto.nome}" />
-          </div>
-          <div class="produto-info">
-            <h2>${produto.nome}</h2>
-            <p class="descricao">${produto.descricao}</p>
-            <p class="preco">${produto.preco}</p>
-            <a href="https://wa.me/244934803197?text=Olá! Gostaria de fazer um pedido da peça: ${encodeURIComponent(produto.nome)}" target="_blank" class="botao-pedido">
-              Fazer Pedido via WhatsApp
-            </a>
-            <button onclick='adicionarAoCarrinho(${JSON.stringify(produto)})' class="botao-pedido">🛒 Adicionar ao Carrinho</button>
-          </div>
-        `;
-        container.appendChild(div);
-      });
-    } else {
-      container.innerHTML = "<p>Produto não encontrado.</p>";
-    }
-
-    function adicionarAoCarrinho(produto) {
-      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-      carrinho.push(produto);
-      localStorage.setItem("carrinho", JSON.stringify(carrinho));
-      mostrarAvisoCarrinho();
-      atualizarNumeroCarrinho(); // Atualiza número do ícone
-    }
-  </script>
-
-  <script>
-  function mostrarAvisoCarrinho() {
-    const toast = document.getElementById("toast");
-    if (toast) {
-      toast.classList.add("show");
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3000); // desaparece após 3 segundos
-    }
-  }
-</script>
-
-  <!-- Atualiza contador carrinho -->
+     <!-- Atualiza contador carrinho -->
   <script>
     function atualizarNumeroCarrinho() {
   const icone = document.querySelector('.carrinho-count');
@@ -179,40 +166,5 @@ todosContadores.forEach(span => {
 }
     atualizarNumeroCarrinho();
   </script>
-
-  <!-- Menu toggle e ajuste -->
-  <script>
-    function toggleMenu() {
-      const menu = document.querySelector('.menu-navegacao');
-      menu.classList.toggle('mobile-escondido');
-      menu.classList.toggle('mobile-visivel');
-    }
-
-    function ajustarMenuParaTamanhoTela() {
-      const menu = document.querySelector('.menu-navegacao');
-      if (window.innerWidth > 768) {
-        menu.classList.remove('mobile-escondido', 'mobile-visivel');
-      } else {
-        menu.classList.add('mobile-escondido');
-      }
-    }
-
-    window.addEventListener('load', ajustarMenuParaTamanhoTela);
-    window.addEventListener('resize', ajustarMenuParaTamanhoTela);
-  </script>
-
-  <!-- Voltar função -->
-  <script>
-    function voltarPorHistorico() {
-      const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
-      if (etapa && etapa.origem === "subcategorias") {
-        window.location.href = `subcategorias.html?categoria=${encodeURIComponent(etapa.categoria)}`;
-      } else {
-        window.location.href = "index.html";
-      }
-    }
-  </script>
-
-<div id="toast" class="toast">Produto adicionado ao carrinho!</div>
 </body>
 </html>

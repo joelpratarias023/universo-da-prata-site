@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Categorias</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="produtos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -19,7 +20,7 @@
       <div class="menu-esquerda mobile-apenas">
         <button class="menu-hamburguer" onclick="toggleMenu()">☰
         </button>
-        <a href="pesquisa.html" class="btn-pesquisa" title="Pesquisar">
+        <a href="buscar.html" class="btn-pesquisa" title="Pesquisar">
           <i class="fas fa-search"></i>
         </a>
       </div>
@@ -58,10 +59,10 @@
       <nav class="menu-navegacao mobile-escondido">
         <a href="index.html">🏠Início</a>
         <a href="categorias.html">🈁Categorias</a>
-        <a href="#promocoes">🎁Promoções</a>
-        <a href="#sobre">ℹ️Sobre Nós</a>
-        <a href="#contato">📞Contato</a>
-        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="promocoes.html">🎁Promoções</a>
+        <a href="sobre.html">ℹ️Sobre Nós</a>
+        <a href="contato.html">📞Contato</a>
+        <a href="buscar.html">🔍Buscar</a>
         <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
@@ -92,7 +93,7 @@ todosContadores.forEach(span => {
     <h2>Categorias</h2>
     <div class="grid">
        <!-- Cards das categorias -->
-      <div class="card" onclick="abrirSubcategorias('Anéis')">
+      <div class="card" onclick="abrirSubcategorias('aneis')">
         <img src="categorias/aneis.png" class="normal" alt="Anéis">
         <img src="categorias/aneis-hover.jpeg" class="hover" alt="Anéis Hover">
         <span>Anéis</span>
@@ -102,32 +103,32 @@ todosContadores.forEach(span => {
         <img src="categorias/correntes-hover.jpg" class="hover" alt="Correntes Hover">
         <span>Correntes</span>
       </div>
-      <div class="card" onclick="abrirSubcategorias('Pulseiras')">
+      <div class="card" onclick="abrirSubcategorias('pulseiras')">
         <img src="categorias/pulseiras.png" class="normal" alt="Pulseiras">
         <img src="categorias/pulseiras-hover.jpg" class="hover" alt="Pulseiras Hover">
         <span>Pulseiras</span>
       </div>
-      <div class="card" onclick="abrirSubcategorias('Brincos')">
+      <div class="card" onclick="abrirSubcategorias('brincos')">
         <img src="categorias/brincos.png" class="normal" alt="Brincos">
         <img src="categorias/brincos-hover.jpg" class="hover" alt="Brincos Hover">
         <span>Brincos</span>
       </div>
-      <div class="card" onclick="abrirSubcategorias('Personalizados')">
+      <div class="card" onclick="abrirSubcategorias('personalizados')">
         <img src="categorias/personalizados.png" class="normal" alt="Personalizados">
         <img src="categorias/personalizados-hover.webp" class="hover" alt="Personalizados Hover">
         <span>Personalizados</span>
       </div>
-      <div class="card" onclick="abrirSubcategorias('Tornozeleiras')">
+      <div class="card" onclick="abrirSubcategorias('tornozeleiras')">
         <img src="categorias/tornozeleiras.png" class="normal" alt="Tornozeleiras">
         <img src="categorias/tornozeiras-hover.webp" class="hover" alt="Tornozeleiras Hover">
         <span>Tornozeleiras</span>
       </div>
-      <div class="card" onclick="abrirSubcategorias('Pingentes')">
+      <div class="card" onclick="abrirSubcategorias('pingentes')">
         <img src="categorias/pingentes.png" class="normal" alt="Pingentes">
         <img src="categorias/pingentes-hover.webp" class="hover" alt="Pingentes Hover">
         <span>Pingentes</span>
       </div>
-      <div class="card" onclick="abrirSubcategorias('Broches')">
+      <div class="card" onclick="abrirSubcategorias('broches')">
         <img src="categorias/broches.png" class="normal" alt="Broches">
         <img src="categorias/broches-hover.avif" class="hover" alt="Broches Hover">
         <span>Broches</span>
@@ -142,7 +143,7 @@ todosContadores.forEach(span => {
         <img src="categorias/piercings-hover.webp" class="hover" alt="Piercings Hover">
         <span>Piercings</span>
       </div>
-      <div class="card" onclick="abrirSubcategorias('Novidades')">
+      <div class="card" onclick="abrirSubcategorias('novidades')">
         <img src="categorias/novidades.png" class="normal" alt="Novidades">
         <img src="categorias/novidades-hover.png" class="hover" alt="Novidades Hover">
         <span>Novidades</span>
@@ -160,7 +161,7 @@ todosContadores.forEach(span => {
         <a href="#"><img src="x.png" alt="X"></a>
       </div>
     </div>
-    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+    <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
 
   <!-- Scripts -->

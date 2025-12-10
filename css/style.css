@@ -277,80 +277,6 @@ footer {
   }
 }
 
-/* Página de Produto */
-.produto-pagina {
-  padding: 40px 20px;
-}
-
-#produto-detalhes, .produto-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
-  padding: 0 20px;
-  max-width: 1000px;
-  align-items: center;
-}
-
-.produto-container img {
-  width: 100%;
-  height: 100px;
-  padding: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  transition: opacity 0.3s ease;
-  position: relative;
-  z-index: 1;
-  margin-bottom: 10px;
-}
-
-.produto-info h2 {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 5px;
-  text-align: center;
-}
-
-.produto-info .descricao {
-  font-size: 12px;
-  color: #ccc;
-  margin-bottom: 8px;
-}
-
-.produto-info .preco {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.produto-info {
-  text-align: center;
-  padding: 5px;
-  word-wrap: break-word;
-  overflow: hidden;
-}
-
-.produto-info h2 {
-  font-size: 14px;
-  line-height: 1.2;
-  color: #fff; /* ou outra cor visível */
-}
-
-.botao-pedido {
-  background-color: #25d366;
-  color: #ffffff;
-  padding: 6px 22px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 12px;
-  display: inline-block;
-  transition: background 0.3s ease;
-}
-
-.botao-pedido:hover {
-  background: #1ebe5b;
-}
 
 /* Menu fixo */
 .topo-fixo {
@@ -996,9 +922,9 @@ form select option {
   background-color: #e6c200;
 }
 
-/* ========================== */
+
 /* RESPONSIVIDADE - TELAS PEQUENAS */
-/* ========================== */
+
 
 @media (max-width: 480px) {
 
@@ -1291,3 +1217,35 @@ form select option {
       color: #666;
     }
     
+    .opcoes-busca {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  align-items: center;
+}
+
+.btn-busca {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #555; /* cor visível */
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.btn-busca:hover {
+  background-color: #333; /* escurece ao passar o mouse */
+}
+
+
+/* Mobile melhor organizado */
+@media (max-width: 480px) {
+  #produto-detalhes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

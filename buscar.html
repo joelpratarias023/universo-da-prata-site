@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escolha de Busca - Universo da Prata</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Estrelas de fundo -->
+  <div class="stars" id="stars-container"></div>
+
+  <!-- Espaço para o menu -->
+  <div style="height: 100px;"></div>
+
+  <!-- Menu fixo -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+
+      <div class="menu-esquerda mobile-apenas">
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+        <a href="buscar.html" class="btn-pesquisa" title="Pesquisar">
+          <i class="fas fa-search"></i>
+        </a>
+      </div>
+
+      <div class="logo-titulo mobile-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <div class="logo-titulo desktop-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <div class="menu-direita mobile-apenas">
+        <a href="carrinho.html" class="btn-carrinho" title="Carrinho">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="carrinho-count">0</span>
+        </a>
+      </div>
+
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">🏠Início</a>
+        <a href="categorias.html">🈁Categorias</a>
+        <a href="promocoes.html">🎁Promoções</a>
+        <a href="sobre.html">ℹ️Sobre Nós</a>
+        <a href="contato.html">📞Contato</a>
+        <a href="pesquisa.html">🔍Buscar</a>
+        <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="confirmacao-container">
+    <h1>Como deseja buscar?</h1>
+
+    <div class="opcoes-busca">
+      <a href="pesquisa.html" class="btn-busca">Pesquisar Produtos</a>
+      <a href="pesquisa-descricao.html" class="btn-busca">Enviar Descrição + Foto</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Estrelas
+    const starsContainer = document.getElementById("stars-container");
+    for(let i=0;i<100;i++){
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${Math.random()*100}%`;
+      star.style.top = `${Math.random()*100}%`;
+      star.style.animationDuration = `${5+Math.random()*10}s`;
+      star.style.opacity = Math.random();
+      starsContainer.appendChild(star);
+    }
+
+    // Menu responsivo
+    function toggleMenu(){
+      const menu = document.querySelector('.menu-navegacao');
+      menu.classList.toggle('mobile-escondido');
+      menu.classList.toggle('mobile-visivel');
+    }
+
+    function ajustarMenuParaTamanhoTela(){
+      const menu = document.querySelector('.menu-navegacao');
+      if(window.innerWidth>768){
+        menu.classList.remove('mobile-escondido','mobile-visivel');
+      } else {
+        menu.classList.add('mobile-escondido');
+      }
+    }
+
+    window.addEventListener('load',ajustarMenuParaTamanhoTela);
+    window.addEventListener('resize',ajustarMenuParaTamanhoTela);
+
+    // Contador carrinho
+    document.addEventListener('DOMContentLoaded',()=>{
+      const todosContadores=document.querySelectorAll('.carrinho-count');
+      const carrinho=JSON.parse(localStorage.getItem('carrinho'))||[];
+      const total=carrinho.reduce((sum,item)=>sum+(item.quantidade||1),0);
+      todosContadores.forEach(span=>{span.textContent=total;});
+    });
+  </script>
+
+</body>
+</html>

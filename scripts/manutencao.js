@@ -20,6 +20,6 @@ function enviarWhatsApp() {
   }
 
   const mensagem = `Olá! Meu nome é ${nome}.\nGostaria de pedir o serviço de manutenção: ${tipo}.\nEstou em ${localizacao}.\nObservações: ${obs || 'Nenhuma'}`;
-  const url = `https://wa.me/244931549615?text=${encodeURIComponent(mensagem)}`;
+  const url = `https://wa.me/244934803197?text=${encodeURIComponent(mensagem)}`;
   window.open(url, '_blank');
 }

@@ -1,0 +1,118 @@
+/* Estilo geral */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background: #000; /* fallback caso o canvas não carregue */
+  color: #fff;
+}
+
+/* Container da página Sobre */
+.sobre-container {
+  max-width: 1200px;
+  margin: 60px auto 60px auto;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Introdução */
+.intro-sobre h1 {
+  font-size: 2.0rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.intro-sobre p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ddd;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Missão e valores */
+.missao-valor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px;
+  gap: 40px;
+}
+
+.missao, .valor {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 15px;
+  flex: 1 1 300px;
+}
+
+.missao h2, .valor h2, .equipe h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.missao p, .valor ul, .equipe p {
+  color: #ddd;
+  font-size: 1rem;
+}
+
+.valor ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: left;
+}
+
+/* Equipe */
+.equipe {
+  margin-top: 50px;
+}
+
+.cards-equipe {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  width: 200px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Canvas das estrelas */
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  position: relative;
+}

@@ -1,0 +1,61 @@
+.promocoes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 90px 20px 40px;  /* 90px compensa a altura real do menu */
+  text-align: center;
+  color: #fff;
+}
+
+.contato-container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+  color: #f5e6d3;
+}
+
+.subtexto {
+  color: #ddd;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.contato-opcoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.contato-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s ease;
+  box-shadow: 0 0 15px rgba(255,255,255,0.05);
+}
+
+.contato-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px rgba(255,255,255,0.15);
+}
+
+.contato-card i {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.contato-card h3 {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.contato-card p {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+/* Cores por tipo */
+.whatsapp { color: #25D366; }
+.telefone { color: #4fc3f7; }
+.email { color: #fbc02d; }
+.instagram { color: #e84393; }

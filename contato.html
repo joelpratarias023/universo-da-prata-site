@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Contato - Universo da Prata</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="contato.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Estrelas -->
+  <div class="stars" id="stars-container"></div>
+
+  <!-- Espaço do menu -->
+  <div style="height:100px;"></div>
+
+  <!-- MENU (igual ao resto do site) -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+
+      <div class="menu-esquerda mobile-apenas">
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+        <a href="buscar.html" class="btn-pesquisa"><i class="fas fa-search"></i></a>
+      </div>
+
+      <div class="logo-titulo">
+        <a href="index.html"><img src="logo.png" class="logo-site"></a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <div class="menu-direita mobile-apenas">
+        <a href="carrinho.html" class="btn-carrinho">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="carrinho-count">0</span>
+        </a>
+      </div>
+
+        <!-- Atualiza contador carrinho -->
+  <script>
+    function atualizarNumeroCarrinho() {
+      const icone = document.querySelector('.carrinho-count');
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
+       // Atualiza também o contador do menu lateral
+const todosContadores = document.querySelectorAll('.carrinho-count');
+todosContadores.forEach(span => {
+  span.textContent = total;
+});
+
+      const pontoHamburguer = document.getElementById('notificacaoHamburguer');
+      if (pontoHamburguer) {
+        pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
+      }
+    }
+    atualizarNumeroCarrinho();
+  </script>
+
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">🏠Início</a>
+        <a href="categorias.html">🈁Categorias</a>
+        <a href="promocoes.html">🎁Promoções</a>
+        <a href="sobre.html">ℹ️Sobre Nós</a>
+        <a href="contato.html" class="ativo">📞Contato</a>
+        <a href="buscar.html">🔍Buscar</a>
+        <a href="carrinho.html">🛒Carrinho</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO -->
+  <main class="contato-container">
+
+    <h1>Fale Conosco</h1>
+    <p class="subtexto">
+      Estamos sempre prontos para lhe atender com carinho, rapidez e exclusividade ✨
+    </p>
+
+    <div class="contato-opcoes">
+
+      <a href="https://wa.me/244934803197" target="_blank" class="contato-card whatsapp">
+        <i class="fab fa-whatsapp"></i>
+        <h3>WhatsApp</h3>
+        <p>Atendimento rápido e direto</p>
+      </a>
+
+      <a href="tel:+244934803197" class="contato-card telefone">
+        <i class="fas fa-phone"></i>
+        <h3>Telefone</h3>
+        <p>Ligue para nós</p>
+      </a>
+
+      <a href="mailto:universodaprata@gmail.com" class="contato-card email">
+        <i class="fas fa-envelope"></i>
+        <h3>Email</h3>
+        <p>Envie sua mensagem</p>
+      </a>
+
+      <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank" class="contato-card instagram">
+        <i class="fab fa-instagram"></i>
+        <h3>Instagram</h3>
+        <p>Siga e fale conosco</p>
+      </a>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="#"><img src="instagram.png"></a>
+        <a href="#"><img src="facebook.png"></a>
+        <a href="#"><img src="tiktok.png"></a>
+        <a href="#"><img src="x.png"></a>
+      </div>
+    </div>
+    <p>&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/stars.js"></script>
+
+</body>
+</html>

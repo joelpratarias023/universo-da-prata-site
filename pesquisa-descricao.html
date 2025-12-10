@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enviar Descrição e Foto - Universo da Prata</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script defer src="scripts/stars.js"></script>
+</head>
+<body>
+
+  <!-- Estrelas -->
+  <div class="stars" id="stars-container"></div>
+
+  <!-- Espaço para o menu -->
+  <div style="height: 100px;"></div>
+
+  <!-- MENU (igual ao site) -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+
+      <div class="menu-esquerda mobile-apenas">
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+        <a href="buscar.html" class="btn-pesquisa"><i class="fas fa-search"></i></a>
+      </div>
+
+      <div class="logo-titulo">
+        <a href="index.html"><img src="logo.png" class="logo-site"></a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+     <!-- Ícones à direita (apenas mobile) -->
+      <div class="menu-direita mobile-apenas">
+        <a href="carrinho.html" class="btn-carrinho" title="Carrinho">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="carrinho-count">0</span>
+        </a>
+      </div>
+
+       <!-- Menu de navegação -->
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">🏠Início</a>
+        <a href="categorias.html">🈁Categorias</a>
+        <a href="promocoes.html">🎁Promoções</a>
+        <a href="sobre.html">ℹ️Sobre Nós</a>
+        <a href="contato.html">📞Contato</a>
+        <a href="buscar.html">🔍Buscar</a>
+        <a href="/carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="confirmacao-container" style="text-align:center;">
+
+    <h1>Pesquisa Personalizada</h1>
+
+    <p style="max-width:400px;margin:auto;font-size:1.1rem;color:#444;">
+      Para garantir um atendimento mais rápido e personalizado, o envio da
+      descrição e da foto da peça é feito diretamente pelo nosso WhatsApp.
+      <br><br>
+      Basta clicar no botão abaixo, escrever a descrição da peça e anexar a foto.
+      Nossa equipe analisará e retornará com as melhores opções disponíveis ✨
+    </p>
+
+    <div style="margin-top:30px;">
+      <a 
+        href="https://wa.me/244934803197?text=Olá, gostaria de enviar a foto e a descrição de uma peça que procuro no Universo da Prata."
+        target="_blank"
+        style="
+          display:inline-block;
+          background:#25D366;
+          color:white;
+          padding:15px 25px;
+          border-radius:30px;
+          font-size:1.1rem;
+          text-decoration:none;
+          font-weight:bold;
+        "
+      >
+        <i class="fab fa-whatsapp"></i> Enviar pelo WhatsApp
+      </a>
+    </div>
+
+    <p style="margin-top:20px;font-size:0.95rem;color:#666;">
+      Atendimento rápido • Seguro • Personalizado
+    </p>
+
+    <div style="margin-top:25px;">
+      <a href="buscar.html" style="color:#555;">← Voltar para tipos de pesquisa</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png"></a>
+        <a href="#"><img src="tiktok.png"></a>
+        <a href="#"><img src="x.png"></a>
+      </div>
+    </div>
+    <p>&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- MENU MOBILE -->
+  <script>
+    function toggleMenu(){
+      const menu = document.querySelector('.menu-navegacao');
+      menu.classList.toggle('mobile-escondido');
+      menu.classList.toggle('mobile-visivel');
+    }
+  </script>
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/navegacao.js"></script>
+
+  <script>
+    function atualizarNumeroCarrinho() {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const total = carrinho.reduce((soma, item) => soma + (item.quantidade || 1), 0);
+      document.querySelectorAll('.carrinho-count').forEach(el => el.textContent = total);
+    }
+    atualizarNumeroCarrinho();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+.promocoes-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.promocoes-container h1 {
+  font-size: 2.0rem;
+  margin-bottom: 10px;
+}
+
+.promocoes-container .intro {
+  color: #ddd;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+/* AQUI ESTÁ A GRELHA EM FLEX IGUAL AO SOBRE */
+.cards-promocoes {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* CARD */
+.card-promocao {
+  background: rgba(255,255,255,0.06);
+  padding: 18px 14px;
+  border-radius: 14px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.card-promocao:hover {
+  transform: translateY(-10px);
+}
+
+.card-promocao img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.card-promocao h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.preco-antigo {
+  color: #aaa;
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+
+.preco-novo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 12px;
+}
+
+.btn-ver {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffd700, #caa400);
+  color: #000;
+  padding: 10px 18px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ===== TABLET E MOBILE (3 COLUNAS BONITAS) ===== */
+@media (max-width: 768px) {
+  .cards-promocoes {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .card-promocao img {
+    height: 110px;
+    object-fit: contain;
+  }
+
+  .card-promocao h3 {
+    font-size: 13px;
+  }
+
+  .preco-novo {
+    font-size: 1.1rem;
+  }
+}
+
+/* ===== TELEMÓVEIS PEQUENOS ===== */
+@media (max-width: 480px) {
+  .cards-promocoes {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .card-promocao img {
+    height: 100px;
+  }
+
+  .card-promocao h3 {
+    font-size: 12px;
+  }
+
+  .preco-novo {
+    font-size: 1rem;
+  }
+
+  .btn-ver {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+}
