@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Serviço de Lavagem</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="scripts/notifications.js"></script>
 </head>
 <body>
 
@@ -58,12 +59,12 @@
 
       <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
-        <a href="index.html">🏠Início</a>
-        <a href="categorias.html">🈁Categorias</a>
-        <a href="promocoes.html">🎁Promoções</a>
-        <a href="sobre.html">ℹ️Sobre Nós</a>
-        <a href="contato.html">📞Contato</a>
-        <a href="buscar.html">🔍Buscar</a>
+        <a href="index.html">Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="promocoes.html">Promoções</a>
+        <a href="sobre.html">Sobre Nós</a>
+        <a href="contato.html">Contato</a>
+        <a href="buscar.html">Buscar</a>
         <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
@@ -113,18 +114,10 @@
     </div>
   </div>
 
-  <script>
-    function atualizarNumeroCarrinho() {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const total = carrinho.reduce((soma, item) => soma + (item.quantidade || 1), 0);
-      document.querySelectorAll('.carrinho-count').forEach(el => el.textContent = total);
-    }
-    atualizarNumeroCarrinho();
-  </script>
-
   <script src="scripts/menu.js"></script>
   <script src="scripts/stars.js"></script>
   <script src="scripts/lavagem.js"></script>
+  <script defer src="scripts/carrinho-update.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>
 </html>

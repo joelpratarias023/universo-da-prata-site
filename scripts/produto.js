@@ -134,11 +134,5 @@ const produtos = [
 ];
 
 function mostrarAvisoCarrinho() {
-  const toast = document.getElementById('toast');
-  if (toast) {
-    toast.classList.add('show');
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3000); // O aviso desaparece após 3 segundos
-  }
+  showSuccess("Produto adicionado ao carrinho! 🛒", 3000);
 }

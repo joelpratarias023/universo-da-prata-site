@@ -7,6 +7,21 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/promocoes.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    // Suprimir erros de extensões do Chrome
+    if (chrome && chrome.runtime) {
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        return false;
+      });
+    }
+    
+    // Suprimir erros de async listener no console
+    window.addEventListener('unhandledrejection', (event) => {
+      if (event.reason?.message?.includes('listener indicated an asynchronous response')) {
+        event.preventDefault();
+      }
+    });
+  </script>
 </head>
 <body>
   <div class="stars" id="stars-container"></div>
@@ -57,41 +72,23 @@
 
       <!-- Menu de navegação (ativo no desktop, togglável no mobile) -->
       <nav class="menu-navegacao mobile-escondido">
-        <a href="index.html">🏠Início</a>
-        <a href="categorias.html">🈁Categorias</a>
-        <a href="promocoes.html">🎁Promoções</a>
-        <a href="sobre.html">ℹ️Sobre Nós</a>
-        <a href="contato.html">📞Contato</a>
-        <a href="buscar.html">🔍Buscar</a>
+        <a href="index.html">Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="promocoes.html">Promoções</a>
+        <a href="sobre.html">Sobre Nós</a>
+        <a href="contato.html">Contato</a>
+        <a href="buscar.html">Buscar</a>
         <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
   </header>
 
-  <!-- Atualiza contador carrinho -->
-  <script>
-    function atualizarNumeroCarrinho() {
-      const icone = document.querySelector('.carrinho-count');
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
-       // Atualiza também o contador do menu lateral
-const todosContadores = document.querySelectorAll('.carrinho-count');
-todosContadores.forEach(span => {
-  span.textContent = total;
-});
-
-      const pontoHamburguer = document.getElementById('notificacaoHamburguer');
-      if (pontoHamburguer) {
-        pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
-      }
-    }
-    atualizarNumeroCarrinho();
-  </script>
+  <script src="scripts/carrinho-update.js"></script>
 
   <!-- CONTEÚDO -->
   <main class="promocoes-container">
 
-    <h1>🎁 Promoções Especiais</h1>
+    <h1>Promoções Especiais</h1>
     <p class="intro">
       Peças selecionadas com descontos exclusivos para você ✨
     </p>
@@ -105,7 +102,7 @@ todosContadores.forEach(span => {
         <h3>Anel de Prata Luxo</h3>
         <p class="preco-antigo">12.000 Kz</p>
         <p class="preco-novo">8.500 Kz</p>
-        <a href="produto.html" class="btn-ver">Ver Oferta</a>
+        <a href="detalhe-produto.html" class="btn-ver" data-produto="Anel de Prata Luxo">Ver Oferta</a>
       </div>
 
       <div class="card-promocao">
@@ -113,7 +110,7 @@ todosContadores.forEach(span => {
         <h3>Bracelete Premium</h3>
         <p class="preco-antigo">15.000 Kz</p>
         <p class="preco-novo">10.900 Kz</p>
-        <a href="produto.html" class="btn-ver">Ver Oferta</a>
+        <a href="detalhe-produto.html" class="btn-ver" data-produto="Bracelete Premium">Ver Oferta</a>
       </div>
 
       <div class="card-promocao">
@@ -121,7 +118,15 @@ todosContadores.forEach(span => {
         <h3>Colar Elegance</h3>
         <p class="preco-antigo">18.000 Kz</p>
         <p class="preco-novo">13.200 Kz</p>
-        <a href="produto.html" class="btn-ver">Ver Oferta</a>
+        <a href="detalhe-produto.html" class="btn-ver" data-produto="Colar Elegance">Ver Oferta</a>
+      </div>
+
+       <div class="card-promocao">
+        <img src="produto/pulseira-femina.png">
+        <h3>Colar Elegance</h3>
+        <p class="preco-antigo">18.000 Kz</p>
+        <p class="preco-novo">13.200 Kz</p>
+        <a href="detalhe-produto.html" class="btn-ver" data-produto="Correntes Duplas de Amor">Ver Oferta</a>
       </div>
 
     </div>
@@ -142,5 +147,16 @@ todosContadores.forEach(span => {
 
   <script src="scripts/menu.js"></script>
   <script src="scripts/stars.js"></script>
+  <script>
+    // Quando clica em um produto em promoção, armazena o nome para a página detalhe-produto.html
+    document.querySelectorAll('.btn-ver').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const nomeProduto = this.getAttribute('data-produto');
+        if (nomeProduto) {
+          localStorage.setItem('produtoSelecionado', nomeProduto);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

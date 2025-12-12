@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Categorias</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="produtos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -57,36 +56,18 @@
 
       <!-- Menu de navegação (ativo no desktop, togglável no mobile) -->
       <nav class="menu-navegacao mobile-escondido">
-        <a href="index.html">🏠Início</a>
-        <a href="categorias.html">🈁Categorias</a>
-        <a href="promocoes.html">🎁Promoções</a>
-        <a href="sobre.html">ℹ️Sobre Nós</a>
-        <a href="contato.html">📞Contato</a>
-        <a href="buscar.html">🔍Buscar</a>
+        <a href="index.html">Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="promocoes.html">Promoções</a>
+        <a href="sobre.html">Sobre Nós</a>
+        <a href="contato.html">Contato</a>
+        <a href="buscar.html">Buscar</a>
         <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
   </header>
 
-  <!-- Atualiza contador carrinho -->
-  <script>
-    function atualizarNumeroCarrinho() {
-      const icone = document.querySelector('.carrinho-count');
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
-       // Atualiza também o contador do menu lateral
-const todosContadores = document.querySelectorAll('.carrinho-count');
-todosContadores.forEach(span => {
-  span.textContent = total;
-});
-
-      const pontoHamburguer = document.getElementById('notificacaoHamburguer');
-      if (pontoHamburguer) {
-        pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
-      }
-    }
-    atualizarNumeroCarrinho();
-  </script>
+  <script src="scripts/carrinho-update.js"></script>
 
   <!-- Categorias -->
   <section class="categorias" id="categorias">
@@ -165,8 +146,8 @@ todosContadores.forEach(span => {
   </footer>
 
   <!-- Scripts -->
-  <script src="scripts/estrelas.js"></script>
-  <script src="scripts/menu.js"></script>
-  <script src="scripts/categorias.js"></script>
+  <script defer src="scripts/stars.js"></script>
+  <script defer src="scripts/menu.js"></script>
+  <script defer src="scripts/categorias.js"></script>
 </body>
 </html>

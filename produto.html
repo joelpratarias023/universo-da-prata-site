@@ -2,11 +2,12 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Produto</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/produto.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="scripts/notifications.js"></script>
 </head>
 <body>
 
@@ -61,12 +62,12 @@
 
       <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
-        <a href="index.html">🏠Início</a>
-        <a href="categorias.html">🈁Categorias</a>
-        <a href="promocoes.html">🎁Promoções</a>
-        <a href="sobre.html">ℹ️Sobre Nós</a>
-        <a href="contato.html">📞Contato</a>
-        <a href="buscar.html">🔍Buscar</a>
+        <a href="index.html">Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="promocoes.html">Promoções</a>
+        <a href="sobre.html">Sobre Nós</a>
+        <a href="contato.html">Contato</a>
+        <a href="buscar.html">Buscar</a>
         <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
@@ -89,130 +90,11 @@
     <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Estrelas flutuantes -->
-  <script>
-    const starsContainer = document.getElementById("stars-container");
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.animationDuration = `${5 + Math.random() * 10}s`;
-      star.style.opacity = Math.random();
-      starsContainer.appendChild(star);
-    }
-  </script>
-
   <!-- Scripts de produtos -->
   <script src="scripts/produto.js"></script>
-  <script src="scripts/produtos.js"></script>
+  <script type="module" src="scripts/produto-page.js"></script>
+  <script defer src="scripts/stars-product.js"></script>
   <script defer src="scripts/menu.js"></script>
 
-  <script>
-    const produtoId = localStorage.getItem("produtoSelecionado");
-    const container = document.getElementById("produto-detalhes");
-
-    const produtosFiltrados = produtos.filter(p => p.id === produtoId);
-
-    if (produtosFiltrados.length > 0) {
-      produtosFiltrados.forEach(produto => {
-        const div = document.createElement("div");
-        div.className = "produto-detalhes";
-        div.innerHTML = `
-          <div class="produto-imagem">
-            <img src="${produto.imagem}" alt="${produto.nome}" />
-          </div>
-          <div class="produto-info">
-            <h2>${produto.nome}</h2>
-            <p class="descricao">${produto.descricao}</p>
-            <p class="preco">${produto.preco}</p>
-            <a href="https://wa.me/244934803197?text=Olá! Gostaria de fazer um pedido da peça: ${encodeURIComponent(produto.nome)}" target="_blank" class="botao-pedido">
-              Fazer Pedido via WhatsApp
-            </a>
-            <button onclick='adicionarAoCarrinho(${JSON.stringify(produto)})' class="botao-pedido">🛒 Adicionar ao Carrinho</button>
-          </div>
-        `;
-        container.appendChild(div);
-      });
-    } else {
-      container.innerHTML = "<p>Produto não encontrado.</p>";
-    }
-
-    function adicionarAoCarrinho(produto) {
-      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-      carrinho.push(produto);
-      localStorage.setItem("carrinho", JSON.stringify(carrinho));
-      mostrarAvisoCarrinho();
-      atualizarNumeroCarrinho(); // Atualiza número do ícone
-    }
-  </script>
-
-  <script>
-  function mostrarAvisoCarrinho() {
-    const toast = document.getElementById("toast");
-    if (toast) {
-      toast.classList.add("show");
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3000); // desaparece após 3 segundos
-    }
-  }
-</script>
-
-  <!-- Atualiza contador carrinho -->
-  <script>
-    function atualizarNumeroCarrinho() {
-  const icone = document.querySelector('.carrinho-count');
-  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-  const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
-  // Atualiza também o contador do menu lateral
-const todosContadores = document.querySelectorAll('.carrinho-count');
-todosContadores.forEach(span => {
-  span.textContent = total;
-});
-
-
-  const pontoHamburguer = document.getElementById('notificacaoHamburguer');
-  if (pontoHamburguer) {
-    pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
-  }
-}
-    atualizarNumeroCarrinho();
-  </script>
-
-  <!-- Menu toggle e ajuste -->
-  <script>
-    function toggleMenu() {
-      const menu = document.querySelector('.menu-navegacao');
-      menu.classList.toggle('mobile-escondido');
-      menu.classList.toggle('mobile-visivel');
-    }
-
-    function ajustarMenuParaTamanhoTela() {
-      const menu = document.querySelector('.menu-navegacao');
-      if (window.innerWidth > 768) {
-        menu.classList.remove('mobile-escondido', 'mobile-visivel');
-      } else {
-        menu.classList.add('mobile-escondido');
-      }
-    }
-
-    window.addEventListener('load', ajustarMenuParaTamanhoTela);
-    window.addEventListener('resize', ajustarMenuParaTamanhoTela);
-  </script>
-
-  <!-- Voltar função -->
-  <script>
-    function voltarPorHistorico() {
-      const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
-      if (etapa && etapa.origem === "subcategorias") {
-        window.location.href = `subcategorias.html?categoria=${encodeURIComponent(etapa.categoria)}`;
-      } else {
-        window.location.href = "index.html";
-      }
-    }
-  </script>
-
-<div id="toast" class="toast">Produto adicionado ao carrinho!</div>
 </body>
 </html>

@@ -45,12 +45,19 @@ window.addEventListener('resize', ajustarMenuParaTamanhoTela);
 
 // Mostra o menu após o preloader
 window.addEventListener('load', () => {
-  document.querySelector('.menu-fixo').style.display = 'flex';
+  const menuFixo = document.querySelector('.menu-fixo');
+  if (menuFixo) {
+    menuFixo.style.display = 'flex';
+  }
 });
 
 // Atualiza também o contador do menu lateral
-const todosContadores = document.querySelectorAll('.carrinho-count');
-todosContadores.forEach(span => {
-  span.textContent = total;
+document.addEventListener('DOMContentLoaded', () => {
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
+  const todosContadores = document.querySelectorAll('.carrinho-count');
+  todosContadores.forEach(span => {
+    span.textContent = total;
+  });
 });
 

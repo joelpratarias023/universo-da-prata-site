@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Administrador - Universo da Prata</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="../scripts/notifications.js"></script>
+  <script>
+    // Suppress Chrome extension error messages
+    if (chrome && chrome.runtime) {
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        return false;
+      });
+    }
+    
+    // Suppress async listener errors in console
+    window.addEventListener('unhandledrejection', (event) => {
+      if (event.reason?.message?.includes('listener indicated an asynchronous response')) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</head>
+<body>
+
+  <!-- Menu fixo igual ao site -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+      <div class="logo-titulo">
+        <a href="../index.html">
+          <img src="../logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Admin Panel</h2>
+        </div>
+      </div>
+      
+      <div class="menu-direita mobile-apenas">
+        <button class="menu-hamburguer" onclick="toggleMenuAdmin()">☰</button>
+      </div>
+
+      <nav class="menu-navegacao mobile-escondido" id="menu-admin">
+        <a href="#dashboard" onclick="mostrarSecao('dashboard')">📊 Dashboard</a>
+        <a href="#produtos" onclick="mostrarSecao('produtos')">📦 Produtos</a>
+        <a href="#entregadores" onclick="mostrarSecao('entregadores')">🚚 Entregadores</a>
+        <a href="#pedidos" onclick="mostrarSecao('pedidos')">🛍️ Pedidos</a>
+        <a href="#clientes" onclick="mostrarSecao('clientes')">👥 Clientes</a>
+        <a href="#relatorios" onclick="mostrarSecao('relatorios')">📈 Relatórios</a>
+        <a href="#configuracoes" onclick="mostrarSecao('configuracoes')">⚙️ Configurações</a>
+        <a href="../index.html" style="color: #ffd700; margin-top: 20px;">← Voltar ao Site</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Espaço para menu -->
+  <div style="height: 100px;"></div>
+
+  <!-- Container principal -->
+  <main class="admin-container">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="admin-secao ativa">
+      <h2>Dashboard</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <h3>Total de Produtos</h3>
+          <p class="stat-numero" id="total-produtos">0</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🚚</div>
+          <h3>Entregadores</h3>
+          <p class="stat-numero" id="total-entregadores">0</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🛍️</div>
+          <h3>Pedidos Pendentes</h3>
+          <p class="stat-numero" id="pedidos-pendentes">0</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <h3>Total de Clientes</h3>
+          <p class="stat-numero" id="total-clientes">0</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <h3>Vendas Hoje</h3>
+          <p class="stat-numero" id="vendas-hoje">0 AKZ</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <h3>Avaliação Média</h3>
+          <p class="stat-numero" id="avaliacao-media">4.5/5</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 40px;">Ações Rápidas</h3>
+      <div class="acoes-rapidas">
+        <button class="btn-acao" onclick="mostrarSecao('produtos'); scrollTo('#novo-produto-btn')">
+          <i class="fas fa-plus"></i> Novo Produto
+        </button>
+        <button class="btn-acao" onclick="mostrarSecao('entregadores'); scrollTo('#novo-entregador-btn')">
+          <i class="fas fa-user-plus"></i> Novo Entregador
+        </button>
+        <button class="btn-acao" onclick="mostrarSecao('pedidos')">
+          <i class="fas fa-list-check"></i> Ver Pedidos
+        </button>
+      </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos" class="admin-secao">
+      <h2>Gerenciamento de Produtos</h2>
+      
+      <button class="btn-primario" id="novo-produto-btn" onclick="abrirModalProduto()">
+        <i class="fas fa-plus"></i> Adicionar Novo Produto
+      </button>
+
+      <div class="filtros-tabela">
+        <input type="text" id="filtro-produtos" placeholder="🔍 Buscar produto..." onkeyup="filtrarProdutos()">
+        <select id="filtro-categoria" onchange="filtrarProdutos()">
+          <option value="">Todas as categorias</option>
+          <option value="anéis">Anéis</option>
+          <option value="colares">Colar</option>
+          <option value="pulseiras">Pulseiras</option>
+          <option value="pingentes">Pingentes</option>
+          <option value="brincos">Brincos</option>
+        </select>
+      </div>
+
+      <table class="tabela-admin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Imagem</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-produtos">
+          <tr><td colspan="7" style="text-align: center; padding: 20px;">Nenhum produto adicionado ainda</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ENTREGADORES -->
+    <section id="entregadores" class="admin-secao">
+      <h2>Gerenciamento de Entregadores</h2>
+      
+      <button class="btn-primario" id="novo-entregador-btn" onclick="abrirModalEntregador()">
+        <i class="fas fa-user-plus"></i> Adicionar Entregador
+      </button>
+
+      <div class="filtros-tabela">
+        <input type="text" id="filtro-entregadores" placeholder="🔍 Buscar entregador..." onkeyup="filtrarEntregadores()">
+        <select id="filtro-status" onchange="filtrarEntregadores()">
+          <option value="">Todos os status</option>
+          <option value="ativo">Ativo</option>
+          <option value="inativo">Inativo</option>
+          <option value="em-entrega">Em Entrega</option>
+        </select>
+      </div>
+
+      <table class="tabela-admin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Zona de Entrega</th>
+            <th>Status</th>
+            <th>Entregas</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-entregadores">
+          <tr><td colspan="7" style="text-align: center; padding: 20px;">Nenhum entregador adicionado ainda</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- PEDIDOS -->
+    <section id="pedidos" class="admin-secao">
+      <h2>Gerenciamento de Pedidos</h2>
+      
+      <div class="filtros-tabela">
+        <input type="text" id="filtro-pedidos" placeholder="🔍 Buscar pedido..." onkeyup="filtrarPedidos()">
+        <select id="filtro-status-pedido" onchange="filtrarPedidos()">
+          <option value="">Todos os status</option>
+          <option value="pendente">Pendente</option>
+          <option value="confirmado">Confirmado</option>
+          <option value="em-entrega">Em Entrega</option>
+          <option value="entregue">Entregue</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+
+      <table class="tabela-admin">
+        <thead>
+          <tr>
+            <th>ID Pedido</th>
+            <th>Cliente</th>
+            <th>Valor Total</th>
+            <th>Data</th>
+            <th>Entregador</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-pedidos">
+          <tr><td colspan="7" style="text-align: center; padding: 20px;">Nenhum pedido ainda</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="clientes" class="admin-secao">
+      <h2>Gerenciamento de Clientes</h2>
+      
+      <div class="filtros-tabela">
+        <input type="text" id="filtro-clientes" placeholder="🔍 Buscar cliente..." onkeyup="filtrarClientes()">
+      </div>
+
+      <table class="tabela-admin">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Endereço</th>
+            <th>Pedidos</th>
+            <th>Gasto Total</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-clientes">
+          <tr><td colspan="7" style="text-align: center; padding: 20px;">Nenhum cliente registrado</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- RELATÓRIOS -->
+    <section id="relatorios" class="admin-secao">
+      <h2>Relatórios e Análises</h2>
+      
+      <div class="relatorios-grid">
+        <div class="relatorio-card">
+          <h3>📊 Vendas Mensais</h3>
+          <canvas id="grafico-vendas"></canvas>
+        </div>
+        <div class="relatorio-card">
+          <h3>🏆 Produtos Mais Vendidos</h3>
+          <ul id="produtos-top" style="padding: 20px; list-style: none;">
+            <li>Carregando...</li>
+          </ul>
+        </div>
+        <div class="relatorio-card">
+          <h3>🚚 Desempenho de Entregadores</h3>
+          <ul id="entregadores-top" style="padding: 20px; list-style: none;">
+            <li>Carregando...</li>
+          </ul>
+        </div>
+        <div class="relatorio-card">
+          <h3>📈 Estatísticas Gerais</h3>
+          <div id="stats-gerais" style="padding: 20px;">
+            <p>Ticket médio: <strong id="ticket-medio">0 AKZ</strong></p>
+            <p>Taxa de conversão: <strong id="taxa-conversao">0%</strong></p>
+            <p>Tempo médio de entrega: <strong id="tempo-medio">0h</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONFIGURAÇÕES -->
+    <section id="configuracoes" class="admin-secao">
+      <h2>Configurações do Site</h2>
+      
+      <div class="config-cards">
+        <div class="config-card">
+          <h3>🏪 Informações da Loja</h3>
+          <form id="form-configuracoes">
+            <label>Nome da Loja</label>
+            <input type="text" id="nome-loja" value="Universo da Prata" placeholder="Nome da loja">
+            
+            <label>Telefone Principal</label>
+            <input type="tel" id="telefone-principal" value="+244934803197" placeholder="Telefone">
+            
+            <label>Email</label>
+            <input type="email" id="email-loja" value="universodaprata@gmail.com" placeholder="Email">
+            
+            <label>Horário de Atendimento</label>
+            <input type="text" id="horario-atendimento" value="9:00 - 18:00" placeholder="Ex: 9:00 - 18:00">
+            
+            <button type="button" class="btn-primario" onclick="salvarConfiguracoes()">
+              <i class="fas fa-save"></i> Salvar Configurações
+            </button>
+          </form>
+        </div>
+
+        <div class="config-card">
+          <h3>🔐 Segurança</h3>
+          <button class="btn-perigo" onclick="confirmarAcao('Deseja realmente limpar o cache?', 'limparCache')">
+            <i class="fas fa-trash"></i> Limpar Cache
+          </button>
+          <button class="btn-perigo" onclick="confirmarAcao('Deseja fazer backup dos dados?', 'fazerBackup')">
+            <i class="fas fa-download"></i> Fazer Backup
+          </button>
+          <button class="btn-perigo" onclick="confirmarAcao('Deseja restaurar dados de backup?', 'restaurarBackup')">
+            <i class="fas fa-upload"></i> Restaurar Backup
+          </button>
+        </div>
+
+        <div class="config-card">
+          <h3>🌐 Integração de Categorias</h3>
+          <form id="form-categorias">
+            <label>Adicionar Nova Categoria</label>
+            <div style="display: flex; gap: 10px;">
+              <input type="text" id="nome-categoria" placeholder="Nome da categoria" style="flex: 1;">
+              <button type="button" class="btn-primario" onclick="adicionarCategoria()">Adicionar</button>
+            </div>
+          </form>
+          <div id="lista-categorias" style="margin-top: 20px;">
+            <!-- Categorias adicionadas aqui -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL PRODUTO -->
+  <div id="modal-produto" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-produto')">&times;</span>
+      <h2 id="titulo-modal-produto">Adicionar Novo Produto</h2>
+      
+      <form id="form-produto">
+        <div class="form-grupo">
+          <label>Nome do Produto *</label>
+          <input type="text" id="produto-nome" required>
+        </div>
+
+        <div class="form-grupo">
+          <label>Descrição *</label>
+          <textarea id="produto-descricao" required rows="4"></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label>Categoria *</label>
+            <select id="produto-categoria" required>
+              <option value="">Selecione</option>
+              <option value="anéis">Anéis</option>
+              <option value="colares">Colar</option>
+              <option value="pulseiras">Pulseiras</option>
+              <option value="pingentes">Pingentes</option>
+              <option value="brincos">Brincos</option>
+            </select>
+          </div>
+
+          <div class="form-grupo">
+            <label>Preço (AKZ) *</label>
+            <input type="number" id="produto-preco" required min="0">
+          </div>
+
+          <div class="form-grupo">
+            <label>Estoque *</label>
+            <input type="number" id="produto-estoque" required min="0">
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label>URL da Imagem *</label>
+          <input type="url" id="produto-imagem" required placeholder="https://...">
+          <small>Cole o URL da imagem do produto</small>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-primario">
+            <i class="fas fa-save"></i> Salvar Produto
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-produto')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL ENTREGADOR -->
+  <div id="modal-entregador" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-entregador')">&times;</span>
+      <h2 id="titulo-modal-entregador">Adicionar Novo Entregador</h2>
+      
+      <form id="form-entregador">
+        <div class="form-grupo">
+          <label>Nome Completo *</label>
+          <input type="text" id="entregador-nome" required>
+        </div>
+
+        <div class="form-grupo">
+          <label>Telefone *</label>
+          <input type="tel" id="entregador-telefone" required>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label>Email</label>
+            <input type="email" id="entregador-email">
+          </div>
+
+          <div class="form-grupo">
+            <label>Status *</label>
+            <select id="entregador-status" required>
+              <option value="ativo">Ativo</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label>Zona de Entrega *</label>
+          <input type="text" id="entregador-zona" required placeholder="Ex: Zona 1, Centro">
+        </div>
+
+        <div class="form-grupo">
+          <label>Comissão (%) *</label>
+          <input type="number" id="entregador-comissao" required min="0" max="100" value="10">
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-primario">
+            <i class="fas fa-save"></i> Salvar Entregador
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-entregador')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DETALHES PEDIDO -->
+  <div id="modal-pedido" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-pedido')">&times;</span>
+      <h2>Detalhes do Pedido</h2>
+      
+      <div id="detalhes-pedido">
+        <!-- Preenchido dinamicamente -->
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <select id="novo-status-pedido" style="padding: 10px; border-radius: 8px;">
+          <option value="">Alterar status para:</option>
+          <option value="pendente">Pendente</option>
+          <option value="confirmado">Confirmado</option>
+          <option value="em-entrega">Em Entrega</option>
+          <option value="entregue">Entregue</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+        <button class="btn-primario" onclick="atualizarStatusPedido()">Atualizar</button>
+        <button class="btn-secundario" onclick="fecharModal('modal-pedido')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="margin-top: 60px;">
+    <div class="social">
+      <h3>Painel do Administrador - Universo da Prata</h3>
+      <p>Gerencie todos os dados do seu negócio em um só lugar</p>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../scripts/menu.js"></script>
+  <script src="firebase-init.js"></script>
+  <script src="admin.js"></script>
+
+</body>
+</html>

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carrinho - Universo da Prata</title>
   <link rel="stylesheet" href="css/style.css" />
+  <script src="scripts/notifications.js"></script>
 </head>
 <body>
   <header>
@@ -19,45 +20,8 @@
     </div>
   </main>
 
-  <div id="toast" class="toast" style="display: none;">Produto adicionado ao carrinho!</div>
-
   <script src="/scripts/carrinho.js"></script>
-  <script>
-  document.getElementById("finalizar-compra").addEventListener("click", () => {
-    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-    if (carrinho.length === 0) {
-      alert("O seu carrinho está vazio!");
-    } else {
-      window.location.href = "confirmacao.html";
-    }
-  });
-</script>
-
-  <script>
-    function atualizarNumeroCarrinho() {
-      const icone = document.querySelector('.carrinho-count');
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const total = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
-      if (icone) icone.textContent = total;
-    }
-
-    atualizarNumeroCarrinho();
-  </script>
-
-  <script>
-  function voltarParaOrigem() {
-    const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));
-
-    if (etapa?.origem === "subcategorias") {
-      window.location.href = `subcategorias.html?categoria=${encodeURIComponent(etapa.categoria)}`;
-    } else if (etapa?.origem === "categorias") {
-      window.location.href = "categorias.html";
-    } else {
-      window.history.back(); // Volta para a página anterior
-    }
-  }
-</script>
+  <script defer src="scripts/carrinho-init.js"></script>
 
 <footer>
     <div class="social">

@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         item.addEventListener("click", () => {
-          sessionStorage.setItem("produtoSelecionado", JSON.stringify(produto));
-          window.location.href = "produto.html";
+      localStorage.setItem("produtoSelecionado", produto.nome);
+      window.location.href = "detalhe-produto.html";
         });
 
         resultadosDiv.appendChild(item);

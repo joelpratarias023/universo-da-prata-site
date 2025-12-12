@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escolha de Busca - Universo da Prata</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Detalhes do Produto</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/produto.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="scripts/notifications.js"></script>
 </head>
 <body>
 
-  <!-- Estrelas de fundo -->
+  <!-- Espaço para o menu -->
+  <div style="height: 50px;"></div>
+
+   <!-- Estrelas de fundo -->
   <div class="stars" id="stars-container"></div>
 
-  <!-- Espaço para o menu -->
-  <div style="height: 100px;"></div>
-
-  <!-- Menu fixo -->
+  <!-- Menu fixo no topo -->
   <header class="topo-fixo" id="menu-fixo">
     <div class="menu-container">
 
+      <!-- Ícones à esquerda (apenas mobile) -->
       <div class="menu-esquerda mobile-apenas">
-        <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰
+        </button>
         <a href="buscar.html" class="btn-pesquisa" title="Pesquisar">
           <i class="fas fa-search"></i>
         </a>
       </div>
 
-      <div class="logo-titulo mobile-apenas">
-        <a href="index.html">
-          <img src="logo.png" alt="Logo" class="logo-site" />
-        </a>
-        <div class="titulos">
-          <h1>UNIVERSO DA PRATA</h1>
-          <h2 class="submarca">Joel Pratarias</h2>
-        </div>
-      </div>
-
+      <!-- Logo desktop -->
       <div class="logo-titulo desktop-apenas">
         <a href="index.html">
           <img src="logo.png" alt="Logo" class="logo-site" />
@@ -46,6 +41,18 @@
         </div>
       </div>
 
+      <!-- Logo mobile -->
+      <div class="logo-titulo mobile-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <!-- Carrinho à direita (apenas mobile) -->
       <div class="menu-direita mobile-apenas">
         <a href="carrinho.html" class="btn-carrinho" title="Carrinho">
           <i class="fas fa-shopping-bag"></i>
@@ -53,30 +60,23 @@
         </a>
       </div>
 
+      <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
         <a href="index.html">Início</a>
         <a href="categorias.html">Categorias</a>
         <a href="promocoes.html">Promoções</a>
         <a href="sobre.html">Sobre Nós</a>
         <a href="contato.html">Contato</a>
-        <a href="pesquisa.html">Buscar</a>
+        <a href="buscar.html">Buscar</a>
         <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
       </nav>
-
     </div>
   </header>
 
-  <!-- Conteúdo -->
-  <main class="confirmacao-container">
-    <h1>Como deseja buscar?</h1>
-
-    <div class="opcoes-busca">
-      <a href="pesquisa.html" class="btn-busca">Pesquisar Produtos</a>
-      <a href="pesquisa-descricao.html" class="btn-busca">Enviar Descrição + Foto</a>
-    </div>
+  <main class="detalhe-container">
+    <div id="detalhe-produto"></div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="social">
       <h3>Visite e sinta-se especial nas nossas redes</h3>
@@ -90,8 +90,11 @@
     <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Scripts -->
-  <script defer src="scripts/buscar-init.js"></script>
+  <!-- Scripts de produtos -->
+  <script src="scripts/produto.js"></script>
+  <script defer src="scripts/stars-product.js"></script>
+  <script defer src="scripts/menu.js"></script>
+  <script defer src="scripts/detalhe-produto.js"></script>
 
 </body>
 </html>

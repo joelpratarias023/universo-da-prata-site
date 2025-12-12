@@ -15,11 +15,13 @@ function enviarWhatsApp() {
   const obs = document.getElementById('observacoes').value.trim();
 
   if (!nome || !localizacao) {
-    alert("Por favor, preencha os campos obrigatórios.");
+    showWarning("Por favor, preencha os campos obrigatórios.", 4000);
     return;
   }
 
   const mensagem = `Olá! Meu nome é ${nome}.\nGostaria de pedir o serviço de manutenção: ${tipo}.\nEstou em ${localizacao}.\nObservações: ${obs || 'Nenhuma'}`;
   const url = `https://wa.me/244934803197?text=${encodeURIComponent(mensagem)}`;
   window.open(url, '_blank');
+  showSuccess("Abrindo WhatsApp...", 2000);
+  fecharModal();
 }
