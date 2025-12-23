@@ -28,12 +28,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function toggleMenu(){
   const menu = document.querySelector('.menu-navegacao');
+  if (!menu) return;
   menu.classList.toggle('mobile-escondido');
   menu.classList.toggle('mobile-visivel');
 }
 
 function ajustarMenuParaTamanhoTela(){
   const menu = document.querySelector('.menu-navegacao');
+  if (!menu) return;
   if(window.innerWidth > 768){
     menu.classList.remove('mobile-escondido', 'mobile-visivel');
   } else {

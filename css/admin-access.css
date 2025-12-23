@@ -14,6 +14,98 @@
       justify-content: center;
       padding: 20px;
     }
+
+    /* Layout novo (login admin) */
+    .admin-access-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .admin-access-card {
+      max-width: 520px;
+      width: 100%;
+      background-color: #1a1a1a;
+      border: 2px solid #ffd700;
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2);
+    }
+
+    .admin-access-form {
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .campo {
+      margin-bottom: 14px;
+    }
+
+    .campo label {
+      display: block;
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .campo input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #0f0f0f;
+      color: #fff;
+      outline: none;
+    }
+
+    .campo input:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.12);
+    }
+
+    .btn-admin-access {
+      width: 100%;
+      display: inline-block;
+      background: linear-gradient(135deg, #ffd700 0%, #e6c000 100%);
+      color: #0f0f0f;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-admin-access:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.35);
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      color: #aaa;
+      text-decoration: none;
+      padding: 10px 12px;
+      border: 1px solid #333;
+      border-radius: 8px;
+    }
+
+    .btn-voltar:hover {
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+
+    .admin-access-info {
+      margin-top: 18px;
+      color: #aaa;
+      font-size: 13px;
+      text-align: center;
+    }
     
     .container {
       max-width: 600px;

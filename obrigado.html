@@ -6,12 +6,21 @@
   <title>Pedido Confirmado</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script defer src="scripts/stars.js"></script>
+  <script defer src="scripts/menu.js"></script>
+  <script defer src="scripts/navegacao.js"></script>
   <style>
     body {
       background-color: #000;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+    }
+
+    .conteudo {
+      flex: 1;
+      margin-top: 100px;
+      width: 100%;
     }
 
     .mensagem {
@@ -61,10 +70,14 @@
   </style>
 </head>
 <body>
-  <!-- Menu fixo -->
+  <!-- Estrelas de fundo -->
+  <div class="stars" id="stars-container"></div>
+
+  <!-- Menu fixo no topo -->
   <header class="topo-fixo" id="menu-fixo">
     <div class="menu-container">
-      <div class="logo-titulo">
+      <!-- Logo alinhado à esquerda (apenas desktop) -->
+      <div class="logo-titulo desktop-apenas">
         <a href="index.html">
           <img src="logo.png" alt="Logo" class="logo-site" />
         </a>
@@ -73,7 +86,38 @@
           <h2 class="submarca">Joel Pratarias</h2>
         </div>
       </div>
-      <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+
+      <!-- Botões à esquerda (apenas mobile) -->
+      <div class="menu-esquerda mobile-apenas">
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰</button>
+        <a href="buscar.html" class="btn-pesquisa" title="Pesquisar">
+          <i class="fas fa-search"></i>
+        </a>
+      </div>
+
+      <!-- Logo centralizado (apenas mobile) -->
+      <div class="logo-titulo mobile-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <!-- Ícones à direita (apenas mobile) -->
+      <div class="menu-direita mobile-apenas">
+        <a href="carrinho.html" class="btn-carrinho" title="Carrinho">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="carrinho-count">0</span>
+        </a>
+        <a href="#" id="login-btn-mobile" class="btn-login" title="Entrar">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+
+      <!-- Menu de navegação -->
       <nav class="menu-navegacao mobile-escondido">
         <a href="index.html">Início</a>
         <a href="categorias.html">Categorias</a>
@@ -81,13 +125,11 @@
         <a href="sobre.html">Sobre Nós</a>
         <a href="contato.html">Contato</a>
         <a href="buscar.html">Buscar</a>
-        <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
+        <a href="#" id="login-btn">Entrar / Criar conta</a>
+        <a href="carrinho.html">Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
   </header>
-
-  <!-- Estrelas de fundo -->
-  <div class="stars" id="stars-container"></div>
 
   <!-- Conteúdo Principal -->
   <main class="conteudo">
@@ -113,5 +155,42 @@
   </footer>
 
   <script defer src="scripts/obrigado-init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
+  <script defer src="scripts/config.js"></script>
+  <script defer src="scripts/auth.js"></script>
+  <!-- Modal de autenticação (Login / Cadastro) -->
+  <div id="auth-modal" class="auth-modal" style="display:none;">
+    <div class="auth-modal-content">
+      <button id="auth-close" class="auth-close">✕</button>
+      <div class="auth-tabs">
+        <button id="tab-login" class="active">Entrar</button>
+        <button id="tab-signup">Criar conta</button>
+      </div>
+
+      <div id="auth-messages" style="color:crimson;margin:8px 0"></div>
+
+      <form id="login-form" class="auth-form">
+        <label>Email</label>
+        <input type="email" id="login-email" required />
+        <label>Senha</label>
+        <input type="password" id="login-password" required />
+        <button type="submit">Entrar</button>
+      </form>
+
+      <form id="signup-form" class="auth-form" style="display:none;">
+        <label>Nome completo</label>
+        <input type="text" id="signup-name" />
+        <label>Email</label>
+        <input type="email" id="signup-email" required />
+        <label>Senha</label>
+        <input type="password" id="signup-password" required />
+        <button type="submit">Criar Conta</button>
+      </form>
+
+      <div id="auth-footer" style="margin-top:12px;">
+        <button id="signout-btn" style="display:none;">Sair</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

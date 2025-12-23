@@ -10,14 +10,16 @@ function carregarCarrinho() {
   let total = 0;
 
   if (carrinho.length === 0) {
-  carrinhoContainer.innerHTML = `
-    <div class="carrinho-vazio">
-      <img src="imagens/carrinho-vazio.png" alt="Carrinho vazio" />
-    </div>
-  `;
-  totalSpan.textContent = "0 Kz";
-  return;
-}
+    if (carrinhoContainer) {
+      carrinhoContainer.innerHTML = `
+        <div class="carrinho-vazio">
+          <img src="imagens/carrinho-vazio.png" alt="Carrinho vazio" />
+        </div>
+      `;
+    }
+    if (totalSpan) totalSpan.textContent = "0 Kz";
+    return;
+  }
 
   carrinho.forEach((produto, index) => {
     // Criação do item visual
@@ -37,14 +39,17 @@ function carregarCarrinho() {
     carrinhoContainer.appendChild(item);
 
     // Soma ao total (remove "AKZ", pontos e espaços)
-    const precoNumerico = parseFloat(produto.preco.replace(/[^\d,]/g, "").replace(",", "."));
+    const precoStr = (produto.preco == null) ? '0' : String(produto.preco);
+    const precoNumerico = parseFloat(precoStr.replace(/[^\d,]/g, "").replace(",", ".")) || 0;
     total += precoNumerico;
   });
 
-  totalSpan.textContent = `AKZ ${total.toLocaleString("pt-AO", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })}`;
+  if (totalSpan) {
+    totalSpan.textContent = `AKZ ${total.toLocaleString("pt-AO", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })}`;
+  }
 
   // Adiciona eventos de remoção
   document.querySelectorAll(".remover").forEach(botao => {

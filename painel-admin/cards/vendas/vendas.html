@@ -1,0 +1,35 @@
+<!-- Modal de Vendas -->
+<div id="modal-vendas" class="modal-card" style="display: none;">
+  <div class="modal-card-conteudo">
+    <button class="btn-fechar-modal" onclick="fecharModalCard('modal-vendas')">✕</button>
+    <h2>💰 Vendas do Dia</h2>
+    
+    <div class="card-filtros">
+      <input type="date" id="filtro-data-vendas" onchange="filtrarVendasCard()">
+    </div>
+
+    <div class="card-lista">
+      <table class="tabela-card">
+        <thead>
+          <tr>
+            <th>ID Pedido</th>
+            <th>Cliente</th>
+            <th>Produtos</th>
+            <th>Valor</th>
+            <th>Hora</th>
+          </tr>
+        </thead>
+        <tbody id="lista-vendas-card">
+          <tr><td colspan="5" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-resumo">
+      <h3>Resumo de Vendas</h3>
+      <p>Total de Vendas: <strong id="total-vendas-resumo">0</strong></p>
+      <p>Valor Total: <strong id="valor-total-vendas">0 AKZ</strong></p>
+      <p>Ticket Médio: <strong id="ticket-medio-vendas">0 AKZ</strong></p>
+    </div>
+  </div>
+</div>

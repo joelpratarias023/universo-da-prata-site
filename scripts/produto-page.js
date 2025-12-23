@@ -4,6 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const produtoId = localStorage.getItem("produtoSelecionado");
   const container = document.getElementById("produto-detalhes");
 
+  if (!container) return;
+  if (typeof produtos === 'undefined' || !Array.isArray(produtos)) {
+    container.innerHTML = "<p>Produtos não disponíveis.</p>";
+    return;
+  }
+
   const produtosFiltrados = produtos.filter(p => p.id === produtoId);
 
   if (produtosFiltrados.length > 0) {

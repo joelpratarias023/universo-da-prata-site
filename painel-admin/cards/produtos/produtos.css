@@ -1,0 +1,205 @@
+/* ESTILOS DO CARD DE PRODUTOS */
+
+.modal-card {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-card-conteudo {
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideInDown 0.3s ease;
+}
+
+.btn-fechar-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.btn-fechar-modal:hover {
+  color: #ffd700;
+}
+
+.modal-card-conteudo h2 {
+  margin-bottom: 20px;
+  color: #ffd700;
+  text-align: center;
+}
+
+.card-filtros {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.card-filtros input,
+.card-filtros select {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px;
+  background: #111;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.card-filtros input::placeholder {
+  color: #666;
+}
+
+.card-filtros input:focus,
+.card-filtros select:focus {
+  border-color: #ffd700;
+  outline: none;
+}
+
+.card-lista {
+  margin: 20px 0;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+.tabela-card {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela-card thead {
+  background: #0f0f0f;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tabela-card th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #333;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.tabela-card td {
+  padding: 12px;
+  border-bottom: 1px solid #222;
+}
+
+.tabela-card tr:hover {
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.btn-pequeno {
+  padding: 6px 12px;
+  margin-right: 5px;
+  background: #ffd700;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.btn-pequeno:hover {
+  background: #ffed4e;
+  transform: scale(1.05);
+}
+
+.btn-pequeno.btn-danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.btn-pequeno.btn-danger:hover {
+  background: #f87171;
+}
+
+.card-resumo {
+  background: #0f0f0f;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  border-left: 4px solid #ffd700;
+}
+
+.card-resumo h3 {
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+
+.card-resumo p {
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #222;
+}
+
+.card-resumo p:last-child {
+  border-bottom: none;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-card-conteudo {
+    padding: 20px;
+    max-height: 85vh;
+  }
+
+  .card-filtros {
+    flex-direction: column;
+  }
+
+  .card-filtros input,
+  .card-filtros select {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .tabela-card {
+    font-size: 12px;
+  }
+
+  .tabela-card th,
+  .tabela-card td {
+    padding: 8px;
+  }
+}

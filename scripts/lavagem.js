@@ -24,4 +24,7 @@ function enviarWhatsApp() {
   window.open(url, '_blank');
   showSuccess("Abrindo WhatsApp...", 2000);
   fecharModal();
+  setTimeout(() => {
+    window.location.href = 'obrigado.html';
+  }, 400);
 }

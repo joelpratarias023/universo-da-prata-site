@@ -1,0 +1,44 @@
+<!-- Modal dos Pedidos -->
+<div id="modal-pedidos" class="modal-card" style="display: none;">
+  <div class="modal-card-conteudo">
+    <button class="btn-fechar-modal" onclick="fecharModalCard('modal-pedidos')">✕</button>
+    <h2>🛍️ Gestão de Pedidos</h2>
+    
+    <div class="card-filtros">
+      <input type="text" id="filtro-pedidos-card" placeholder="🔍 Buscar pedido..." onkeyup="filtrarPedidosCard()">
+      <select id="filtro-status-pedido-card" onchange="filtrarPedidosCard()">
+        <option value="">Todos os status</option>
+        <option value="pendente">Pendente</option>
+        <option value="confirmado">Confirmado</option>
+        <option value="em-entrega">Em Entrega</option>
+        <option value="entregue">Entregue</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+    </div>
+
+    <div class="card-lista">
+      <table class="tabela-card">
+        <thead>
+          <tr>
+            <th>ID Pedido</th>
+            <th>Cliente</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-pedidos-card">
+          <tr><td colspan="6" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-resumo">
+      <h3>Resumo</h3>
+      <p>Total de Pedidos: <strong id="total-pedidos-resumo">0</strong></p>
+      <p>Valor Total: <strong id="valor-total-pedidos">0 AKZ</strong></p>
+      <p>Pedidos Pendentes: <strong id="pedidos-pendentes-resumo">0</strong></p>
+    </div>
+  </div>
+</div>

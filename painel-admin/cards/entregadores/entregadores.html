@@ -1,0 +1,41 @@
+<!-- Modal dos Entregadores -->
+<div id="modal-entregadores" class="modal-card" style="display: none;">
+  <div class="modal-card-conteudo">
+    <button class="btn-fechar-modal" onclick="fecharModalCard('modal-entregadores')">✕</button>
+    <h2>🚚 Gestão de Entregadores</h2>
+    
+    <div class="card-filtros">
+      <input type="text" id="filtro-entregadores-card" placeholder="🔍 Buscar entregador..." onkeyup="filtrarEntregadoresCard()">
+      <select id="filtro-status-entregador-card" onchange="filtrarEntregadoresCard()">
+        <option value="">Todos os status</option>
+        <option value="ativo">Ativo</option>
+        <option value="inativo">Inativo</option>
+        <option value="em-entrega">Em Entrega</option>
+      </select>
+    </div>
+
+    <div class="card-lista">
+      <table class="tabela-card">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Entregas</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-entregadores-card">
+          <tr><td colspan="5" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-resumo">
+      <h3>Resumo</h3>
+      <p>Total de Entregadores: <strong id="total-entregadores-resumo">0</strong></p>
+      <p>Entregadores Ativos: <strong id="entregadores-ativos">0</strong></p>
+      <p>Total de Entregas: <strong id="total-entregas">0</strong></p>
+    </div>
+  </div>
+</div>

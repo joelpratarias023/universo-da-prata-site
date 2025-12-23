@@ -6,19 +6,24 @@
   <title>Painel do Administrador - Universo da Prata</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="cards/cards.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="../scripts/notifications.js"></script>
   <script>
-    // Suppress Chrome extension error messages
-    if (chrome && chrome.runtime) {
-      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        return false;
-      });
+    // Tratamento de erros cross-browser (funciona em Chrome, Firefox, Safari, Edge, etc)
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+      try {
+        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+          return false;
+        });
+      } catch (e) {
+        // Silenciosamente ignorar erros específicos do navegador
+      }
     }
     
-    // Suppress async listener errors in console
+    // Suprimir erros de async listener - funciona em todos os navegadores
     window.addEventListener('unhandledrejection', (event) => {
-      if (event.reason?.message?.includes('listener indicated an asynchronous response')) {
+      if (event.reason && event.reason.message && event.reason.message.includes('listener indicated an asynchronous response')) {
         event.preventDefault();
       }
     });
@@ -44,20 +49,18 @@
       </div>
 
       <nav class="menu-navegacao mobile-escondido" id="menu-admin">
-        <a href="#dashboard" onclick="mostrarSecao('dashboard')">📊 Dashboard</a>
-        <a href="#produtos" onclick="mostrarSecao('produtos')">📦 Produtos</a>
-        <a href="#entregadores" onclick="mostrarSecao('entregadores')">🚚 Entregadores</a>
-        <a href="#pedidos" onclick="mostrarSecao('pedidos')">🛍️ Pedidos</a>
-        <a href="#clientes" onclick="mostrarSecao('clientes')">👥 Clientes</a>
-        <a href="#relatorios" onclick="mostrarSecao('relatorios')">📈 Relatórios</a>
-        <a href="#configuracoes" onclick="mostrarSecao('configuracoes')">⚙️ Configurações</a>
+        <a href="#dashboard" onclick="mostrarSecao('dashboard')">Dashboard</a>
+        <a href="#produtos" onclick="mostrarSecao('produtos')">Produtos</a>
+        <a href="#entregadores" onclick="mostrarSecao('entregadores')">Entregadores</a>
+        <a href="#pedidos" onclick="mostrarSecao('pedidos')">Pedidos</a>
+        <a href="#clientes" onclick="mostrarSecao('clientes')">Clientes</a>
+        <a href="#relatorios" onclick="mostrarSecao('relatorios')">Relatórios</a>
+        <a href="#configuracoes" onclick="mostrarSecao('configuracoes')">Configurações</a>
         <a href="../index.html" style="color: #ffd700; margin-top: 20px;">← Voltar ao Site</a>
       </nav>
     </div>
   </header>
 
-  <!-- Espaço para menu -->
-  <div style="height: 100px;"></div>
 
   <!-- Container principal -->
   <main class="admin-container">
@@ -66,33 +69,33 @@
     <section id="dashboard" class="admin-secao ativa">
       <h2>Dashboard</h2>
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">📦</div>
+        <div class="stat-card" onclick="abrirCardProdutos()" style="cursor: pointer;">
+          <div class="stat-icon"></div>
           <h3>Total de Produtos</h3>
           <p class="stat-numero" id="total-produtos">0</p>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon">🚚</div>
+        <div class="stat-card" onclick="abrirCardEntregadores()" style="cursor: pointer;">
+          <div class="stat-icon"></div>
           <h3>Entregadores</h3>
           <p class="stat-numero" id="total-entregadores">0</p>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon">🛍️</div>
+        <div class="stat-card" onclick="abrirCardPedidos()" style="cursor: pointer;">
+          <div class="stat-icon"></div>
           <h3>Pedidos Pendentes</h3>
           <p class="stat-numero" id="pedidos-pendentes">0</p>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon">👥</div>
+        <div class="stat-card" onclick="abrirCardClientes()" style="cursor: pointer;">
+          <div class="stat-icon"></div>
           <h3>Total de Clientes</h3>
           <p class="stat-numero" id="total-clientes">0</p>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon">💰</div>
+        <div class="stat-card" onclick="abrirCardVendas()" style="cursor: pointer;">
+          <div class="stat-icon"></div>
           <h3>Vendas Hoje</h3>
           <p class="stat-numero" id="vendas-hoje">0 AKZ</p>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon">⭐</div>
+        <div class="stat-card" onclick="abrirCardAvaliacao()" style="cursor: pointer;">
+          <div class="stat-icon"></div>
           <h3>Avaliação Média</h3>
           <p class="stat-numero" id="avaliacao-media">4.5/5</p>
         </div>
@@ -335,6 +338,244 @@
 
   </main>
 
+  <!-- CARDS MODAIS -->
+  
+  <!-- Modal dos Produtos -->
+  <div id="modal-produtos" class="modal-card" style="display: none;">
+    <div class="modal-card-conteudo">
+      <button class="btn-fechar-modal" onclick="fecharModalCard('modal-produtos')">✕</button>
+      <h2>📦 Gestão de Produtos</h2>
+      
+      <div class="card-filtros">
+        <input type="text" id="filtro-produtos-card" placeholder="🔍 Buscar produto..." onkeyup="filtrarProdutosCard()">
+        <select id="filtro-categoria-card" onchange="filtrarProdutosCard()">
+          <option value="">Todas as categorias</option>
+          <option value="anéis">Anéis</option>
+          <option value="colares">Colares</option>
+          <option value="pulseiras">Pulseiras</option>
+          <option value="brincos">Brincos</option>
+          <option value="pingentes">Pingentes</option>
+        </select>
+      </div>
+
+      <div class="card-lista">
+        <table class="tabela-card">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-produtos-card">
+            <tr><td colspan="5" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-resumo">
+        <h3>Resumo</h3>
+        <p>Total de Produtos: <strong id="total-produtos-resumo">0</strong></p>
+        <p>Valor Total em Estoque: <strong id="valor-estoque">0 AKZ</strong></p>
+        <p>Produtos com Baixo Estoque: <strong id="baixo-estoque">0</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal dos Entregadores -->
+  <div id="modal-entregadores" class="modal-card" style="display: none;">
+    <div class="modal-card-conteudo">
+      <button class="btn-fechar-modal" onclick="fecharModalCard('modal-entregadores')">✕</button>
+      <h2>🚚 Gestão de Entregadores</h2>
+      
+      <div class="card-filtros">
+        <input type="text" id="filtro-entregadores-card" placeholder="🔍 Buscar entregador..." onkeyup="filtrarEntregadoresCard()">
+        <select id="filtro-status-entregador-card" onchange="filtrarEntregadoresCard()">
+          <option value="">Todos os status</option>
+          <option value="ativo">Ativo</option>
+          <option value="inativo">Inativo</option>
+          <option value="em-entrega">Em Entrega</option>
+        </select>
+      </div>
+
+      <div class="card-lista">
+        <table class="tabela-card">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Status</th>
+              <th>Entregas</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-entregadores-card">
+            <tr><td colspan="5" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-resumo">
+        <h3>Resumo</h3>
+        <p>Total de Entregadores: <strong id="total-entregadores-resumo">0</strong></p>
+        <p>Entregadores Ativos: <strong id="entregadores-ativos">0</strong></p>
+        <p>Total de Entregas: <strong id="total-entregas">0</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal dos Pedidos -->
+  <div id="modal-pedidos" class="modal-card" style="display: none;">
+    <div class="modal-card-conteudo">
+      <button class="btn-fechar-modal" onclick="fecharModalCard('modal-pedidos')">✕</button>
+      <h2>🛍️ Gestão de Pedidos</h2>
+      
+      <div class="card-filtros">
+        <input type="text" id="filtro-pedidos-card" placeholder="🔍 Buscar pedido..." onkeyup="filtrarPedidosCard()">
+        <select id="filtro-status-pedido-card" onchange="filtrarPedidosCard()">
+          <option value="">Todos os status</option>
+          <option value="pendente">Pendente</option>
+          <option value="confirmado">Confirmado</option>
+          <option value="em-entrega">Em Entrega</option>
+          <option value="entregue">Entregue</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+
+      <div class="card-lista">
+        <table class="tabela-card">
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Cliente</th>
+              <th>Valor</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-pedidos-card">
+            <tr><td colspan="6" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-resumo">
+        <h3>Resumo</h3>
+        <p>Total de Pedidos: <strong id="total-pedidos-resumo">0</strong></p>
+        <p>Valor Total: <strong id="valor-total-pedidos">0 AKZ</strong></p>
+        <p>Pedidos Pendentes: <strong id="pedidos-pendentes-resumo">0</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal dos Clientes -->
+  <div id="modal-clientes" class="modal-card" style="display: none;">
+    <div class="modal-card-conteudo">
+      <button class="btn-fechar-modal" onclick="fecharModalCard('modal-clientes')">✕</button>
+      <h2>👥 Gestão de Clientes</h2>
+      
+      <div class="card-filtros">
+        <input type="text" id="filtro-clientes-card" placeholder="🔍 Buscar cliente..." onkeyup="filtrarClientesCard()">
+      </div>
+
+      <div class="card-lista">
+        <table class="tabela-card">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Email</th>
+              <th>Pedidos</th>
+              <th>Gasto Total</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-clientes-card">
+            <tr><td colspan="6" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-resumo">
+        <h3>Resumo</h3>
+        <p>Total de Clientes: <strong id="total-clientes-resumo">0</strong></p>
+        <p>Gasto Total de Clientes: <strong id="gasto-total-clientes">0 AKZ</strong></p>
+        <p>Ticket Médio: <strong id="ticket-medio-clientes">0 AKZ</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Vendas -->
+  <div id="modal-vendas" class="modal-card" style="display: none;">
+    <div class="modal-card-conteudo">
+      <button class="btn-fechar-modal" onclick="fecharModalCard('modal-vendas')">✕</button>
+      <h2>💰 Vendas do Dia</h2>
+      
+      <div class="card-filtros">
+        <input type="date" id="filtro-data-vendas" onchange="filtrarVendasCard()">
+      </div>
+
+      <div class="card-lista">
+        <table class="tabela-card">
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Cliente</th>
+              <th>Produtos</th>
+              <th>Valor</th>
+              <th>Hora</th>
+            </tr>
+          </thead>
+          <tbody id="lista-vendas-card">
+            <tr><td colspan="5" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-resumo">
+        <h3>Resumo de Vendas</h3>
+        <p>Total de Vendas: <strong id="total-vendas-resumo">0</strong></p>
+        <p>Valor Total: <strong id="valor-total-vendas">0 AKZ</strong></p>
+        <p>Ticket Médio: <strong id="ticket-medio-vendas">0 AKZ</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal das Avaliações -->
+  <div id="modal-avaliacoes" class="modal-card" style="display: none;">
+    <div class="modal-card-conteudo">
+      <button class="btn-fechar-modal" onclick="fecharModalCard('modal-avaliacoes')">✕</button>
+      <h2>⭐ Avaliações</h2>
+      
+      <div class="card-filtros">
+        <select id="filtro-estrelas-card" onchange="filtrarAvaliacoesCard()">
+          <option value="">Todas as avaliações</option>
+          <option value="5">⭐⭐⭐⭐⭐ (5 estrelas)</option>
+          <option value="4">⭐⭐⭐⭐ (4 estrelas)</option>
+          <option value="3">⭐⭐⭐ (3 estrelas)</option>
+          <option value="2">⭐⭐ (2 estrelas)</option>
+          <option value="1">⭐ (1 estrela)</option>
+        </select>
+      </div>
+
+      <div class="card-lista">
+        <div id="lista-avaliacoes-card" style="padding: 20px;">
+          <p style="text-align: center;">Carregando...</p>
+        </div>
+      </div>
+
+      <div class="card-resumo">
+        <h3>Resumo de Avaliações</h3>
+        <p>Total de Avaliações: <strong id="total-avaliacoes-resumo">0</strong></p>
+        <p>Avaliação Média: <strong id="media-avaliacoes">0/5</strong></p>
+        <p>Avaliações 5⭐: <strong id="avaliacoes-5-resumo">0</strong></p>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL PRODUTO -->
   <div id="modal-produto" class="modal">
     <div class="modal-content">
@@ -479,13 +720,21 @@
       <h3>Painel do Administrador - Universo da Prata</h3>
       <p>Gerencie todos os dados do seu negócio em um só lugar</p>
     </div>
-    <p style="margin-top: 20px;">&copy; 2025 Universo da Prata. Todos os direitos reservados.</p>
+    <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
 
   <!-- Scripts -->
   <script src="../scripts/menu.js"></script>
   <script src="firebase-init.js"></script>
   <script src="admin.js"></script>
-
+  
+  <!-- Scripts dos Cards -->
+  <script src="cards/cards-init.js"></script>
+  <script src="cards/produtos/produtos.js"></script>
+  <script src="cards/entregadores/entregadores.js"></script>
+  <script src="cards/pedidos/pedidos.js"></script>
+  <script src="cards/clientes/clientes.js"></script>
+  <script src="cards/vendas/vendas.js"></script>
+  <script src="cards/avaliacoes/avaliacoes.js"></script>
 </body>
 </html>

@@ -1,0 +1,31 @@
+<!-- Modal de Avaliações -->
+<div id="modal-avaliacoes" class="modal-card" style="display: none;">
+  <div class="modal-card-conteudo">
+    <button class="btn-fechar-modal" onclick="fecharModalCard('modal-avaliacoes')">✕</button>
+    <h2>⭐ Avaliações</h2>
+    
+    <div class="card-filtros">
+      <select id="filtro-estrelas-card" onchange="filtrarAvaliacoesCard()">
+        <option value="">Todas as avaliações</option>
+        <option value="5">⭐⭐⭐⭐⭐ (5 estrelas)</option>
+        <option value="4">⭐⭐⭐⭐ (4 estrelas)</option>
+        <option value="3">⭐⭐⭐ (3 estrelas)</option>
+        <option value="2">⭐⭐ (2 estrelas)</option>
+        <option value="1">⭐ (1 estrela)</option>
+      </select>
+    </div>
+
+    <div class="card-lista">
+      <div id="lista-avaliacoes-card" style="padding: 20px;">
+        <p style="text-align: center;">Carregando...</p>
+      </div>
+    </div>
+
+    <div class="card-resumo">
+      <h3>Resumo de Avaliações</h3>
+      <p>Total de Avaliações: <strong id="total-avaliacoes-resumo">0</strong></p>
+      <p>Avaliação Média: <strong id="media-avaliacoes">0/5</strong></p>
+      <p>Avaliações 5⭐: <strong id="avaliacoes-5-resumo">0</strong></p>
+    </div>
+  </div>
+</div>

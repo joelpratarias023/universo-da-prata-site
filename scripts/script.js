@@ -3,6 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoriasContainer = document.getElementById('categorias');
   const subcategoriasSection = document.getElementById('subcategorias');
   const titulo = document.getElementById('subcategoria-titulo');
+  // If required DOM elements are missing, define safe no-op handlers
+  if (!subcategoriasContainer || !categoriasContainer || !subcategoriasSection || !titulo) {
+    window.mostrarSubcategorias = function() { return; };
+    window.voltarCategorias = function() { return; };
+    window.abrirProdutos = function(categoria, publico) {
+      const id = `${categoria}-${publico}`;
+      localStorage.setItem('produtoSelecionado', id);
+      window.location.href = 'produto.html';
+    };
+    return;
+  }
 
   window.mostrarSubcategorias = function(nomeCategoria) {
     subcategoriasContainer.innerHTML = '';

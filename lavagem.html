@@ -6,11 +6,11 @@
   <title>Serviço de Lavagem</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="scripts/notifications.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
+  <script defer src="scripts/config.js"></script>
+  <script defer src="scripts/auth.js"></script>
 </head>
 <body>
-
-  <!-- Espaço para o menu -->
-  <div style="height: 50px;"></div>
 
   <!-- Estrelas de fundo -->
   <div class="stars" id="stars-container"></div>
@@ -55,6 +55,9 @@
           <i class="fas fa-shopping-bag"></i>
           <span class="carrinho-count">0</span>
         </a>
+        <a href="#" id="login-btn-mobile" class="btn-login" title="Entrar">
+          <i class="fas fa-user"></i>
+        </a>
       </div>
 
       <!-- Menu de navegação -->
@@ -65,7 +68,8 @@
         <a href="sobre.html">Sobre Nós</a>
         <a href="contato.html">Contato</a>
         <a href="buscar.html">Buscar</a>
-        <a href="carrinho.html">🛒Carrinho <span class="carrinho-count">0</span></a>
+        <a href="#" id="login-btn">Entrar / Criar conta</a>
+        <a href="carrinho.html">Carrinho <span class="carrinho-count">0</span></a>
       </nav>
     </div>
   </header>
@@ -119,5 +123,53 @@
   <script src="scripts/lavagem.js"></script>
   <script defer src="scripts/carrinho-update.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Modal de autenticação (Login / Cadastro) -->
+  <div id="auth-modal" class="auth-modal" style="display:none;">
+    <div class="auth-modal-content">
+      <button id="auth-close" class="auth-close">✕</button>
+      <div class="auth-tabs">
+        <button id="tab-login" class="active">Entrar</button>
+        <button id="tab-signup">Criar conta</button>
+      </div>
+
+      <div id="auth-messages" style="color:crimson;margin:8px 0"></div>
+
+      <form id="login-form" class="auth-form">
+        <label>Email</label>
+        <input type="email" id="login-email" required />
+        <label>Senha</label>
+        <input type="password" id="login-password" required />
+        <button type="submit">Entrar</button>
+      </form>
+
+      <form id="signup-form" class="auth-form" style="display:none;">
+        <label>Nome completo</label>
+        <input type="text" id="signup-name" />
+        <label>Email</label>
+        <input type="email" id="signup-email" required />
+        <label>Senha</label>
+        <input type="password" id="signup-password" required />
+        <button type="submit">Criar Conta</button>
+      </form>
+
+      <div id="auth-footer" style="margin-top:12px;">
+        <button id="signout-btn" style="display:none;">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
 </body>
 </html>

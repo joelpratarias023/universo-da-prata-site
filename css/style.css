@@ -293,17 +293,15 @@ footer {
 }
 
 
-/* Menu fixo */
+/* Menu (fixo sem quebrar layout): sticky mantém o header no fluxo */
 .topo-fixo {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   width: 100%;
   background: #000;
-  padding: 5px 20px;
+  padding: 8px 20px;
   z-index: 10000;
-  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.08);
   box-sizing: border-box;
 }
 
@@ -312,6 +310,10 @@ footer {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 10px;
 }
 
 .logo-titulo {
@@ -340,6 +342,7 @@ footer {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .menu-navegacao a {
@@ -379,28 +382,27 @@ footer {
     display: block;
   }
 
-.menu-navegacao {
-  position: fixed;
-  top: 0;
-  left: -250px; /* muda de 'right' para 'left' */
-  width: 175px;
-  height: 100%;
-  background-color: #111;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding-top: 70px;
-  transition: left 0.3s ease-in-out;
-  z-index: 999;
-}
-.menu-navegacao.mobile-visivel {
-  left: 0; /* muda de 'right' para 'left' */
-}
-
+  .menu-navegacao {
+    position: fixed;
+    top: 0;
+    left: -250px; /* muda de 'right' para 'left' */
+    width: 175px;
+    height: 100%;
+    background-color: #111;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 70px;
+    transition: left 0.3s ease-in-out;
+    z-index: 10001;
+  }
+  .menu-navegacao.mobile-visivel {
+    left: 0; /* muda de 'right' para 'left' */
+  }
 
   .menu-navegacao a {
     padding: 10px 0;
-    width:100%;
+    width: 100%;
     border-bottom: 1px solid #222;
     color: white;
     text-decoration: none;
@@ -408,6 +410,132 @@ footer {
 
   .menu-navegacao a:hover {
     background-color: #333;
+  }
+}
+
+/* Modal de autenticação */
+body.auth-modal-open {
+  overflow: hidden;
+}
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10002;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.auth-modal-content {
+  background: linear-gradient(180deg, #0d0d0d, #111);
+  border-radius: 10px;
+  padding: 18px;
+  width: 420px;
+  max-width: calc(100% - 40px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  position: relative;
+}
+.auth-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+.auth-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.auth-tabs button {
+  background: transparent;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  flex: 1;
+}
+.auth-tabs button.active {
+  background: #222;
+  border-color: #ffd700;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.auth-form label {
+  font-size: 13px;
+  color: #ddd;
+}
+.auth-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #2a2a2a;
+  background: #0f0f0f;
+  color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.auth-form input:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.18);
+}
+.auth-form button {
+  margin-top: 6px;
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #ffd700;
+  color: #000;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.2s ease, transform 0.06s ease;
+}
+.auth-form button:hover {
+  background: #e6c200;
+}
+.auth-form button:active {
+  transform: translateY(1px);
+}
+.auth-footer {
+  text-align: right;
+  margin-top: 8px;
+}
+
+.auth-switch {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #ccc;
+}
+.auth-switch button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #ffd700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .auth-modal-content {
+    width: 92%;
+    padding: 12px;
+  }
+  .auth-tabs {
+    gap: 6px;
   }
 }
 
@@ -849,10 +977,11 @@ footer {
   margin-bottom: 6px;
 }
 
+/* ===== FORMULÁRIOS (SITE) ===== */
 form label {
   display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
+  margin-bottom: 8px;
+  font-weight: 600;
   color: #333;
 }
 
@@ -860,55 +989,67 @@ form input,
 form textarea,
 form select {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
   font-size: 15px;
   font-family: inherit;
+  background-color: #fff;
+  color: #000;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #777;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.22);
 }
 
 form textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 90px;
 }
 
 form button {
-  background-color: #0066cc;
-  color: white;
+  background-color: #ffd700;
+  color: #000;
   padding: 14px 24px;
   font-size: 16px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   width: 100%;
-  transition: background 0.3s;
+  font-weight: 800;
+  transition: background 0.2s ease, transform 0.06s ease;
 }
 
 form button:hover {
-  background-color: #004d99;
+  background-color: #e6c200;
+}
+
+form button:active {
+  transform: translateY(1px);
+}
+
+form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 form p {
   font-size: 14px;
   color: #666;
-  margin-top: -10px;
-  margin-bottom: 20px;
-}
-
-/* Campos de texto e seleção */
-form input,
-form textarea,
-form select {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 10px;
-  font-size: 15px;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 15px;
+  margin-top: -6px;
+  margin-bottom: 16px;
 }
 
 /* Para o campo de data */
@@ -987,6 +1128,70 @@ form select option {
   transform: scale(1.03);
 }
 
+/* Páginas internas de Cuidados */
+.cuidados-detalhe {
+  max-width: 900px;
+  margin: 30px auto 40px;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid #ffffff22;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+  color: #fff;
+}
+
+.cuidados-detalhe h1 {
+  text-align: center;
+  margin: 0 0 10px;
+}
+
+.cuidados-lead {
+  text-align: center;
+  margin: 0 0 18px;
+  opacity: 0.95;
+}
+
+.cuidados-card {
+  background: #ffffff10;
+  border: 1px solid #ffd70055;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.cuidados-card h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #ffd700;
+}
+
+.cuidados-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.cuidados-card li {
+  padding: 10px 12px;
+  border-left: 3px solid #ffd700;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.cuidados-cta {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.cuidados-cta .bloco-servico {
+  max-width: 320px;
+  width: 100%;
+}
+
 /* Modal para serviços */
 .modal {
   position: fixed;
@@ -1004,6 +1209,7 @@ form select option {
 
 .modal-conteudo {
   background: #fff;
+  position: relative;
   padding: 30px;
   border-radius: 12px;
   max-width: 500px;
@@ -1028,13 +1234,46 @@ form select option {
 .modal-conteudo select,
 .modal-conteudo textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #cfcfcf;
   font-size: 15px;
   font-family: inherit;
+  background: #fff;
   color: #000;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-conteudo input::placeholder,
+.modal-conteudo textarea::placeholder {
+  color: #777;
+}
+
+.modal-conteudo select {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M7 10l5 5l5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px 16px;
+}
+
+.modal-conteudo select option {
+  background-color: #fff;
+  color: #000;
+}
+
+.modal-conteudo input:focus,
+.modal-conteudo select:focus,
+.modal-conteudo textarea:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.22);
 }
 
 .modal-conteudo textarea {
@@ -1077,6 +1316,11 @@ form select option {
     padding: 16px;
   }
 
+  .cuidados-detalhe {
+    margin-top: 30px;
+    padding: 18px;
+  }
+
   /* Header fixo */
   .topo-fixo {
     padding: 8px 12px;
@@ -1110,7 +1354,7 @@ form select option {
 
   /* Cards de categorias e subcategorias */
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .card img {
@@ -1159,6 +1403,10 @@ form select option {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 10px;
 }
 
 .menu-esquerda,
@@ -1174,7 +1422,7 @@ form select option {
   background: none;
   border: none;
   font-size: 20px;
-  color: #000;
+  color: #fff;
   text-decoration: none;
   position: relative;
 }
@@ -1209,7 +1457,7 @@ form select option {
   background: none;
   border: none;
   font-size: 20px;
-  color: #000;
+  color: #fff;
   text-decoration: none;
   position: relative;
 }

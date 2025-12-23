@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cuidados: Evite produtos corrosivos</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
+  <script defer src="scripts/config.js"></script>
+  <script defer src="scripts/auth.js"></script>
+</head>
+<body>
+  <!-- Estrelas de fundo -->
+  <div class="stars" id="stars-container"></div>
+  
+  <!-- Menu fixo no topo -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+
+      <!-- Ícones à esquerda (apenas mobile) -->
+      <div class="menu-esquerda mobile-apenas">
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰
+        </button>
+        <a href="pesquisa.html" class="btn-pesquisa" title="Pesquisar">
+          <i class="fas fa-search"></i>
+        </a>
+      </div>
+
+      <!-- Logo desktop -->
+      <div class="logo-titulo desktop-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <!-- Logo mobile -->
+      <div class="logo-titulo mobile-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <!-- Carrinho à direita (apenas mobile) -->
+      <div class="menu-direita mobile-apenas">
+        <a href="carrinho.html" class="btn-carrinho" title="Carrinho">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="carrinho-count">0</span>
+        </a>
+        <a href="#" id="login-btn-mobile" class="btn-login" title="Entrar">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+
+      <!-- Menu de navegação -->
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="promocoes.html">Promoções</a>
+        <a href="sobre.html">Sobre Nós</a>
+        <a href="contato.html">Contato</a>
+        <a href="buscar.html">Buscar</a>
+        <a href="#" id="login-btn">Entrar / Criar conta</a>
+        <a href="carrinho.html">Carrinho <span class="carrinho-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <script src="scripts/carrinho-update.js"></script>
+
+  <main class="cuidados-detalhe">
+    <h1>Evite produtos corrosivos</h1>
+    <p class="cuidados-lead">Algumas substâncias aceleram a oxidação e podem manchar ou danificar a prata e acabamentos.</p>
+
+    <div class="cuidados-card">
+      <h2>Produtos e situações que pedem atenção</h2>
+      <ul>
+        <li>Cloro e água sanitária (piscina e produtos de limpeza).</li>
+        <li>Perfumes, cremes, maquiagem e sprays diretamente na peça.</li>
+        <li>Suor excessivo e água do mar (sempre lave com água doce e seque bem após uso).</li>
+      </ul>
+    </div>
+
+    <div class="cuidados-card">
+      <h2>Rotina prática</h2>
+      <ul>
+        <li>Coloque perfume/creme primeiro e espere secar para só depois usar a prata.</li>
+        <li>Retire as peças para banho, piscina, mar e limpeza doméstica.</li>
+        <li>Seque completamente após contato com água.</li>
+      </ul>
+    </div>
+
+    <div class="cuidados-card">
+      <h2>Se acontecer uma mancha</h2>
+      <ul>
+        <li>Não use abrasivos. Comece com flanela macia e produtos próprios para prata.</li>
+        <li>Em peças delicadas, procure ajuda para evitar remover acabamento ou detalhes.</li>
+      </ul>
+    </div>
+
+    <div class="cuidados-cta">
+      <a href="cuidados.html" class="bloco-servico">← Voltar para Cuidados</a>
+      <a href="cuidados-limpar.html" class="bloco-servico">Como limpar corretamente</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="social">
+      <h3>Visite e sinta-se especial nas nossas redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/universodaprata.joelpratarias/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100067343702649" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        <a href="#"><img src="x.png" alt="X"></a>
+      </div>
+    </div>
+    <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/stars.js"></script>
+
+  <!-- Modal de autenticação -->
+  <div id="auth-modal" class="auth-modal" style="display: none;">
+    <div class="auth-modal-content" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+      <button type="button" id="auth-close" class="auth-close" aria-label="Fechar">&times;</button>
+      <h2 id="auth-title" style="margin-top: 0;">Acesse sua conta</h2>
+
+      <div class="auth-tabs">
+        <button type="button" id="tab-login" class="auth-tab active">Entrar</button>
+        <button type="button" id="tab-signup" class="auth-tab">Criar conta</button>
+      </div>
+
+      <form id="login-form" class="auth-form" style="display: block;">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" autocomplete="email" required />
+
+        <label for="login-password">Senha</label>
+        <input id="login-password" type="password" autocomplete="current-password" required />
+
+        <button type="submit" class="auth-primary">Entrar</button>
+      </form>
+
+      <form id="signup-form" class="auth-form" style="display: none;">
+        <label for="signup-name">Nome</label>
+        <input id="signup-name" type="text" autocomplete="name" required />
+
+        <label for="signup-email">Email</label>
+        <input id="signup-email" type="email" autocomplete="email" required />
+
+        <label for="signup-password">Senha</label>
+        <input id="signup-password" type="password" autocomplete="new-password" required />
+
+        <button type="submit" class="auth-primary">Criar conta</button>
+      </form>
+
+      <div id="auth-messages" class="auth-messages" style="margin-top: 10px;"></div>
+    </div>
+  </div>
+
+</body>
+</html>

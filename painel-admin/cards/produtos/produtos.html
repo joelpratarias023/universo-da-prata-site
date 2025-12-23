@@ -1,0 +1,43 @@
+<!-- Modal dos Produtos -->
+<div id="modal-produtos" class="modal-card" style="display: none;">
+  <div class="modal-card-conteudo">
+    <button class="btn-fechar-modal" onclick="fecharModalCard('modal-produtos')">✕</button>
+    <h2>📦 Gestão de Produtos</h2>
+    
+    <div class="card-filtros">
+      <input type="text" id="filtro-produtos-card" placeholder="🔍 Buscar produto..." onkeyup="filtrarProdutosCard()">
+      <select id="filtro-categoria-card" onchange="filtrarProdutosCard()">
+        <option value="">Todas as categorias</option>
+        <option value="anéis">Anéis</option>
+        <option value="colares">Colares</option>
+        <option value="pulseiras">Pulseiras</option>
+        <option value="brincos">Brincos</option>
+        <option value="pingentes">Pingentes</option>
+      </select>
+    </div>
+
+    <div class="card-lista">
+      <table class="tabela-card">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-produtos-card">
+          <tr><td colspan="5" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-resumo">
+      <h3>Resumo</h3>
+      <p>Total de Produtos: <strong id="total-produtos-resumo">0</strong></p>
+      <p>Valor Total em Estoque: <strong id="valor-estoque">0 AKZ</strong></p>
+      <p>Produtos com Baixo Estoque: <strong id="baixo-estoque">0</strong></p>
+    </div>
+  </div>
+</div>

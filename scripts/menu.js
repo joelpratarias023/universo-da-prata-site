@@ -1,12 +1,34 @@
-function toggleMenu() {
-  const menu = document.querySelector('.menu-navegacao');
-  const menuAberto = menu.classList.toggle('mobile-visivel');
-  menu.classList.toggle('mobile-escondido');
+function getMenuElemento() {
+  return document.querySelector('.menu-navegacao');
+}
 
-  if (menuAberto) {
-    criarOverlay(); // Ativa o clique fora
+function menuEstaAberto(menu) {
+  return !!menu && menu.classList.contains('mobile-visivel') && window.innerWidth <= 768;
+}
+
+function abrirMenu() {
+  const menu = getMenuElemento();
+  if (!menu) return;
+  menu.classList.add('mobile-visivel');
+  menu.classList.remove('mobile-escondido');
+  criarOverlay();
+}
+
+function fecharMenu() {
+  const menu = getMenuElemento();
+  if (!menu) return;
+  menu.classList.remove('mobile-visivel');
+  menu.classList.add('mobile-escondido');
+  removerOverlay();
+}
+
+function toggleMenu() {
+  const menu = getMenuElemento();
+  if (!menu) return;
+  if (menuEstaAberto(menu)) {
+    fecharMenu();
   } else {
-    removerOverlay(); // Remove o clique fora
+    abrirMenu();
   }
 }
 
@@ -21,8 +43,8 @@ function criarOverlay() {
   overlay.style.width = '100vw';
   overlay.style.height = '100vh';
   overlay.style.background = 'transparent';
-  overlay.style.zIndex = '998';
-  overlay.addEventListener('click', toggleMenu);
+  overlay.style.zIndex = '10000';
+  overlay.addEventListener('click', fecharMenu);
   document.body.appendChild(overlay);
 }
 
@@ -33,8 +55,10 @@ function removerOverlay() {
 
 function ajustarMenuParaTamanhoTela() {
   const menu = document.querySelector('.menu-navegacao');
+  if (!menu) return;
   if (window.innerWidth > 768) {
     menu.classList.remove('mobile-escondido', 'mobile-visivel');
+    removerOverlay();
   } else {
     menu.classList.add('mobile-escondido');
   }
@@ -42,6 +66,39 @@ function ajustarMenuParaTamanhoTela() {
 
 window.addEventListener('load', ajustarMenuParaTamanhoTela);
 window.addEventListener('resize', ajustarMenuParaTamanhoTela);
+
+// Fecha o menu ao clicar fora (mais robusto que só overlay)
+function instalarFechamentoPorCliqueFora() {
+  if (window.__menuCloseHandlersInstalled) return;
+  window.__menuCloseHandlersInstalled = true;
+
+  const handler = (e) => {
+    const menu = getMenuElemento();
+    if (!menuEstaAberto(menu)) return;
+
+    const alvo = e.target;
+    if (alvo && alvo.closest && (alvo.closest('.menu-navegacao') || alvo.closest('.menu-hamburguer'))) return;
+    fecharMenu();
+  };
+
+  document.addEventListener('mousedown', handler);
+  document.addEventListener('touchstart', handler, { passive: true });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const menu = getMenuElemento();
+      if (menuEstaAberto(menu)) fecharMenu();
+    }
+  });
+
+  // Fecha ao clicar num link do menu
+  document.addEventListener('click', (e) => {
+    const menu = getMenuElemento();
+    if (!menuEstaAberto(menu)) return;
+    const link = e.target && e.target.closest ? e.target.closest('.menu-navegacao a') : null;
+    if (link) fecharMenu();
+  });
+}
 
 // Mostra o menu após o preloader
 window.addEventListener('load', () => {
@@ -53,6 +110,8 @@ window.addEventListener('load', () => {
 
 // Atualiza também o contador do menu lateral
 document.addEventListener('DOMContentLoaded', () => {
+  instalarFechamentoPorCliqueFora();
+
   const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
   const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
   const todosContadores = document.querySelectorAll('.carrinho-count');

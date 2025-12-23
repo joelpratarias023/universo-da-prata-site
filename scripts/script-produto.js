@@ -1,9 +1,14 @@
 const produtoId = localStorage.getItem("produtoSelecionado");
 const container = document.getElementById("produto-detalhes");
 
-const produtosFiltrados = produtos.filter(p => p.id === produtoId);
+if (!container) {
+  console.warn('produto-detalhes container não encontrado');
+} else if (typeof produtos === 'undefined' || !Array.isArray(produtos)) {
+  container.innerHTML = "<p>Produtos não disponíveis.</p>";
+} else {
+  const produtosFiltrados = produtos.filter(p => p.id === produtoId);
 
-if (produtosFiltrados.length > 0) {
+  if (produtosFiltrados.length > 0) {
   produtosFiltrados.forEach(produto => {
     const div = document.createElement("div");
     div.className = "produto-container";
@@ -22,6 +27,7 @@ if (produtosFiltrados.length > 0) {
     `;
     container.appendChild(div);
   });
-} else {
-  container.innerHTML = "<p>Produto não encontrado.</p>";
+  } else {
+    container.innerHTML = "<p>Produto não encontrado.</p>";
+  }
 }

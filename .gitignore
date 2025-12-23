@@ -1,0 +1,78 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.production
+backend/.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Uploads (arquivos enviados por usuários)
+backend/uploads/*
+uploads/*
+!backend/uploads/.gitkeep
+!uploads/.gitkeep
+
+# Cache
+.cache/
+.temp/
+.tmp/
+
+# Documentation (arquivos temporários ou gerados)
+*.pdf
+*.tmp
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Lock files (opcional - descomente se preferir versioná-los)
+# package-lock.json
+# yarn.lock
+
+# Database dumps (opcional)
+*.sql.gz
+*.dump
+
+# Certificados e chaves privadas
+*.pem
+*.key
+*.cert
+
+# Outros
+.dockerignore
+docker-compose.override.yml

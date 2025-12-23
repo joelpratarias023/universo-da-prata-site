@@ -2,69 +2,97 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Acesso ao Painel Admin - Universo da Prata</title>
-    <link rel="stylesheet" href="css/admin-access.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acesso Admin - Universo Da Prata</title>
+  <link rel="stylesheet" href="css/admin-access.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>🔑 Painel do Administrador</h1>
-    <p class="subtitle">Controle total do Universo da Prata</p>
-    
-    <div class="status-badge">✅ 100% Funcional</div>
-    
-    <div class="info-box">
-      <h3>Funcionalidades Disponíveis</h3>
-      <ul>
-        <li>Dashboard com estatísticas em tempo real</li>
-        <li>Gerenciamento completo de produtos</li>
-        <li>Controle de entregadores e suas zonas</li>
-        <li>Acompanhamento de pedidos</li>
-        <li>Banco de dados de clientes</li>
-        <li>Relatórios e análises</li>
-        <li>Backup e restauração de dados</li>
-        <li>Configurações personalizadas</li>
-      </ul>
-    </div>
-    
-    <div class="features">
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <div class="feature-name">Dashboard</div>
+  <div class="admin-access-container">
+    <div class="admin-access-card">
+      <h1>🔐 Acesso Administrativo</h1>
+      <p>Painel de administração do Universo Da Prata</p>
+
+      <form id="form-admin-login" class="admin-access-form">
+        <div class="campo">
+          <label for="admin-email">Email</label>
+          <input id="admin-email" type="email" autocomplete="username" required />
+        </div>
+        <div class="campo">
+          <label for="admin-senha">Senha</label>
+          <input id="admin-senha" type="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn-admin-access">Entrar</button>
+      </form>
+
+      <div class="admin-access-buttons" style="margin-top: 16px;">
+        <a href="index.html" class="btn-voltar">← Voltar ao Site</a>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📦</div>
-        <div class="feature-name">Produtos</div>
+
+      <div class="admin-access-info">
+        <p><strong>Nota:</strong> Este painel é exclusivo para administradores autorizados.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🚚</div>
-        <div class="feature-name">Entregadores</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛍️</div>
-        <div class="feature-name">Pedidos</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">👥</div>
-        <div class="feature-name">Clientes</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <div class="feature-name">Relatórios</div>
-      </div>
-    </div>
-    
-    <a href="painel-admin/admin-completo.html" class="btn-admin">Entrar no Painel Admin →</a>
-    
-    <div class="info-box" style="margin-top: 30px;">
-      <h3>💡 Dicas Importantes</h3>
-      <ul style="text-align: left;">
-        <li>Os dados são salvos automaticamente no seu navegador</li>
-        <li>Faça backup regularmente na seção de configurações</li>
-        <li>Todos os dados persistem mesmo após fechar o navegador</li>
-        <li>Use o filtro para buscar produtos e clientes rapidamente</li>
-      </ul>
     </div>
   </div>
+
+  <script src="scripts/notifications.js"></script>
+  <script src="scripts/frontend-integration.js"></script>
+  <script>
+    async function redirectIfAlreadyAdmin() {
+      try {
+        if (typeof api !== 'function') return;
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        const perfil = await api('/auth/perfil');
+        if (perfil?.sucesso && perfil?.dados?.usuario?.tipo === 'admin') {
+          window.location.href = 'painel-admin/admin-completo.html';
+        }
+      } catch (e) {
+        // Ignora e permite login
+      }
+    }
+
+    redirectIfAlreadyAdmin();
+
+    document.getElementById('form-admin-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('admin-email').value.trim();
+      const senha = document.getElementById('admin-senha').value;
+
+      if (!email || !senha) {
+        showError('Preencha email e senha.', 2500);
+        return;
+      }
+
+      try {
+        if (typeof Auth?.login !== 'function') {
+          showError('Sistema de autenticação não carregou.', 4000);
+          return;
+        }
+
+        const resp = await Auth.login(email, senha);
+
+        if (!resp?.sucesso) {
+          showError(resp?.mensagem || 'Falha no login', 4000);
+          return;
+        }
+
+        const perfil = await api('/auth/perfil');
+        if (!perfil?.sucesso || perfil?.dados?.usuario?.tipo !== 'admin') {
+          localStorage.removeItem('token');
+          localStorage.removeItem('usuario');
+          showError('Acesso restrito a administradores.', 4000);
+          return;
+        }
+
+        showSuccess('Login efetuado.', 1500);
+        setTimeout(() => {
+          window.location.href = 'painel-admin/admin-completo.html';
+        }, 250);
+      } catch (err) {
+        console.error(err);
+        showError('Erro ao conectar ao servidor.', 4000);
+      }
+    });
+  </script>
 </body>
 </html>

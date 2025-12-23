@@ -4,8 +4,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const produtoNome = localStorage.getItem("produtoSelecionado");
   const container = document.getElementById("detalhe-produto");
 
-  // Busca o produto pelo NOME (não ID, para ser único)
-  const produtoEncontrado = produtos.find(p => p.nome === produtoNome);
+  if (!container) return;
+  if (typeof produtos === 'undefined' || !Array.isArray(produtos)) {
+    container.innerHTML = "<p>Produtos não disponíveis.</p>";
+    return;
+  }
+
+  // Busca o produto por id ou por nome (suporte a ambos)
+  const produtoEncontrado = produtos.find(p => p.id === produtoNome) || produtos.find(p => p.nome === produtoNome);
 
   if (produtoEncontrado) {
     const div = document.createElement("div");
