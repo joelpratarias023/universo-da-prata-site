@@ -385,7 +385,7 @@ footer {
   .menu-navegacao {
     position: fixed;
     top: 0;
-    left: -250px; /* muda de 'right' para 'left' */
+    left: -250px;
     width: 175px;
     height: 100%;
     background-color: #111;
@@ -395,13 +395,19 @@ footer {
     padding-top: 70px;
     transition: left 0.3s ease-in-out;
     z-index: 10001;
+    overflow-y: auto;
   }
+  
   .menu-navegacao.mobile-visivel {
-    left: 0; /* muda de 'right' para 'left' */
+    left: 0;
+  }
+  
+  .menu-navegacao.mobile-escondido {
+    left: -250px;
   }
 
   .menu-navegacao a {
-    padding: 10px 0;
+    padding: 10px 15px;
     width: 100%;
     border-bottom: 1px solid #222;
     color: white;
@@ -410,6 +416,36 @@ footer {
 
   .menu-navegacao a:hover {
     background-color: #333;
+  }
+}
+
+/* Landscape mode - garante que menu não apareça em landscape se a largura for maior que 768px */
+@media (orientation: landscape) and (min-width: 769px) {
+  .menu-navegacao {
+    position: static !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    flex-direction: row !important;
+    padding-top: 0 !important;
+    background-color: transparent !important;
+  }
+  
+  .menu-hamburguer {
+    display: none !important;
+  }
+}
+
+/* Landscape mode em telas pequenas (celular horizontal) */
+@media (orientation: landscape) and (max-width: 768px) {
+  .menu-navegacao {
+    width: 200px;
+    padding-top: 50px;
+  }
+  
+  .menu-navegacao a {
+    padding: 8px 15px;
+    font-size: 13px;
   }
 }
 

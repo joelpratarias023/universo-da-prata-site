@@ -57,15 +57,30 @@ function ajustarMenuParaTamanhoTela() {
   const menu = document.querySelector('.menu-navegacao');
   if (!menu) return;
   if (window.innerWidth > 768) {
+    // Modo desktop - remove todas as classes mobile e overlay
     menu.classList.remove('mobile-escondido', 'mobile-visivel');
+    menu.style.left = ''; // Remove inline styles
     removerOverlay();
   } else {
-    menu.classList.add('mobile-escondido');
+    // Modo mobile - adiciona classe escondido apenas se não tiver nenhuma classe mobile
+    if (!menu.classList.contains('mobile-visivel') && !menu.classList.contains('mobile-escondido')) {
+      menu.classList.add('mobile-escondido');
+    }
   }
 }
 
+// Debounce para evitar múltiplas chamadas durante resize
+let resizeTimer;
+function ajustarMenuComDebounce() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(ajustarMenuParaTamanhoTela, 100);
+}
+
 window.addEventListener('load', ajustarMenuParaTamanhoTela);
-window.addEventListener('resize', ajustarMenuParaTamanhoTela);
+window.addEventListener('resize', ajustarMenuComDebounce);
+window.addEventListener('orientationchange', () => {
+  setTimeout(ajustarMenuParaTamanhoTela, 200);
+});
 
 // Fecha o menu ao clicar fora (mais robusto que só overlay)
 function instalarFechamentoPorCliqueFora() {
