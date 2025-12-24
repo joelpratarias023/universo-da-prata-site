@@ -309,33 +309,44 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   gap: 10px;
+  min-height: 60px;
 }
 
 .logo-titulo {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .logo-site {
   width: 60px;
   height: auto;
+  display: block;
+}
+
+.titulos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .titulos h1 {
   font-size: 18px;
   margin: 0;
+  line-height: 1.2;
 }
 
 .titulos .submarca {
   font-size: 13px;
   color: #ccc;
   font-weight: 400;
+  line-height: 1.2;
 }
 
 .menu-navegacao {
@@ -1359,19 +1370,45 @@ form select option {
 
   /* Header fixo */
   .topo-fixo {
-    padding: 8px 12px;
+    padding: 6px 10px;
+    min-height: auto;
+  }
+
+  .menu-container {
+    min-height: 50px;
+    max-height: 50px;
+    gap: 8px;
   }
 
   .logo-site {
-    width: 45px;
+    width: 40px;
   }
 
   .titulos h1 {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.2;
   }
 
   .titulos .submarca {
-    font-size: 11px;
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .menu-esquerda,
+  .menu-direita {
+    gap: 8px;
+  }
+
+  .btn-pesquisa,
+  .btn-carrinho,
+  .btn-user {
+    font-size: 18px;
+    padding: 4px;
+  }
+
+  .menu-hamburguer {
+    font-size: 22px;
+    padding: 4px 8px;
   }
 
   /* Modal de formulário (se usado) */
