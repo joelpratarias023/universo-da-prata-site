@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
       if (carrinho.length === 0) {
-        alert("O seu carrinho está vazio!");
+        showWarning("O seu carrinho está vazio! 🛒");
       } else {
         window.location.href = "confirmacao.html";
       }
@@ -22,6 +22,13 @@ function atualizarNumeroCarrinho() {
   const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
   if (icone) icone.textContent = total;
 }
+
+// Atualiza quando a página é restaurada do cache (botão voltar)
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    atualizarNumeroCarrinho();
+  }
+});
 
 function voltarParaOrigem() {
   const etapa = JSON.parse(localStorage.getItem("etapaAnterior"));

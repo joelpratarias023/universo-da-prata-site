@@ -85,3 +85,10 @@ function atualizarNumeroCarrinho() {
 
 // Inicializa o contador ao carregar
 atualizarNumeroCarrinho();
+
+// Atualiza quando a página é restaurada do cache (botão voltar)
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    atualizarNumeroCarrinho();
+  }
+});

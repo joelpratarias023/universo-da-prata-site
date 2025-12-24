@@ -110,7 +110,7 @@ const produtos = [
     id: "pulseiras-Mulheres",
     nome: "Pulseira Feminina Elegante",
     descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
-    preco: "AKZ 18.500",
+    preco: "AKZ 13.200",
     imagem: "produto/pulseira-femina.png"
   },
 

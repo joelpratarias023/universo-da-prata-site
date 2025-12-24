@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   atualizarContadorCarrinho();
+  configurarMetodoEntrega();
 });
 
 function preencherResumo() {
@@ -46,6 +47,69 @@ function atualizarContadorCarrinho() {
   }
 }
 
+// Atualiza quando a página é restaurada do cache (botão voltar)
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    atualizarContadorCarrinho();
+  }
+});
+
+function configurarMetodoEntrega() {
+  const selectPonto = document.getElementById('pontoEncontro');
+  const campoOutroLocal = document.getElementById('campo-outro-local');
+  const inputOutroLocal = document.getElementById('outroLocal');
+  const textareaEndereco = document.getElementById('endereco');
+
+  // Listener para o select de ponto de encontro
+  if (selectPonto) {
+    selectPonto.addEventListener('change', function() {
+      if (this.value) {
+        // Se selecionou um ponto, desabilita o endereço
+        textareaEndereco.disabled = true;
+        textareaEndereco.value = '';
+        textareaEndereco.style.backgroundColor = '#f5f5f5';
+        textareaEndereco.style.cursor = 'not-allowed';
+        
+        // Mostra campo "Outro" se necessário
+        if (this.value === 'Outro') {
+          campoOutroLocal.style.display = 'block';
+          inputOutroLocal.setAttribute('required', 'required');
+        } else {
+          campoOutroLocal.style.display = 'none';
+          inputOutroLocal.removeAttribute('required');
+        }
+      } else {
+        // Se desmarcou, habilita o endereço
+        textareaEndereco.disabled = false;
+        textareaEndereco.style.backgroundColor = '#fff';
+        textareaEndereco.style.cursor = 'text';
+        campoOutroLocal.style.display = 'none';
+        inputOutroLocal.removeAttribute('required');
+      }
+    });
+  }
+
+  // Listener para o campo de endereço
+  if (textareaEndereco) {
+    textareaEndereco.addEventListener('input', function() {
+      if (this.value.trim().length > 0) {
+        // Se começou a digitar endereço, desabilita o ponto de encontro
+        selectPonto.disabled = true;
+        selectPonto.value = '';
+        selectPonto.style.backgroundColor = '#f5f5f5';
+        selectPonto.style.cursor = 'not-allowed';
+        campoOutroLocal.style.display = 'none';
+        inputOutroLocal.removeAttribute('required');
+      } else {
+        // Se apagou o endereço, habilita o ponto de encontro
+        selectPonto.disabled = false;
+        selectPonto.style.backgroundColor = '#fff';
+        selectPonto.style.cursor = 'pointer';
+      }
+    });
+  }
+}
+
 function enviarPedido(event) {
   event.preventDefault();
 
@@ -54,6 +118,17 @@ function enviarPedido(event) {
   const telefone = document.getElementById('whatsapp').value.trim();
   const dataEntrega = document.getElementById('dataEntrega').value.trim();
   const pagamento = document.getElementById('pagamento').value.trim();
+  
+  // Capturar ponto de encontro
+  const selectPonto = document.getElementById('pontoEncontro').value;
+  let pontoEncontro = '';
+  
+  if (selectPonto === 'Outro') {
+    const outroLocal = document.getElementById('outroLocal').value.trim();
+    pontoEncontro = outroLocal || 'A combinar';
+  } else {
+    pontoEncontro = selectPonto;
+  }
 
   const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
   const mensagemErro = document.getElementById("mensagem-erro");
@@ -69,10 +144,11 @@ function enviarPedido(event) {
     erros.push("Número do WhatsApp inválido. Ex: +244923000000");
   }
 
-  if (endereco.length < 5) {
-    erros.push("Endereço de entrega incompleto.");
+  // Validar que pelo menos um dos dois seja preenchido
+  if (!selectPonto && endereco.length < 5) {
+    erros.push("Por favor, selecione um ponto de encontro OU preencha o endereço de entrega.");
   }
-
+  
   if (!dataEntrega) {
     erros.push("Data de entrega não selecionada.");
   }
@@ -95,6 +171,7 @@ function enviarPedido(event) {
     nome: nome,
     telefone: telefone,
     endereco: endereco,
+    pontoEncontro: pontoEncontro,
     dataEntrega: dataEntrega,
     pagamento: pagamento,
     itens: carrinho.map(item => `${item.nome} - ${item.preco}`).join("\n")
@@ -112,7 +189,15 @@ function enviarPedido(event) {
   // Monta a mensagem WhatsApp
   let mensagem = `🛍️ *Confirmação de Pedido - Universo da Prata* 🛍️\n\n`;
   mensagem += `👤 *Nome:* ${nome}\n`;
-  mensagem += `📍 *Endereço:* ${endereco}\n`;
+  
+  // Inclui apenas o que foi preenchido
+  if (pontoEncontro) {
+    mensagem += `📍 *Ponto de Encontro:* ${pontoEncontro}\n`;
+  }
+  if (endereco) {
+    mensagem += `📍 *Endereço de Entrega:* ${endereco}\n`;
+  }
+  
   mensagem += `📞 *Telefone:* ${telefone}\n`;
   mensagem += `📅 *Data de Entrega:* ${dataEntrega}\n`;
   mensagem += `💳 *Forma de Pagamento:* ${pagamento}\n\n`;

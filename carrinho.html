@@ -5,11 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carrinho - Universo da Prata</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="scripts/notifications.js"></script>
+  <script defer src="scripts/menu.js"></script>
+  <script defer src="scripts/navegacao.js"></script>
+  <script defer src="scripts/auth.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Carrinho de Compras</h1>
+
+  <style>
+    /* VISIBILIDADE POR DISPOSITIVO */
+    .mobile-apenas {
+      display: none;
+    }
+    .desktop-apenas {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-apenas {
+        display: flex !important;
+      }
+      .desktop-apenas {
+        display: none !important;
+      }
+    }
+  </style>
+
+  <!-- Menu fixo no topo -->
+  <header class="topo-fixo" id="menu-fixo">
+    <div class="menu-container">
+
+     <!-- Botões à esquerda (apenas mobile) -->
+      <div class="menu-esquerda mobile-apenas">
+        <button class="menu-hamburguer" onclick="toggleMenu()">☰
+        </button>
+        <a href="buscar.html" class="btn-pesquisa" title="Pesquisar">
+          <i class="fas fa-search"></i>
+        </a>
+      </div>
+
+      <!-- Logo centralizado (apenas mobile) -->
+      <div class="logo-titulo mobile-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <!-- Logo alinhado à esquerda (apenas desktop) -->
+      <div class="logo-titulo desktop-apenas">
+        <a href="index.html">
+          <img src="logo.png" alt="Logo" class="logo-site" />
+        </a>
+        <div class="titulos">
+          <h1>UNIVERSO DA PRATA</h1>
+          <h2 class="submarca">Joel Pratarias</h2>
+        </div>
+      </div>
+
+      <!-- Ícones à direita (apenas mobile) -->
+      <div class="menu-direita mobile-apenas">
+        <a href="carrinho.html" class="btn-carrinho" title="Carrinho">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="carrinho-count">0</span>
+        </a>
+        <a href="#" id="login-btn-mobile" class="btn-login" title="Entrar">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+
+       <!-- Menu de navegação -->
+      <nav class="menu-navegacao mobile-escondido">
+        <a href="index.html">Início</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="promocoes.html">Promoções</a>
+        <a href="sobre.html">Sobre Nós</a>
+        <a href="contato.html">Contato</a>
+        <a href="buscar.html">Buscar</a>
+        <a href="#" id="login-btn">Entrar / Criar conta</a>
+        <a href="carrinho.html">Carrinho <span class="carrinho-count">0</span></a>
+      </nav>
+    </div>
   </header>
 
   <main class="carrinho-container">

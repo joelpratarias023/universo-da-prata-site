@@ -15,15 +15,26 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Contador carrinho
+  atualizarContadorCarrinho();
+
+  // Menu responsivo
+  ajustarMenuParaTamanhoTela();
+});
+
+function atualizarContadorCarrinho() {
   const todosContadores = document.querySelectorAll('.carrinho-count');
   const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
   const total = carrinho.reduce((sum, item) => sum + (item.quantidade || 1), 0);
   todosContadores.forEach(span => {
     span.textContent = total;
   });
+}
 
-  // Menu responsivo
-  ajustarMenuParaTamanhoTela();
+// Atualiza quando a página é restaurada do cache (botão voltar)
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    atualizarContadorCarrinho();
+  }
 });
 
 function toggleMenu(){

@@ -76,48 +76,74 @@
   font-weight: bold;
 }
 
-/* ===== TABLET E MOBILE (3 COLUNAS BONITAS) ===== */
+/* ===== TABLET E MOBILE (2 COLUNAS IGUAL AO PADRÃO) ===== */
 @media (max-width: 768px) {
   .cards-promocoes {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .card-promocao {
+    padding: 12px;
   }
 
   .card-promocao img {
-    height: 110px;
+    height: 100px;
     object-fit: contain;
+    margin-bottom: 8px;
   }
 
   .card-promocao h3 {
     font-size: 13px;
+    line-height: 1.3;
+    min-height: 30px;
+  }
+
+  .preco-antigo {
+    font-size: 11px;
   }
 
   .preco-novo {
-    font-size: 1.1rem;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .btn-ver {
+    padding: 7px 12px;
+    font-size: 11px;
   }
 }
 
 /* ===== TELEMÓVEIS PEQUENOS ===== */
 @media (max-width: 480px) {
   .cards-promocoes {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
+  .card-promocao {
+    padding: 10px;
+  }
+
   .card-promocao img {
-    height: 100px;
+    height: 90px;
   }
 
   .card-promocao h3 {
     font-size: 12px;
+    min-height: 28px;
+  }
+
+  .preco-antigo {
+    font-size: 10px;
   }
 
   .preco-novo {
-    font-size: 1rem;
+    font-size: 12px;
   }
 
   .btn-ver {
-    padding: 7px 12px;
-    font-size: 11px;
+    padding: 6px 10px;
+    font-size: 10px;
   }
 }
