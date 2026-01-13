@@ -92,7 +92,16 @@ function instalarFechamentoPorCliqueFora() {
     if (!menuEstaAberto(menu)) return;
 
     const alvo = e.target;
-    if (alvo && alvo.closest && (alvo.closest('.menu-navegacao') || alvo.closest('.menu-hamburguer'))) return;
+    // Verifica se clicou no menu, no hambúrguer, ou em um link do menu
+    if (alvo && alvo.closest) {
+      if (alvo.closest('.menu-navegacao') || alvo.closest('.menu-hamburguer')) {
+        // Se clicou em um link do menu, não fecha aqui (deixa o outro handler cuidar)
+        const link = alvo.closest('.menu-navegacao a');
+        if (link) return;
+        // Se clicou no menu mas não em um link, retorna sem fechar
+        return;
+      }
+    }
     fecharMenu();
   };
 
@@ -111,8 +120,20 @@ function instalarFechamentoPorCliqueFora() {
     const menu = getMenuElemento();
     if (!menuEstaAberto(menu)) return;
     const link = e.target && e.target.closest ? e.target.closest('.menu-navegacao a') : null;
-    if (link) fecharMenu();
-  });
+    if (link && link.href) {
+      // Garante que o link não seja # (anchor) ou javascript:
+      const href = link.getAttribute('href');
+      if (href && href !== '#' && !href.startsWith('javascript:')) {
+        // Permite que a navegação aconteça naturalmente
+        // O menu será fechado pela nova página que carregar
+        return;
+      }
+      // Para links # ou vazios, apenas fecha o menu
+      setTimeout(() => {
+        fecharMenu();
+      }, 50);
+    }
+  }, true); // useCapture = true para executar antes de outros handlers
 }
 
 // Mostra o menu após o preloader

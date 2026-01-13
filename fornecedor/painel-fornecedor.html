@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Fornecedor - Universo da Prata</title>
+    <link rel="stylesheet" href="css/painel-fornecedor.css">
+</head>
+<body>
+    <!-- Estrelas de fundo -->
+    <div class="stars" id="stars-container"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">🏪 Universo da Prata</h1>
+            <div class="header-right">
+                <span class="user-name" id="userName">Carregando...</span>
+                <button class="btn-logout" id="btnLogout">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Aviso Modo Demo -->
+    <div id="avisoDemo" style="display: none; position: fixed; top: 70px; left: 0; right: 0; background: linear-gradient(90deg, #f59e0b, #d97706); color: #000; padding: 10px 20px; text-align: center; z-index: 999; font-weight: 600; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+        🔧 Modo Demonstração Ativo - Exibindo dados de exemplo | Configure o login com Supabase para usar dados reais
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" data-section="dashboard">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="#" class="nav-item" data-section="produtos">
+                <span class="icon">📦</span> Produtos
+            </a>
+            <a href="#" class="nav-item" data-section="vendas">
+                <span class="icon">🛒</span> Vendas
+            </a>
+            <a href="#" class="nav-item" data-section="financeiro">
+                <span class="icon">💰</span> Financeiro
+            </a>
+            <a href="#" class="nav-item" data-section="perfil">
+                <span class="icon">👤</span> Perfil
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <h2 class="section-title">Dashboard</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">📦</div>
+                    <div class="stat-info">
+                        <h3>Total de Peças</h3>
+                        <p class="stat-value" id="totalPecas">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">✅</div>
+                    <div class="stat-info">
+                        <h3>Peças Vendidas</h3>
+                        <p class="stat-value" id="pecasVendidas">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">📊</div>
+                    <div class="stat-info">
+                        <h3>Em Stock</h3>
+                        <p class="stat-value" id="pecasEstoque">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">💵</div>
+                    <div class="stat-info">
+                        <h3>Valor a Receber</h3>
+                        <p class="stat-value" id="valorReceber">€0.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <div class="card">
+                    <h3>Resumo Financeiro</h3>
+                    <div class="financial-summary">
+                        <div class="financial-item">
+                            <span class="label">Total Faturado:</span>
+                            <span class="value" id="totalFaturado">€0.00</span>
+                        </div>
+                        <div class="financial-item">
+                            <span class="label">Comissão Plataforma:</span>
+                            <span class="value red" id="comissao">€0.00</span>
+                        </div>
+                        <div class="financial-item">
+                            <span class="label">Valor Líquido:</span>
+                            <span class="value green" id="valorLiquido">€0.00</span>
+                        </div>
+                        <div class="financial-item">
+                            <span class="label">Valor Pago:</span>
+                            <span class="value" id="valorPago">KZ0.00</span>
+                        </div>
+                        <div class="financial-item highlight">
+                            <span class="label">Valor Pendente:</span>
+                            <span class="value" id="valorPendente">KZ0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos Section -->
+        <section id="produtos" class="content-section">
+            <h2 class="section-title">Meus Produtos</h2>
+            
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nome do Produto</th>
+                            <th>Código</th>
+                            <th>Estoque</th>
+                            <th>Preço</th>
+                            <th>Total Vendido</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="produtosTable">
+                        <tr>
+                            <td colspan="7" class="loading">Carregando produtos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Vendas Section -->
+        <section id="vendas" class="content-section">
+            <h2 class="section-title">Histórico de Vendas</h2>
+            
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Valor Unit.</th>
+                            <th>Valor Total</th>
+                            <th>Cliente</th>
+                            <th>Status Pagamento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendasTable">
+                        <tr>
+                            <td colspan="7" class="loading">Carregando vendas...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Financeiro Section -->
+        <section id="financeiro" class="content-section">
+            <h2 class="section-title">Resumo Financeiro</h2>
+            
+            <div class="financial-cards">
+                <div class="financial-card">
+                    <h3>💰 Total Faturado</h3>
+                    <p class="big-value" id="finTotalFaturado">€0.00</p>
+                </div>
+                <div class="financial-card">
+                    <h3>📉 Comissão Plataforma</h3>
+                    <p class="big-value red" id="finComissao">€0.00</p>
+                </div>
+                <div class="financial-card">
+                    <h3>✅ Valor Líquido</h3>
+                    <p class="big-value green" id="finValorLiquido">€0.00</p>
+                </div>
+                <div class="financial-card">
+                    <h3>💵 Valor Pago</h3>
+                    <p class="big-value" id="finValorPago">€0.00</p>
+                </div>
+                <div class="financial-card highlight">
+                    <h3>⏳ Valor Pendente</h3>
+                    <p class="big-value" id="finValorPendente">€0.00</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Histórico de Pagamentos</h3>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th>Tipo</th>
+                                <th>Observações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagamentosTable">
+                            <tr>
+                                <td colspan="4" class="empty">Nenhum pagamento registrado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Perfil Section -->
+        <section id="perfil" class="content-section">
+            <h2 class="section-title">Meu Perfil</h2>
+            
+            <div class="profile-grid">
+                <div class="card">
+                    <h3>Informações Pessoais</h3>
+                    <form id="perfilForm" class="form">
+                        <div class="form-group">
+                            <label for="perfilNome">Nome</label>
+                            <input type="text" id="perfilNome" name="nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="perfilEmail">Email</label>
+                            <input type="email" id="perfilEmail" name="email" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="perfilCNPJ">CNPJ</label>
+                            <input type="text" id="perfilCNPJ" name="cnpj" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="perfilTelefone">Telefone</label>
+                            <input type="tel" id="perfilTelefone" name="telefone">
+                        </div>
+                        <div class="form-group">
+                            <label for="perfilEndereco">Endereço</label>
+                            <textarea id="perfilEndereco" name="endereco" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Atualizar Perfil</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Alterar Senha</h3>
+                    <form id="senhaForm" class="form">
+                        <div class="form-group">
+                            <label for="senhaAtual">Senha Atual</label>
+                            <input type="password" id="senhaAtual" name="senha_atual" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="novaSenha">Nova Senha</label>
+                            <input type="password" id="novaSenha" name="nova_senha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmarSenha">Confirmar Nova Senha</label>
+                            <input type="password" id="confirmarSenha" name="confirmar_senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Alterar Senha</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para detalhes do produto -->
+    <div id="produtoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalProdutoNome">Produto</h2>
+            <div id="modalProdutoDetalhes"></div>
+        </div>
+    </div>
+
+    <script>
+        // Criar estrelas de fundo
+        const starsContainer = document.getElementById("stars-container");
+        if (starsContainer) {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${5 + Math.random() * 10}s`;
+                star.style.opacity = Math.random();
+                starsContainer.appendChild(star);
+            }
+        }
+    </script>
+    <script src="scripts/painel-fornecedor.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Entregador - Universo da Prata</title>
+    <link rel="stylesheet" href="css/entregador-login.css">
+</head>
+<body>
+    <!-- Estrelas de fundo -->
+    <div class="stars" id="stars-container"></div>
+
+    <!-- Container principal -->
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🚚 Entregador</h1>
+                <p>Universo da Prata</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" required placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lembrar">
+                        <span>Lembrar-me</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-login" id="btnLogin">
+                    <span id="btnTexto">Entrar</span>
+                    <span id="btnLoader" style="display: none;">Entrando...</span>
+                </button>
+
+                <div id="mensagemErro" class="mensagem-erro" style="display: none;"></div>
+            </form>
+
+            <div class="info-box">
+                <h3>📱 Painel Mobile-First</h3>
+                <ul>
+                    <li>✅ Receba notificações de novas entregas</li>
+                    <li>✅ Gerencie suas rotas em tempo real</li>
+                    <li>✅ Confirme entregas pelo celular</li>
+                    <li>✅ Acompanhe seus ganhos e comissões</li>
+                    <li>✅ Contato direto com clientes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/entregador-login.js"></script>
+</body>
+</html>

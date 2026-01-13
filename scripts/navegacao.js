@@ -15,8 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Armazenar o caminho atual antes de navegar
   const links = document.querySelectorAll("a");
   links.forEach(link => {
-    link.addEventListener("click", function () {
+    link.addEventListener("click", function (e) {
+      // Não bloqueia a navegação, apenas armazena o caminho
       sessionStorage.setItem("caminhoAnterior", window.location.pathname);
-    });
+    }, { passive: true }); // passive: true garante que não bloqueia a navegação
   });
 });

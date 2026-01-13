@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login do Fornecedor - Universo da Prata</title>
+    <link rel="stylesheet" href="css/fornecedor-login.css">
+</head>
+<body>
+    <!-- Estrelas de fundo -->
+    <div class="stars" id="stars-container"></div>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo-section">
+                <h1>🏪 Universo da Prata</h1>
+                <p class="subtitle">Portal do Fornecedor</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        placeholder="seu@email.com"
+                        autocomplete="username"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input 
+                        type="password" 
+                        id="senha" 
+                        name="senha" 
+                        required 
+                        placeholder="••••••••"
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                <button type="submit" class="btn-login" id="btnLogin">
+                    <span class="btn-text">Entrar</span>
+                    <span class="btn-loader" style="display: none;">
+                        <span class="spinner"></span> Entrando...
+                    </span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>Esqueceu sua senha? <a href="#" id="recuperarSenha">Recuperar</a></p>
+                <p class="back-link"><a href="index.html">← Voltar ao site</a></p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>Bem-vindo ao Portal do Fornecedor</h2>
+            <div class="info-list">
+                <div class="info-item">
+                    <span class="icon">📊</span>
+                    <div>
+                        <h3>Dashboard Completo</h3>
+                        <p>Visualize todas as suas estatísticas em tempo real</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">📦</span>
+                    <div>
+                        <h3>Gestão de Produtos</h3>
+                        <p>Gerencie seu catálogo de produtos facilmente</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">💰</span>
+                    <div>
+                        <h3>Controle Financeiro</h3>
+                        <p>Acompanhe vendas, pagamentos e comissões</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">📈</span>
+                    <div>
+                        <h3>Relatórios Detalhados</h3>
+                        <p>Histórico completo de todas as transações</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Criar estrelas de fundo
+        const starsContainer = document.getElementById("stars-container");
+        if (starsContainer) {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${5 + Math.random() * 10}s`;
+                star.style.opacity = Math.random();
+                starsContainer.appendChild(star);
+            }
+        }
+    </script>
+    <script src="scripts/fornecedor-login.js"></script>
+</body>
+</html>

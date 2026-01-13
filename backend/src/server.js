@@ -13,6 +13,7 @@ const Pedido = require('./models/Pedido');
 const ItensPedido = require('./models/ItensPedido');
 const Endereco = require('./models/Endereco');
 const Avaliacao = require('./models/Avaliacao');
+const Fornecedor = require('./models/Fornecedor');
 
 // Import das rotas
 const authRoutes = require('./routes/auth');
@@ -23,6 +24,7 @@ const enderecoRoutes = require('./routes/enderecos');
 const avaliacaoRoutes = require('./routes/avaliacoes');
 const usuarioRoutes = require('./routes/usuarios');
 const adminRoutes = require('./routes/admin');
+const fornecedorRoutes = require('./routes/fornecedores');
 
 // Import dos middlewares
 const errorHandler = require('./middleware/errorHandler');
@@ -64,6 +66,13 @@ app.use('/api/enderecos', enderecoRoutes);
 app.use('/api/avaliacoes', avaliacaoRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/fornecedores', fornecedorRoutes);
+
+// Novas rotas do sistema completo de admin
+const adminCompletoRoutes = require('./routes/adminCompleto');
+const entregadoresRoutes = require('./routes/entregadores');
+app.use('/api/admin-completo', adminCompletoRoutes);
+app.use('/api/entregadores', entregadoresRoutes);
 
 // Rota raiz
 app.get('/api', (req, res) => {
@@ -80,6 +89,7 @@ app.get('/api', (req, res) => {
       avaliacoes: '/api/avaliacoes',
       usuarios: '/api/usuarios',
       admin: '/api/admin',
+      fornecedores: '/api/fornecedores',
     },
   });
 });

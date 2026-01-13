@@ -50,9 +50,13 @@
 
       <nav class="menu-navegacao mobile-escondido" id="menu-admin">
         <a href="#dashboard" onclick="mostrarSecao('dashboard')">Dashboard</a>
+        <a href="#fornecedores" onclick="mostrarSecao('fornecedores')">Fornecedores</a>
         <a href="#produtos" onclick="mostrarSecao('produtos')">Produtos</a>
+        <a href="#produtos-pendentes" onclick="mostrarSecao('produtos-pendentes')">Aprovar Produtos</a>
         <a href="#entregadores" onclick="mostrarSecao('entregadores')">Entregadores</a>
+        <a href="#entregas" onclick="mostrarSecao('entregas')">Entregas</a>
         <a href="#pedidos" onclick="mostrarSecao('pedidos')">Pedidos</a>
+        <a href="#pagamentos" onclick="mostrarSecao('pagamentos')">Pagamentos</a>
         <a href="#clientes" onclick="mostrarSecao('clientes')">Clientes</a>
         <a href="#relatorios" onclick="mostrarSecao('relatorios')">Relatórios</a>
         <a href="#configuracoes" onclick="mostrarSecao('configuracoes')">Configurações</a>
@@ -69,50 +73,107 @@
     <section id="dashboard" class="admin-secao ativa">
       <h2>Dashboard</h2>
       <div class="stats-grid">
+        <div class="stat-card" onclick="mostrarSecao('fornecedores')" style="cursor: pointer;">
+          <div class="stat-icon">👥</div>
+          <h3>Fornecedores</h3>
+          <p class="stat-numero" id="total-fornecedores">0</p>
+        </div>
+        <div class="stat-card" onclick="mostrarSecao('produtos-pendentes')" style="cursor: pointer; border: 2px solid #ffd700;">
+          <div class="stat-icon">⏳</div>
+          <h3>Produtos Pendentes</h3>
+          <p class="stat-numero" id="produtos-pendentes">0</p>
+        </div>
         <div class="stat-card" onclick="abrirCardProdutos()" style="cursor: pointer;">
-          <div class="stat-icon"></div>
+          <div class="stat-icon">📦</div>
           <h3>Total de Produtos</h3>
           <p class="stat-numero" id="total-produtos">0</p>
         </div>
+        <div class="stat-card" onclick="mostrarSecao('entregas')" style="cursor: pointer; border: 2px solid #ffd700;">
+          <div class="stat-icon">✅</div>
+          <h3>Entregas p/ Aprovar</h3>
+          <p class="stat-numero" id="entregas-pendentes">0</p>
+        </div>
         <div class="stat-card" onclick="abrirCardEntregadores()" style="cursor: pointer;">
-          <div class="stat-icon"></div>
+          <div class="stat-icon">🚚</div>
           <h3>Entregadores</h3>
           <p class="stat-numero" id="total-entregadores">0</p>
         </div>
-        <div class="stat-card" onclick="abrirCardPedidos()" style="cursor: pointer;">
-          <div class="stat-icon"></div>
-          <h3>Pedidos Pendentes</h3>
-          <p class="stat-numero" id="pedidos-pendentes">0</p>
+        <div class="stat-card" onclick="mostrarSecao('pagamentos')" style="cursor: pointer; border: 2px solid #ffd700;">
+          <div class="stat-icon">💰</div>
+          <h3>Pagamentos Pendentes</h3>
+          <p class="stat-numero" id="pagamentos-pendentes">0</p>
         </div>
-        <div class="stat-card" onclick="abrirCardClientes()" style="cursor: pointer;">
-          <div class="stat-icon"></div>
-          <h3>Total de Clientes</h3>
-          <p class="stat-numero" id="total-clientes">0</p>
+        <div class="stat-card" onclick="abrirCardPedidos()" style="cursor: pointer;">
+          <div class="stat-icon">🛍️</div>
+          <h3>Pedidos Ativos</h3>
+          <p class="stat-numero" id="pedidos-ativos">0</p>
         </div>
         <div class="stat-card" onclick="abrirCardVendas()" style="cursor: pointer;">
-          <div class="stat-icon"></div>
+          <div class="stat-icon">💵</div>
           <h3>Vendas Hoje</h3>
           <p class="stat-numero" id="vendas-hoje">0 AKZ</p>
-        </div>
-        <div class="stat-card" onclick="abrirCardAvaliacao()" style="cursor: pointer;">
-          <div class="stat-icon"></div>
-          <h3>Avaliação Média</h3>
-          <p class="stat-numero" id="avaliacao-media">4.5/5</p>
         </div>
       </div>
 
       <h3 style="margin-top: 40px;">Ações Rápidas</h3>
       <div class="acoes-rapidas">
-        <button class="btn-acao" onclick="mostrarSecao('produtos'); scrollTo('#novo-produto-btn')">
-          <i class="fas fa-plus"></i> Novo Produto
+        <button class="btn-acao" onclick="mostrarSecao('produtos-pendentes')" style="background: #ffd700; color: #000;">
+          <i class="fas fa-check-circle"></i> Aprovar Produtos
         </button>
-        <button class="btn-acao" onclick="mostrarSecao('entregadores'); scrollTo('#novo-entregador-btn')">
-          <i class="fas fa-user-plus"></i> Novo Entregador
+        <button class="btn-acao" onclick="abrirModalCriarEntrega()" style="background: #ffd700; color: #000;">
+          <i class="fas fa-truck"></i> Criar Entrega
+        </button>
+        <button class="btn-acao" onclick="mostrarSecao('pagamentos')" style="background: #ffd700; color: #000;">
+          <i class="fas fa-money-bill"></i> Processar Pagamentos
+        </button>
+        <button class="btn-acao" onclick="mostrarSecao('fornecedores')">
+          <i class="fas fa-users"></i> Gerir Fornecedores
+        </button>
+        <button class="btn-acao" onclick="mostrarSecao('entregadores')">
+          <i class="fas fa-user-plus"></i> Gerir Entregadores
         </button>
         <button class="btn-acao" onclick="mostrarSecao('pedidos')">
           <i class="fas fa-list-check"></i> Ver Pedidos
         </button>
       </div>
+    </section>
+
+    <!-- FORNECEDORES -->
+    <section id="fornecedores" class="admin-secao">
+      <h2>Gestão de Fornecedores</h2>
+      
+      <button class="btn-primario" onclick="abrirModalNovoFornecedor()">
+        <i class="fas fa-user-plus"></i> Adicionar Fornecedor
+      </button>
+
+      <div class="filtros-tabela">
+        <input type="text" id="filtro-fornecedores" placeholder="🔍 Buscar fornecedor..." onkeyup="filtrarFornecedores()">
+        <select id="filtro-status-fornecedor" onchange="filtrarFornecedores()">
+          <option value="">Todos os status</option>
+          <option value="ativo">Ativo</option>
+          <option value="suspenso">Suspenso</option>
+          <option value="bloqueado">Bloqueado</option>
+        </select>
+      </div>
+
+      <table class="tabela-admin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Produtos</th>
+            <th>Total Vendas</th>
+            <th>Comissão</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-fornecedores">
+          <tr><td colspan="9" style="text-align: center; padding: 20px;">Carregando fornecedores...</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <!-- PRODUTOS -->
@@ -153,6 +214,41 @@
       </table>
     </section>
 
+    <!-- PRODUTOS PENDENTES DE APROVAÇÃO -->
+    <section id="produtos-pendentes" class="admin-secao">
+      <h2>⏳ Produtos Pendentes de Aprovação</h2>
+      
+      <div class="alert-info" style="margin-bottom: 20px; padding: 15px; background: rgba(255, 215, 0, 0.1); border-left: 4px solid #ffd700; border-radius: 8px;">
+        <i class="fas fa-info-circle"></i> <strong>Atenção:</strong> Estes produtos foram enviados pelos fornecedores e aguardam sua aprovação para ficarem visíveis no site.
+      </div>
+
+      <div class="filtros-tabela">
+        <input type="text" id="filtro-produtos-pendentes" placeholder="🔍 Buscar produto..." onkeyup="filtrarProdutosPendentes()">
+        <select id="filtro-fornecedor-pendente" onchange="filtrarProdutosPendentes()">
+          <option value="">Todos os fornecedores</option>
+        </select>
+      </div>
+
+      <table class="tabela-admin">
+        <thead>
+          <tr>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Fornecedor</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Comissão (%)</th>
+            <th>Data Envio</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-produtos-pendentes">
+          <tr><td colspan="9" style="text-align: center; padding: 20px;">Nenhum produto pendente</td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <!-- ENTREGADORES -->
     <section id="entregadores" class="admin-secao">
       <h2>Gerenciamento de Entregadores</h2>
@@ -189,6 +285,50 @@
       </table>
     </section>
 
+    <!-- ENTREGAS -->
+    <section id="entregas" class="admin-secao">
+      <h2>Gestão de Entregas</h2>
+      
+      <button class="btn-primario" onclick="abrirModalCriarEntrega()">
+        <i class="fas fa-plus"></i> Criar Nova Entrega
+      </button>
+
+      <div class="filtros-tabela">
+        <input type="text" id="filtro-entregas" placeholder="🔍 Buscar entrega..." onkeyup="filtrarEntregas()">
+        <select id="filtro-status-entrega" onchange="filtrarEntregas()">
+          <option value="">Todos os status</option>
+          <option value="aguardando_recolha">Aguardando Recolha</option>
+          <option value="em_transito">Em Trânsito</option>
+          <option value="concluida">Concluída (Aguardando Aprovação)</option>
+          <option value="aprovada">Aprovada</option>
+          <option value="rejeitada">Rejeitada</option>
+        </select>
+      </div>
+
+      <div class="alert-warning" style="margin: 20px 0; padding: 15px; background: rgba(255, 215, 0, 0.1); border-left: 4px solid #ffd700; border-radius: 8px;">
+        <i class="fas fa-exclamation-triangle"></i> <strong>Entregas Aguardando Aprovação:</strong> <span id="entregas-aguardando">0</span>
+      </div>
+
+      <table class="tabela-admin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Pedido</th>
+            <th>Cliente</th>
+            <th>Entregador</th>
+            <th>Endereço</th>
+            <th>Comissão</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-entregas">
+          <tr><td colspan="9" style="text-align: center; padding: 20px;">Carregando entregas...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <!-- PEDIDOS -->
     <section id="pedidos" class="admin-secao">
       <h2>Gerenciamento de Pedidos</h2>
@@ -221,6 +361,115 @@
           <tr><td colspan="7" style="text-align: center; padding: 20px;">Nenhum pedido ainda</td></tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- PAGAMENTOS -->
+    <section id="pagamentos" class="admin-secao">
+      <h2>Gestão de Pagamentos</h2>
+
+      <div class="pagamentos-tabs">
+        <button class="tab-btn active" onclick="mostrarTabPagamento('fornecedores')">
+          <i class="fas fa-users"></i> Pagamentos Fornecedores
+        </button>
+        <button class="tab-btn" onclick="mostrarTabPagamento('entregadores')">
+          <i class="fas fa-truck"></i> Pagamentos Entregadores
+        </button>
+        <button class="tab-btn" onclick="mostrarTabPagamento('relatorio')">
+          <i class="fas fa-chart-bar"></i> Relatório Financeiro
+        </button>
+      </div>
+
+      <!-- Tab Fornecedores -->
+      <div id="tab-pagamentos-fornecedores" class="tab-content active">
+        <h3>Pagamentos de Fornecedores</h3>
+        
+        <div style="display: flex; gap: 10px; margin: 20px 0;">
+          <button class="btn-primario" onclick="abrirModalGerarPagamentoFornecedor()">
+            <i class="fas fa-calculator"></i> Gerar Pagamentos por Período
+          </button>
+        </div>
+
+        <div class="filtros-tabela">
+          <select id="filtro-status-pag-fornecedor" onchange="filtrarPagamentosFornecedores()">
+            <option value="">Todos os status</option>
+            <option value="pendente">Pendente</option>
+            <option value="processado">Processado</option>
+          </select>
+        </div>
+
+        <table class="tabela-admin">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Fornecedor</th>
+              <th>Período</th>
+              <th>Valor Bruto</th>
+              <th>Comissão (%)</th>
+              <th>Valor Líquido</th>
+              <th>Vendas</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-pagamentos-fornecedores">
+            <tr><td colspan="9" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tab Entregadores -->
+      <div id="tab-pagamentos-entregadores" class="tab-content">
+        <h3>Pagamentos de Entregadores</h3>
+        
+        <div style="display: flex; gap: 10px; margin: 20px 0;">
+          <button class="btn-primario" onclick="abrirModalGerarPagamentoEntregador()">
+            <i class="fas fa-calculator"></i> Gerar Pagamentos por Período
+          </button>
+        </div>
+
+        <div class="filtros-tabela">
+          <select id="filtro-status-pag-entregador" onchange="filtrarPagamentosEntregadores()">
+            <option value="">Todos os status</option>
+            <option value="pendente">Pendente</option>
+            <option value="processado">Processado</option>
+          </select>
+        </div>
+
+        <table class="tabela-admin">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Entregador</th>
+              <th>Período</th>
+              <th>Valor Total</th>
+              <th>Entregas</th>
+              <th>Média/Entrega</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-pagamentos-entregadores">
+            <tr><td colspan="8" style="text-align: center; padding: 20px;">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tab Relatório -->
+      <div id="tab-relatorio-financeiro" class="tab-content">
+        <h3>Relatório Financeiro</h3>
+        
+        <div class="filtros-tabela">
+          <input type="date" id="relatorio-data-inicio" />
+          <input type="date" id="relatorio-data-fim" />
+          <button class="btn-primario" onclick="gerarRelatorioFinanceiro()">
+            <i class="fas fa-search"></i> Gerar Relatório
+          </button>
+        </div>
+
+        <div id="relatorio-financeiro-resultado" style="margin-top: 20px;">
+          <!-- Resultado do relatório aqui -->
+        </div>
+      </div>
     </section>
 
     <!-- CLIENTES -->
@@ -714,6 +963,301 @@
     </div>
   </div>
 
+  <!-- MODAL APROVAR/REJEITAR PRODUTO -->
+  <div id="modal-aprovar-produto" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-aprovar-produto')">&times;</span>
+      <h2 id="titulo-aprovacao-produto">Aprovar Produto</h2>
+      
+      <div id="produto-info-aprovacao" style="margin-bottom: 20px;">
+        <!-- Info do produto -->
+      </div>
+
+      <form id="form-aprovar-produto">
+        <input type="hidden" id="produto-id-aprovacao">
+        
+        <div class="form-grupo">
+          <label>Preço Final (AKZ) *</label>
+          <input type="number" id="produto-preco-aprovacao" required min="0" step="0.01">
+          <small>Ajuste o preço se necessário</small>
+        </div>
+
+        <div class="form-grupo">
+          <label>Comissão da Plataforma (%) *</label>
+          <input type="number" id="produto-comissao-aprovacao" required min="0" max="100" value="15">
+          <small>Comissão que a plataforma receberá sobre cada venda</small>
+        </div>
+
+        <div class="form-grupo" id="grupo-motivo-rejeicao" style="display: none;">
+          <label>Motivo da Rejeição *</label>
+          <textarea id="motivo-rejeicao" rows="4" placeholder="Explique o motivo da rejeição..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn-primario" onclick="aprovarProduto()">
+            <i class="fas fa-check"></i> Aprovar
+          </button>
+          <button type="button" class="btn-perigo" onclick="mostrarCampoRejeicao()">
+            <i class="fas fa-times"></i> Rejeitar
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-aprovar-produto')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CRIAR ENTREGA -->
+  <div id="modal-criar-entrega" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-criar-entrega')">&times;</span>
+      <h2>Criar Nova Entrega</h2>
+      
+      <form id="form-criar-entrega">
+        <div class="form-grupo">
+          <label>Pedido *</label>
+          <select id="entrega-pedido" required onchange="carregarDadosPedido()">
+            <option value="">Selecione um pedido</option>
+          </select>
+          <small>Pedidos confirmados sem entrega atribuída</small>
+        </div>
+
+        <div id="dados-pedido-entrega" style="display: none; margin: 15px 0; padding: 15px; background: rgba(192,192,192,0.1); border-radius: 8px;">
+          <h4>Dados do Pedido:</h4>
+          <p><strong>Cliente:</strong> <span id="pedido-cliente"></span></p>
+          <p><strong>Endereço:</strong> <span id="pedido-endereco"></span></p>
+          <p><strong>Telefone:</strong> <span id="pedido-telefone"></span></p>
+          <p><strong>Valor:</strong> <span id="pedido-valor"></span> AKZ</p>
+        </div>
+
+        <div class="form-grupo">
+          <label>Entregador *</label>
+          <select id="entrega-entregador" required>
+            <option value="">Selecione um entregador</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label>Comissão do Entregador (AKZ) *</label>
+          <input type="number" id="entrega-comissao" required min="0" step="0.01" value="500">
+        </div>
+
+        <div class="form-grupo">
+          <label>Observações</label>
+          <textarea id="entrega-observacoes" rows="3" placeholder="Instruções especiais para o entregador..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-primario">
+            <i class="fas fa-truck"></i> Criar e Atribuir Entrega
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-criar-entrega')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL APROVAR/REJEITAR ENTREGA -->
+  <div id="modal-aprovar-entrega" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-aprovar-entrega')">&times;</span>
+      <h2>Validar Entrega Concluída</h2>
+      
+      <div id="entrega-info-aprovacao" style="margin-bottom: 20px;">
+        <!-- Info da entrega -->
+      </div>
+
+      <form id="form-aprovar-entrega">
+        <input type="hidden" id="entrega-id-aprovacao">
+        
+        <div class="form-grupo" id="grupo-observacoes-aprovacao">
+          <label>Observações da Aprovação</label>
+          <textarea id="observacoes-aprovacao" rows="3" placeholder="Observações sobre a aprovação..."></textarea>
+        </div>
+
+        <div class="form-grupo" id="grupo-motivo-rejeicao-entrega" style="display: none;">
+          <label>Motivo da Rejeição *</label>
+          <textarea id="motivo-rejeicao-entrega" rows="4" placeholder="Explique o motivo da rejeição..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn-primario" onclick="aprovarEntrega()">
+            <i class="fas fa-check"></i> Aprovar Entrega
+          </button>
+          <button type="button" class="btn-perigo" onclick="mostrarCampoRejeicaoEntrega()">
+            <i class="fas fa-times"></i> Rejeitar Entrega
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-aprovar-entrega')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL GERAR PAGAMENTO FORNECEDOR -->
+  <div id="modal-gerar-pagamento-fornecedor" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-gerar-pagamento-fornecedor')">&times;</span>
+      <h2>Gerar Pagamentos - Fornecedores</h2>
+      
+      <form id="form-gerar-pagamento-fornecedor">
+        <div class="form-grupo">
+          <label>Fornecedor *</label>
+          <select id="pagamento-fornecedor" required>
+            <option value="">Selecione um fornecedor</option>
+            <option value="todos">Todos os fornecedores</option>
+          </select>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label>Data Início *</label>
+            <input type="date" id="pagamento-fornecedor-inicio" required>
+          </div>
+
+          <div class="form-grupo">
+            <label>Data Fim *</label>
+            <input type="date" id="pagamento-fornecedor-fim" required>
+          </div>
+        </div>
+
+        <div class="alert-info" style="margin: 15px 0; padding: 15px; background: rgba(255, 215, 0, 0.1); border-left: 4px solid #ffd700; border-radius: 8px;">
+          <i class="fas fa-info-circle"></i> O sistema calculará automaticamente as vendas do período e descontará a comissão da plataforma.
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-primario">
+            <i class="fas fa-calculator"></i> Gerar Pagamentos
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-gerar-pagamento-fornecedor')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL GERAR PAGAMENTO ENTREGADOR -->
+  <div id="modal-gerar-pagamento-entregador" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-gerar-pagamento-entregador')">&times;</span>
+      <h2>Gerar Pagamentos - Entregadores</h2>
+      
+      <form id="form-gerar-pagamento-entregador">
+        <div class="form-grupo">
+          <label>Entregador *</label>
+          <select id="pagamento-entregador" required>
+            <option value="">Selecione um entregador</option>
+            <option value="todos">Todos os entregadores</option>
+          </select>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label>Data Início *</label>
+            <input type="date" id="pagamento-entregador-inicio" required>
+          </div>
+
+          <div class="form-grupo">
+            <label>Data Fim *</label>
+            <input type="date" id="pagamento-entregador-fim" required>
+          </div>
+        </div>
+
+        <div class="alert-info" style="margin: 15px 0; padding: 15px; background: rgba(255, 215, 0, 0.1); border-left: 4px solid #ffd700; border-radius: 8px;">
+          <i class="fas fa-info-circle"></i> O sistema calculará automaticamente as comissões de todas as entregas aprovadas no período.
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-primario">
+            <i class="fas fa-calculator"></i> Gerar Pagamentos
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-gerar-pagamento-entregador')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL PROCESSAR PAGAMENTO -->
+  <div id="modal-processar-pagamento" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-processar-pagamento')">&times;</span>
+      <h2>Processar Pagamento</h2>
+      
+      <div id="pagamento-info-processar" style="margin-bottom: 20px;">
+        <!-- Info do pagamento -->
+      </div>
+
+      <form id="form-processar-pagamento">
+        <input type="hidden" id="pagamento-id-processar">
+        <input type="hidden" id="pagamento-tipo-processar">
+        
+        <div class="form-grupo">
+          <label>Método de Pagamento *</label>
+          <select id="metodo-pagamento" required>
+            <option value="">Selecione</option>
+            <option value="transferencia">Transferência Bancária</option>
+            <option value="pix">PIX</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="multicaixa">Multicaixa Express</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label>Comprovante (URL ou Referência)</label>
+          <input type="text" id="comprovante-pagamento" placeholder="Link do comprovante ou número de referência">
+        </div>
+
+        <div class="form-grupo">
+          <label>Observações</label>
+          <textarea id="observacoes-pagamento" rows="3" placeholder="Observações sobre o pagamento..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-primario">
+            <i class="fas fa-check"></i> Confirmar Pagamento
+          </button>
+          <button type="button" class="btn-secundario" onclick="fecharModal('modal-processar-pagamento')">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DETALHES FORNECEDOR -->
+  <div id="modal-detalhes-fornecedor" class="modal">
+    <div class="modal-content">
+      <span class="modal-fechar" onclick="fecharModal('modal-detalhes-fornecedor')">&times;</span>
+      <h2>Detalhes do Fornecedor</h2>
+      
+      <div id="fornecedor-info-detalhes">
+        <!-- Preenchido dinamicamente -->
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="btn-primario" onclick="editarComissaoFornecedor()">
+          <i class="fas fa-percent"></i> Definir Comissão
+        </button>
+        <button class="btn-secundario" onclick="verProdutosFornecedor()">
+          <i class="fas fa-box"></i> Ver Produtos
+        </button>
+        <button class="btn-secundario" onclick="verVendasFornecedor()">
+          <i class="fas fa-chart-line"></i> Ver Vendas
+        </button>
+        <button class="btn-secundario" onclick="fecharModal('modal-detalhes-fornecedor')">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer style="margin-top: 60px;">
     <div class="social">
@@ -727,6 +1271,7 @@
   <script src="../scripts/menu.js"></script>
   <script src="firebase-init.js"></script>
   <script src="admin.js"></script>
+  <script src="admin-backend.js"></script>
   
   <!-- Scripts dos Cards -->
   <script src="cards/cards-init.js"></script>

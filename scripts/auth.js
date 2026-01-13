@@ -35,9 +35,29 @@
   const authMessages = document.getElementById('auth-messages');
   const signoutBtn = document.getElementById('signout-btn');
 
+  function showInfoModal() {
+    const infoModal = document.getElementById('info-modal');
+    if (infoModal) {
+      infoModal.style.display = 'flex';
+      document.body.classList.add('auth-modal-open');
+    }
+  }
+
+  function closeInfoModal() {
+    const infoModal = document.getElementById('info-modal');
+    if (infoModal) {
+      infoModal.style.display = 'none';
+      document.body.classList.remove('auth-modal-open');
+    }
+  }
+
   function openModal() {
-    if (authModal) authModal.style.display = 'flex';
-    document.body.classList.add('auth-modal-open');
+    // Mostra primeiro o modal informativo
+    showInfoModal();
+    
+    // DESABILITADO: não abre mais o modal de login
+    // if (authModal) authModal.style.display = 'flex';
+    // document.body.classList.add('auth-modal-open');
   }
   function closeModal() {
     if (authModal) authModal.style.display = 'none';
@@ -154,6 +174,20 @@
       if (mobileAnchor) mobileAnchor.innerHTML = '<i class="fas fa-user"></i>';
       if (signoutBtn) signoutBtn.style.display = 'none';
     }
+  }
+
+  // Event listeners para modal informativo
+  const infoModalClose = document.getElementById('info-modal-close');
+  const infoModalBtn = document.getElementById('info-modal-btn');
+  
+  if (infoModalClose) infoModalClose.addEventListener('click', closeInfoModal);
+  if (infoModalBtn) infoModalBtn.addEventListener('click', closeInfoModal);
+  
+  const infoModalElement = document.getElementById('info-modal');
+  if (infoModalElement) {
+    infoModalElement.addEventListener('click', (e) => {
+      if (e.target === infoModalElement) closeInfoModal();
+    });
   }
 
   // Event listeners

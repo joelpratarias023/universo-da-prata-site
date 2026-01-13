@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Entregador - Universo da Prata</title>
+    <link rel="stylesheet" href="css/painel-entregador.css">
+</head>
+<body>
+    <!-- Estrelas de fundo -->
+    <div class="stars" id="stars-container"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">🚚 Entregador</h1>
+            <div class="header-right">
+                <span class="user-name" id="userName">Carregando...</span>
+                <button class="btn-logout" id="btnLogout">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Aviso Modo Demo -->
+    <div id="avisoDemo" style="display: none; position: fixed; top: 70px; left: 0; right: 0; background: linear-gradient(90deg, #f59e0b, #d97706); color: #000; padding: 10px 20px; text-align: center; z-index: 999; font-weight: 600; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+        🔧 Modo Demonstração Ativo - Exibindo dados de exemplo | Configure o login com Supabase para usar dados reais
+    </div>
+
+    <!-- Sidebar / Navigation -->
+    <nav class="sidebar">
+        <a href="#" class="nav-item active" data-section="dashboard">
+            <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="#" class="nav-item" data-section="entregas">
+            <span class="icon">📦</span> Entregas
+        </a>
+        <a href="#" class="nav-item" data-section="ganhos">
+            <span class="icon">💰</span> Ganhos
+        </a>
+        <a href="#" class="nav-item" data-section="pagamentos">
+            <span class="icon">💳</span> Pagamentos
+        </a>
+        <a href="#" class="nav-item" data-section="perfil">
+            <span class="icon">👤</span> Perfil
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <h2>Dashboard - Visão Geral</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total de Entregas</span>
+                        <span class="stat-value" id="totalEntregas">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Concluídas</span>
+                        <span class="stat-value" id="totalConcluidas">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Pendentes</span>
+                        <span class="stat-value" id="totalPendentes">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card highlight">
+                    <div class="stat-icon">💵</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Ganhos do Mês</span>
+                        <span class="stat-value" id="ganhosDoMes">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card highlight">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Acumulado</span>
+                        <span class="stat-value" id="ganhosTotal">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Taxa de Conclusão</span>
+                        <span class="stat-value" id="taxaConclusao">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Próximas Entregas -->
+            <div class="card">
+                <h3>🎯 Próximas Entregas</h3>
+                <div class="entregas-hoje" id="entregasHoje">
+                    <p class="loading">Carregando...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entregas Section -->
+        <section id="entregas" class="content-section">
+            <div class="section-header">
+                <h2>📦 Minhas Entregas</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-status="todas">Todas</button>
+                    <button class="filter-btn" data-status="pendente">Pendentes</button>
+                    <button class="filter-btn" data-status="em_rota">Em Rota</button>
+                    <button class="filter-btn" data-status="entregue">Entregues</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Cliente</th>
+                            <th>Endereço</th>
+                            <th>Produto</th>
+                            <th>Comissão</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="entregasTable">
+                        <tr><td colspan="7" class="loading">Carregando entregas...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Ganhos Section -->
+        <section id="ganhos" class="content-section">
+            <div class="section-header">
+                <h2>💰 Histórico de Ganhos</h2>
+                <select id="anoSelect" class="ano-select">
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                </select>
+            </div>
+
+            <div class="ganhos-grid">
+                <div class="card">
+                    <h3>📊 Ganhos por Mês</h3>
+                    <div id="graficoGanhos" class="grafico-container">
+                        <canvas id="ganhosChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📅 Resumo Mensal</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mês</th>
+                                    <th>Entregas</th>
+                                    <th>Valor Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ganhosTable">
+                                <tr><td colspan="3" class="loading">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pagamentos Section -->
+        <section id="pagamentos" class="content-section">
+            <h2>💳 Pagamentos</h2>
+
+            <div class="pagamentos-resumo">
+                <div class="resumo-card pago">
+                    <h3>✅ Total Pago</h3>
+                    <p class="valor-grande" id="totalPago">€0,00</p>
+                </div>
+                <div class="resumo-card pendente">
+                    <h3>⏳ Pendente</h3>
+                    <p class="valor-grande" id="totalPendente">€0,00</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📋 Histórico de Pagamentos</h3>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Período</th>
+                                <th>Valor</th>
+                                <th>Método</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagamentosTable">
+                            <tr><td colspan="5" class="loading">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Perfil Section -->
+        <section id="perfil" class="content-section">
+            <h2>👤 Meu Perfil</h2>
+
+            <div class="perfil-grid">
+                <div class="card">
+                    <h3>Dados Pessoais</h3>
+                    <form id="perfilForm" class="form">
+                        <div class="form-group">
+                            <label for="perfilNome">Nome Completo</label>
+                            <input type="text" id="perfilNome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilEmail">Email</label>
+                            <input type="email" id="perfilEmail" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilTelefone">Telefone</label>
+                            <input type="tel" id="perfilTelefone" placeholder="(00) 00000-0000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilCPF">CPF</label>
+                            <input type="text" id="perfilCPF" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilVeiculo">Veículo</label>
+                            <input type="text" id="perfilVeiculo" placeholder="Ex: Moto Honda CG 160">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Dados Bancários</h3>
+                    <form id="bancarioForm" class="form">
+                        <div class="form-group">
+                            <label for="perfilPix">Chave PIX</label>
+                            <input type="text" id="perfilPix" placeholder="CPF, email ou telefone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilBanco">Banco</label>
+                            <input type="text" id="perfilBanco" placeholder="Nome do banco">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilAgencia">Agência</label>
+                            <input type="text" id="perfilAgencia" placeholder="0000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilConta">Conta</label>
+                            <input type="text" id="perfilConta" placeholder="00000-0">
+                        </div>
+
+                        <button type="submit" class="btn-primary">Salvar Alterações</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Detalhes da Entrega -->
+    <div id="entregaModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="modalTitulo">Detalhes da Entrega</h3>
+            <div id="modalDetalhes" class="modal-body"></div>
+            <div class="modal-actions">
+                <button id="btnIniciarRota" class="btn-primary" style="display:none;">🚚 Iniciar Rota</button>
+                <button id="btnConfirmarEntrega" class="btn-success" style="display:none;">✅ Confirmar Entrega</button>
+                <button id="btnLigarCliente" class="btn-secondary">📞 Ligar</button>
+                <button id="btnWhatsApp" class="btn-secondary">💬 WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/painel-entregador.js"></script>
+</body>
+</html>
