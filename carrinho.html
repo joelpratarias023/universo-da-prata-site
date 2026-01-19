@@ -32,6 +32,178 @@
         display: none !important;
       }
     }
+
+    /* MODAL CARRINHO VAZIO */
+    .carrinho-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .carrinho-modal-content {
+      background: linear-gradient(145deg, #ffffff, #f8f9fa);
+      border-radius: 20px;
+      padding: 40px 35px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.4s ease;
+      position: relative;
+    }
+
+    .carrinho-icon {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .carrinho-icon i {
+      font-size: 80px;
+      color: #d4af37;
+      filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.3));
+    }
+
+    .carrinho-empty-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .carrinho-modal-content h2 {
+      color: #2c3e50;
+      font-size: 28px;
+      margin: 15px 0;
+      font-weight: 700;
+    }
+
+    .carrinho-modal-content p {
+      color: #5a6c7d;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 20px 0 30px;
+    }
+
+    .carrinho-modal-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .carrinho-btn-primary,
+    .carrinho-btn-secondary {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 140px;
+    }
+
+    .carrinho-btn-primary {
+      background: linear-gradient(135deg, #d4af37, #f0d068);
+      color: #2c3e50;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .carrinho-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+      background: linear-gradient(135deg, #f0d068, #d4af37);
+    }
+
+    .carrinho-btn-secondary {
+      background: #e9ecef;
+      color: #495057;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .carrinho-btn-secondary:hover {
+      background: #dee2e6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 768px) {
+      .carrinho-modal-content {
+        padding: 35px 25px;
+        max-width: 90%;
+      }
+
+      .carrinho-icon i {
+        font-size: 70px;
+      }
+
+      .carrinho-modal-content h2 {
+        font-size: 24px;
+      }
+
+      .carrinho-modal-content p {
+        font-size: 15px;
+      }
+
+      .carrinho-modal-buttons {
+        flex-direction: column;
+      }
+
+      .carrinho-btn-primary,
+      .carrinho-btn-secondary {
+        width: 100%;
+      }
+    }
   </style>
 
   <!-- Menu fixo no topo -->
@@ -117,6 +289,22 @@
     </div>
     <p style="margin-top: 20px;">&copy; 2026 Universo da Prata. Todos os direitos reservados.</p>
   </footer>
+
+  <!-- Modal de carrinho vazio -->
+  <div id="carrinho-vazio-modal" class="carrinho-modal" style="display:none;">
+    <div class="carrinho-modal-content">
+      <div class="carrinho-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="carrinho-empty-badge">!</div>
+      </div>
+      <h2>Carrinho Vazio</h2>
+      <p>O seu carrinho está vazio.<br>Adicione produtos para continuar com a compra! ✨</p>
+      <div class="carrinho-modal-buttons">
+        <button id="carrinho-modal-fechar" class="carrinho-btn-secondary">Fechar</button>
+        <button id="carrinho-modal-comprar" class="carrinho-btn-primary">Ver Produtos</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal de informação (em breve) -->
   <div id="info-modal" class="info-modal" style="display:none;">

@@ -115,9 +115,36 @@
         <option value="Transferência">Transferência Bancária</option>
       </select>
 
-      <p style="margin-top: 10px; color: #555; font-style: italic;">
-        ⚠️ Só recebemos o pagamento total depois da entrega.
-      </p>
+      <!-- Container fixo para informações de pagamento -->
+      <div id="container-info-pagamento" style="min-height: 0; transition: min-height 0.3s ease; overflow: hidden;">
+        <!-- Aviso de pagamento de 50% -->
+        <div id="aviso-pagamento" style="display: none; margin-top: 15px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px; opacity: 0; transition: opacity 0.3s ease;">
+          <p style="margin: 0; color: #856404; font-weight: 600;">
+            ⚠️ Atenção:
+          </p>
+          <p style="margin: 5px 0 0 0; color: #856404;">
+            O pagamento de 50% do valor da peça é obrigatório para garantir a reserva e confirmação da compra.
+          </p>
+        </div>
+
+        <!-- Dados para Express -->
+        <div id="dados-express" style="display: none; margin-top: 15px; padding: 15px; background: #e7f3ff; border-left: 4px solid #2196F3; border-radius: 5px; opacity: 0; transition: opacity 0.3s ease;">
+          <p style="margin: 0 0 8px 0; color: #0c5460; font-weight: 600;">📱 Número Express:</p>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <input type="text" id="numero-express" value="931549615" readonly style="flex: 1; min-width: 200px; padding: 10px; background: #fff !important; border: 1px solid #2196F3; border-radius: 5px; font-size: 16px !important; font-weight: 600; color: #0c5460 !important; text-align: center;" />
+            <button type="button" onclick="copiarTexto('numero-express')" style="padding: 10px 15px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; white-space: nowrap;">Copiar</button>
+          </div>
+        </div>
+
+        <!-- Dados para Transferência -->
+        <div id="dados-transferencia" style="display: none; margin-top: 15px; padding: 15px; background: #e8f5e9; border-left: 4px solid #4CAF50; border-radius: 5px; opacity: 0; transition: opacity 0.3s ease;">
+          <p style="margin: 0 0 8px 0; color: #2e7d32; font-weight: 600;">🏦 IBAN:</p>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <input type="text" id="iban-transferencia" value="006 0000 23118677301 47" readonly style="flex: 1; min-width: 200px; padding: 10px; background: #fff !important; border: 1px solid #4CAF50; border-radius: 5px; font-size: 16px !important; font-weight: 600; color: #2e7d32 !important; text-align: center;" />
+            <button type="button" onclick="copiarTexto('iban-transferencia')" style="padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; white-space: nowrap;">Copiar</button>
+          </div>
+        </div>
+      </div>
       <div id="mensagem-erro" style="color: red; margin-top: 10px; font-weight: bold;"></div>
       <button type="submit">Confirmar Pedido</button>
     </form>

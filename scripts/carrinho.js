@@ -26,11 +26,14 @@ function carregarCarrinho() {
     const item = document.createElement("div");
     item.className = "item-carrinho";
 
+    const quantidade = produto.quantidade || 1;
+
     item.innerHTML = `
       <img src="${produto.imagem}" alt="${produto.nome}" />
       <div class="detalhes">
         <h3>${produto.nome}</h3>
         <p>${produto.descricao}</p>
+        <p><strong>Quantidade:</strong> ${quantidade}</p>
         <strong>${produto.preco}</strong>
         <button class="remover" data-index="${index}">Remover</button>
       </div>
@@ -38,10 +41,10 @@ function carregarCarrinho() {
 
     carrinhoContainer.appendChild(item);
 
-    // Soma ao total (remove "AKZ", pontos e espaços)
+    // Soma ao total (remove "AKZ", pontos e espaços e multiplica pela quantidade)
     const precoStr = (produto.preco == null) ? '0' : String(produto.preco);
     const precoNumerico = parseFloat(precoStr.replace(/[^\d,]/g, "").replace(",", ".")) || 0;
-    total += precoNumerico;
+    total += precoNumerico * quantidade;
   });
 
   if (totalSpan) {

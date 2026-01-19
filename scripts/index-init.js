@@ -19,10 +19,3 @@ function atualizarNumeroCarrinho() {
     pontoHamburguer.style.display = total > 0 ? 'block' : 'none';
   }
 }
-
-// Atualiza quando a página é restaurada do cache (botão voltar)
-window.addEventListener('pageshow', function(event) {
-  if (event.persisted) {
-    atualizarNumeroCarrinho();
-  }
-});

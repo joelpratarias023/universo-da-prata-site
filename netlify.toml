@@ -1,0 +1,15 @@
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+
+[build]
+  publish = "."
+  command = "echo 'Build complete'"

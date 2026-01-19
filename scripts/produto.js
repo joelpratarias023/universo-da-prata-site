@@ -1,19 +1,19 @@
 const produtos = [
   // Categoria de aneis para homens
   {
-    id: "aneis-Homens",
-    nome: "Anel Masculino Clássico",
-    descricao: "Anel em prata 925 com design refinado. Ideal para homens com estilo e presença.",
+    id: "aneis-Mulheres",
+    nome: "Anel femenino",
+    descricao: "Anel femenino para noivado.",
     preco: "AKZ 22.000",
-    imagem: "produto/anel-masculino1.png"
+    imagem: "produto/aneis/mulheres/anel-femenino.png"
   },
 
     {
-    id: "aneis-Homens",
+    id: "aneis-Casas",
     nome: "Anel Masculino Clássico",
     descricao: "Anel em prata 925 com design refinado. Ideal para homens com estilo e presença.",
     preco: "AKZ 22.000",
-    imagem: "produto/anel-masculino1.png"
+    imagem: "produto/aneis/masculino/anel-homens.png"
   },
 
     {

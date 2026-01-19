@@ -20,9 +20,7 @@ if (!container) {
         <h2>${produto.nome}</h2>
         <p class="descricao">${produto.descricao}</p>
         <p class="preco">${produto.preco}</p>
-        <a href="https://wa.me/244934803197?text=Olá! Gostaria de fazer um pedido da peça: ${encodeURIComponent(produto.nome)}" target="_blank" class="botao-pedido">
-          Fazer Pedido via WhatsApp
-        </a>
+        <button class="botao-pedido add-carrinho" data-produto='${JSON.stringify(produto)}'>🛒 Adicionar ao Carrinho</button>
       </div>
     `;
     container.appendChild(div);
@@ -31,3 +29,33 @@ if (!container) {
     container.innerHTML = "<p>Produto não encontrado.</p>";
   }
 }
+
+// Event delegation para adicionar ao carrinho
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('add-carrinho')) {
+    const produto = JSON.parse(e.target.dataset.produto);
+    
+    // Adiciona ao carrinho
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const produtoExistente = carrinho.find(item => item.nome === produto.nome);
+    
+    if (produtoExistente) {
+      produtoExistente.quantidade = (produtoExistente.quantidade || 1) + 1;
+    } else {
+      produto.quantidade = 1;
+      carrinho.push(produto);
+    }
+    
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    
+    if (typeof showSuccess === 'function') {
+      showSuccess("Produto adicionado ao carrinho! 🛒", 3000);
+    } else {
+      alert("Produto adicionado ao carrinho!");
+    }
+    
+    if (typeof atualizarNumeroCarrinho === 'function') {
+      atualizarNumeroCarrinho();
+    }
+  }
+});

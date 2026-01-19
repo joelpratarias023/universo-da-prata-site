@@ -1798,7 +1798,7 @@ form select option {
 
     .pagina-servico {
       max-width: 800px;
-      margin: 120px auto;
+      margin: 90px auto 40px;
       padding: 20px;
       text-align: center;
       color: #fff;

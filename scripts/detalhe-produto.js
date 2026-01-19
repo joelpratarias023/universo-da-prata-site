@@ -25,9 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
         <p class="detalhe-descricao">${produtoEncontrado.descricao}</p>
         <p class="detalhe-preco">${produtoEncontrado.preco}</p>
         <div class="botoes-container">
-          <a href="https://wa.me/244934803197?text=Olá! Gostaria de fazer um pedido da peça: ${encodeURIComponent(produtoEncontrado.nome)}" target="_blank" class="botao-pedido">
-            Fazer Pedido via WhatsApp
-          </a>
           <button class="botao-pedido add-carrinho" data-produto='${JSON.stringify(produtoEncontrado)}'>🛒 Adicionar ao Carrinho</button>
         </div>
       </div>
@@ -85,10 +82,3 @@ function atualizarNumeroCarrinho() {
 
 // Inicializa o contador ao carregar
 atualizarNumeroCarrinho();
-
-// Atualiza quando a página é restaurada do cache (botão voltar)
-window.addEventListener('pageshow', function(event) {
-  if (event.persisted) {
-    atualizarNumeroCarrinho();
-  }
-});

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   atualizarContadorCarrinho();
   configurarMetodoEntrega();
+  configurarFormaPagamento();
 });
 
 function preencherResumo() {
@@ -53,6 +54,72 @@ window.addEventListener('pageshow', function(event) {
     atualizarContadorCarrinho();
   }
 });
+
+function configurarFormaPagamento() {
+  const selectPagamento = document.getElementById('pagamento');
+  const avisoPagamento = document.getElementById('aviso-pagamento');
+  const dadosExpress = document.getElementById('dados-express');
+  const dadosTransferencia = document.getElementById('dados-transferencia');
+  const container = document.getElementById('container-info-pagamento');
+
+  if (selectPagamento) {
+    selectPagamento.addEventListener('change', function() {
+      const formaSelecionada = this.value;
+
+      // Esconder tudo primeiro com fade out
+      [avisoPagamento, dadosExpress, dadosTransferencia].forEach(el => {
+        el.style.opacity = '0';
+        setTimeout(() => {
+          el.style.display = 'none';
+        }, 300);
+      });
+
+      // Após o fade out, mostrar o selecionado com fade in
+      setTimeout(() => {
+        if (formaSelecionada === 'Express') {
+          container.style.minHeight = '220px';
+          avisoPagamento.style.display = 'block';
+          dadosExpress.style.display = 'block';
+          setTimeout(() => {
+            avisoPagamento.style.opacity = '1';
+            dadosExpress.style.opacity = '1';
+          }, 10);
+        } else if (formaSelecionada === 'Transferência') {
+          container.style.minHeight = '220px';
+          avisoPagamento.style.display = 'block';
+          dadosTransferencia.style.display = 'block';
+          setTimeout(() => {
+            avisoPagamento.style.opacity = '1';
+            dadosTransferencia.style.opacity = '1';
+          }, 10);
+        } else {
+          // Cash ou vazio
+          container.style.minHeight = '0';
+        }
+      }, 300);
+    });
+  }
+}
+
+function copiarTexto(elementId) {
+  const elemento = document.getElementById(elementId);
+  if (elemento) {
+    elemento.select();
+    elemento.setSelectionRange(0, 99999); // Para mobile
+    
+    try {
+      document.execCommand('copy');
+      showSuccess('Copiado com sucesso!', 2000);
+    } catch (err) {
+      // Fallback para navegadores modernos
+      navigator.clipboard.writeText(elemento.value).then(() => {
+        showSuccess('Copiado com sucesso!', 2000);
+      }).catch(() => {
+        showError('Erro ao copiar', 2000);
+      });
+    }
+  }
+}
 
 function configurarMetodoEntrega() {
   const selectPonto = document.getElementById('pontoEncontro');
@@ -167,14 +234,20 @@ function enviarPedido(event) {
   }
 
   // EmailJS
+  // Criar lista de produtos para o e-mail
+  const listaProdutos = carrinho.map(item => {
+    const quantidade = item.quantidade || 1;
+    return `${item.nome} - ${item.preco}${quantidade > 1 ? ` (Quantidade: ${quantidade})` : ''}`;
+  }).join("\n");
+
   const templateParams = {
     nome: nome,
     telefone: telefone,
-    endereco: endereco,
-    pontoEncontro: pontoEncontro,
+    endereco: endereco || 'Não informado',
+    pontoEncontro: pontoEncontro || 'Não informado',
     dataEntrega: dataEntrega,
     pagamento: pagamento,
-    itens: carrinho.map(item => `${item.nome} - ${item.preco}`).join("\n")
+    message: listaProdutos
   };
 
   if (typeof emailjs !== 'undefined') {
@@ -187,27 +260,28 @@ function enviarPedido(event) {
   }
 
   // Monta a mensagem WhatsApp
-  let mensagem = `🛍️ *Confirmação de Pedido - Universo da Prata* 🛍️\n\n`;
-  mensagem += `👤 *Nome:* ${nome}\n`;
+  let mensagem = `*Confirmação de Pedido - Universo da Prata*\n\n`;
+  mensagem += `*Nome:* ${nome}\n`;
   
   // Inclui apenas o que foi preenchido
   if (pontoEncontro) {
-    mensagem += `📍 *Ponto de Encontro:* ${pontoEncontro}\n`;
+    mensagem += `*Ponto de Encontro:* ${pontoEncontro}\n`;
   }
   if (endereco) {
-    mensagem += `📍 *Endereço de Entrega:* ${endereco}\n`;
+    mensagem += `*Endereço de Entrega:* ${endereco}\n`;
   }
   
-  mensagem += `📞 *Telefone:* ${telefone}\n`;
-  mensagem += `📅 *Data de Entrega:* ${dataEntrega}\n`;
-  mensagem += `💳 *Forma de Pagamento:* ${pagamento}\n\n`;
-  mensagem += `📦 *Itens do Carrinho:*\n`;
+  mensagem += `*Telefone:* ${telefone}\n`;
+  mensagem += `*Data de Entrega:* ${dataEntrega}\n`;
+  mensagem += `*Forma de Pagamento:* ${pagamento}\n\n`;
+  mensagem += `*Itens do Carrinho:*\n`;
 
   carrinho.forEach((item) => {
-    mensagem += `• ${item.nome} - ${item.preco}\n`;
+    const quantidade = item.quantidade || 1;
+    mensagem += `• ${item.nome} - ${item.preco}${quantidade > 1 ? ` (Quantidade: ${quantidade})` : ''}\n`;
   });
 
-  mensagem += `\n📝 *Observação:* Pagamento apenas após a entrega.\n`;
+  mensagem += `\n*Observação:* Pagamento apenas após a entrega.\n`;
   mensagem += `\nAguarde nosso contato para confirmação do envio.`;
 
   const url = `https://wa.me/244934803197?text=${encodeURIComponent(mensagem)}`;

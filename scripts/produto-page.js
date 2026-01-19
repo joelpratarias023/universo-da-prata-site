@@ -25,9 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <p class="descricao">${produto.descricao}</p>
           <p class="preco">${produto.preco}</p>
           <div class="botoes-container">
-            <a href="https://wa.me/244934803197?text=Olá! Gostaria de fazer um pedido da peça: ${encodeURIComponent(produto.nome)}" target="_blank" class="botao-pedido">
-              Fazer Pedido via WhatsApp
-            </a>
             <button class="botao-pedido add-carrinho" data-produto='${JSON.stringify(produto)}'>🛒 Adicionar ao Carrinho</button>
           </div>
         </div>
@@ -53,7 +50,17 @@ function mostrarAvisoCarrinho() {
 
 function adicionarAoCarrinho(produto) {
   let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-  carrinho.push(produto);
+  
+  // Verifica se produto já existe no carrinho
+  const produtoExistente = carrinho.find(item => item.nome === produto.nome);
+  
+  if (produtoExistente) {
+    produtoExistente.quantidade = (produtoExistente.quantidade || 1) + 1;
+  } else {
+    produto.quantidade = 1;
+    carrinho.push(produto);
+  }
+  
   localStorage.setItem("carrinho", JSON.stringify(carrinho));
   mostrarAvisoCarrinho();
   atualizarNumeroCarrinho();

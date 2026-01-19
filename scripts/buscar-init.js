@@ -37,22 +37,6 @@ window.addEventListener('pageshow', function(event) {
   }
 });
 
-function toggleMenu(){
-  const menu = document.querySelector('.menu-navegacao');
-  if (!menu) return;
-  menu.classList.toggle('mobile-escondido');
-  menu.classList.toggle('mobile-visivel');
-}
-
-function ajustarMenuParaTamanhoTela(){
-  const menu = document.querySelector('.menu-navegacao');
-  if (!menu) return;
-  if(window.innerWidth > 768){
-    menu.classList.remove('mobile-escondido', 'mobile-visivel');
-  } else {
-    menu.classList.add('mobile-escondido');
-  }
-}
-
-window.addEventListener('load', ajustarMenuParaTamanhoTela);
-window.addEventListener('resize', ajustarMenuParaTamanhoTela);
+// Funções de menu agora são carregadas de menu.js
+// function toggleMenu() removido - usar o do menu.js
+// function ajustarMenuParaTamanhoTela() removido - usar o do menu.js
