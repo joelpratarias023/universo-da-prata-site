@@ -281,7 +281,6 @@ function enviarPedido(event) {
     mensagem += `• ${item.nome} - ${item.preco}${quantidade > 1 ? ` (Quantidade: ${quantidade})` : ''}\n`;
   });
 
-  mensagem += `\n*Observação:* Pagamento apenas após a entrega.\n`;
   mensagem += `\nAguarde nosso contato para confirmação do envio.`;
 
   const url = `https://wa.me/244934803197?text=${encodeURIComponent(mensagem)}`;
