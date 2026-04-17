@@ -1123,53 +1123,159 @@ const produtos = [
 
    {
     id: "pulseiras-Casais",
-    nome: "Pulseira Feminina Elegante",
+    nome: "Pulseira Dupla com Símbolo do Infinito e Coração",
     descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
     preco: "AKZ 13.200",
-    imagem: "produto/pulseira-femina.png"
+    imagem: "produto/pulseiras/casais/PC1.webp"
+   },
+
+    {
+    id: "pulseiras-Casais",
+    nome: "Pulseira de Gotas com Pingente de Coração",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/casais/PC2.webp"
+   },
+
+    {
+    id: "pulseiras-Casais",
+    nome: "Pulseira de Prata Liso Coração",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/casais/PC3.webp"
+   },
+
+    {
+    id: "pulseiras-Casais",
+    nome: "Pulseira De Prata Olho Grego",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/casais/PC4.webp"
+   },
+
+    {
+    id: "pulseiras-Casais",
+    nome: "Pulseira De Prata Deluxe De Coração",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/casais/PC5.webp"
    },
 
    {
     id: "pulseiras-Casais",
-    nome: "Pulseira Feminina Elegante",
+    nome: "Pulseira De Prata",
     descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
     preco: "AKZ 13.200",
-    imagem: "produto/pulseira-femina.png"
+    imagem: "produto/pulseiras/casais/PC6.webp"
    },
 
-   {
-    id: "pulseiras-Casais",
-    nome: "Pulseira Feminina Elegante",
-    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
-    preco: "AKZ 13.200",
-    imagem: "produto/pulseira-femina.png"
-   },
 
    // Sub-Pulseiras para Crianças
 
-    {
+   {
     id: "pulseiras-Crianças",
-    nome: "Pulseira Feminina Elegante",
+    nome: "Pulseira com Placa Lisa",
     descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
     preco: "AKZ 13.200",
-    imagem: "produto/pulseira-femina.png"
+    imagem: "produto/pulseiras/crianças/Pc1.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira Coelho Esmaltado",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc2.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira para Berloques com Trava",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc3.webp"
    },
 
     {
     id: "pulseiras-Crianças",
-    nome: "Pulseira Feminina Elegante",
+    nome: "Pulseira Esmaltada com Flores",
     descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
     preco: "AKZ 13.200",
-    imagem: "produto/pulseira-femina.png"
+    imagem: "produto/pulseiras/crianças/Pc4.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira De Prata De Extensor Olho",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc5.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira com Placa Lisa e Coroa Vazada",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc6.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira em Malha Fígaro",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc7.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira Borboleta com Corações Rosas",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc8.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira Estilo Terço com Cruz",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc9.webp"
    },
 
     {
     id: "pulseiras-Crianças",
-    nome: "Pulseira Feminina Elegante",
+    nome: "Pulseira Delicada com Coração, Estrela e Flor",
     descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
     preco: "AKZ 13.200",
-    imagem: "produto/pulseira-femina.png"
+    imagem: "produto/pulseiras/crianças/Pc10.webp"
    },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira de Prata Olho",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc11.webp"
+   },
+
+   {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira de Prata Flores Com Madre Perola Branca",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc12.webp"
+   },
+
+    {
+    id: "pulseiras-Crianças",
+    nome: "Pulseira Prata De Bolinha e Olho",
+    descricao: "Pulseira delicada com acabamento espelhado. Perfeita para ocasiões especiais.",
+    preco: "AKZ 13.200",
+    imagem: "produto/pulseiras/crianças/Pc13.webp"
+   },
+
 
   // CATEGORIAS DE BRINCOS
 
@@ -1257,14 +1363,6 @@ const produtos = [
   },
 
 
-   {
-    id: "pulseiras-Casais",
-    nome: "Anel de compromisso",
-    descricao: "Anel em prata 925 com design refinado. Ideal para homens com estilo e presença.",
-    preco: "AKZ 22.000",
-    imagem: "produto/aneis/casais/anelcasal.webp"
-  },
-
 
   // CATEGORIAS DE COLARES
 
@@ -1324,6 +1422,14 @@ const produtos = [
     descricao: "Anel em prata 925 com design refinado. Ideal para homens com estilo e presença.",
     preco: "AKZ 2.000",
     imagem: "produto/colares/mulheres/CM7.webp"
+  },
+
+    {
+    id: "Colares-Mulheres",
+    nome: "Colar de Prata de Extensor Olho Grego Gota Esmaltado á mão",
+    descricao: "Anel em prata 925 com design refinado. Ideal para homens com estilo e presença.",
+    preco: "AKZ 2.000",
+    imagem: "produto/colares/mulheres/CM8.webp"
   },
 
 
